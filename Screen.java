@@ -20,6 +20,12 @@ public class Screen
    {
       System.out.printf( "$%,.2f", amount );   
    } // end method displayDollarAmount 
+   
+   // display an integer account number
+   public void displayAccountNumber( int number )
+   {
+       System.out.print( number );
+   }
 } // end class Screen
 
 
