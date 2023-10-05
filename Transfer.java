@@ -5,6 +5,7 @@ public class Transfer extends Transaction
 {
    private double amount; // amount to transfer
    private int target_account; // target account # to transfer
+   private int confirm; // user option 
    private Keypad keypad; // reference to keypad
    private final static int CANCELED = 0; // constant for cancel option
 
@@ -36,7 +37,6 @@ public class Transfer extends Transaction
           if ( amount == CANCELED) 
           {
               screen.displayMessageLine( "\nCanceling transaction..." );
-              return;
           } // end if
           else if ( bankDatabase.getAvailableBalance( getAccountNumber() ) < amount )
           {
@@ -49,7 +49,7 @@ public class Transfer extends Transaction
           {
               Not_enough_balance = false;
           }
-      } while (Not_enough_balance); //end do-while
+      } while (Not_enough_balance && amount != CANCELED); //end do-while
       
       // process target account #
       do
@@ -60,7 +60,6 @@ public class Transfer extends Transaction
           if ( target_account == CANCELED)
           {
               screen.displayMessageLine( "\nCanceling transaction..." );
-              return;
           } //end if
           else if ( !bankDatabase.authenticateUser( target_account ) )
           {
@@ -78,25 +77,15 @@ public class Transfer extends Transaction
           {
               Invalid_account = false;
           }
-      } while (Invalid_account); // end do-while
+      } while (Invalid_account && target_account != CANCELED); // end do-while
      
       // confirm user transfer to the target account #
-      int confirm = -1;
       do {      
-          screen.displayMessageLine( "\nAre you sure to transfer" );
-          screen.displayDollarAmount( amount );
-          screen.displayMessageLine( "." );
-          screen.displayMessageLine( "to the following account?" );
-          screen.displayAccountNumber( target_account );
-
-          screen.displayMessageLine( "\n\nPlease Enter 1 to confirm" +
-              " (or 0 to cancel): ");
-          confirm = keypad.getInput();
+          confirm = promptForConfirm();
           
           if ( confirm == CANCELED)
           {
               screen.displayMessageLine( "\nCanceling transaction..." );
-              return;
           } //end if
           else if ( confirm == 1 )
           {
@@ -106,14 +95,13 @@ public class Transfer extends Transaction
                
                screen.displayMessageLine( "\nYour envelope has been " + 
                    "transfered.\n" );
-               return;
           } //end if
           else
           {
                screen.displayMessageLine( "\nOnly 1 or 0 are accepted" + 
                    "\nPlease input again.\n" );
           }
-      } while (confirm != 1 || confirm != CANCELED); //end do-while
+      } while (confirm != 1 && confirm != CANCELED); //end do-while
    } // end method execute
 
    // prompt user to enter a tramsfer amount in cents 
@@ -147,6 +135,34 @@ public class Transfer extends Transaction
        screen.displayMessage( "\nPlease enter a target account number " +
            "(or 0 to cancel): ");
        int input = keypad.getInput(); // receive input of target account number
+       
+       // check whether the user canceled or entered bank account
+       if ( input == CANCELED )
+       {
+           return CANCELED;
+       } //end if
+       else 
+       {
+           return input;
+       }
+   } // end method promptForTargetAccount
+   
+   // prompt user to enter a target account #
+   private int promptForConfirm()
+   {
+       Screen screen = getScreen(); // get reference to screen
+       BankDatabase bankDatabase = getBankDatabase(); // get reference to bank database
+       
+       // display the prompt
+       screen.displayMessageLine( "\nAre you sure to transfer" );
+       screen.displayDollarAmount( amount );
+       screen.displayMessageLine( "." );
+       screen.displayMessageLine( "to the following account?" );
+       screen.displayAccountNumber( target_account );
+
+       screen.displayMessageLine( "\n\nPlease Enter 1 to confirm" +
+              " (or 0 to cancel): ");
+       int input = keypad.getInput(); // receive input of user option
        
        // check whether the user canceled or entered bank account
        if ( input == CANCELED )
