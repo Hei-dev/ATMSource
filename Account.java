@@ -64,28 +64,28 @@ public class Account
     * Saves account info into a file
     * @param additionalVars
     */
-   public void saveAccount(String[] additionalVars){
-       String saveFileName = "";
-       Random rand = new Random();
-       // Name the save file
-       while(saveFileName!="" && !Files.exists(java.nio.file.Paths.get(saveFileName)) && saveFileName.length() >= 10){
-           // Gets what type of char to be added
-            int type = rand.nextInt(2);
-            switch (type){
-                case 0:
-                   saveFileName += (char)(rand.nextInt(8) + 48);
-                   break;
-                case 1:
-                   saveFileName += (char)(rand.nextInt(25) + 65);
-                   break;
-                case 2:
-                   saveFileName += (char)(rand.nextInt(25) + 97);
-                   break;
-           }
-       }
-       // Create byte array based on number of variables needed to store
-       byte[] ba = new byte[4+1+additionalVars.length];
-       System.out.println((byte)accountNumber);
+   public void saveAccount(double[] vals){
+       for(double d : vals){
+            byte[] doubleByte = doubleToByte(d);
+            finalByteArray = java.nio.ByteBuffer
+                .allocate(finalByteArray.length + doubleByte.length)
+                .put(finalByteArray)
+                .put(doubleToByte(d))
+                .array();
+        }
+        
+        try{
+            Files.createDirectories(Paths.get("./Database"));
+            Files.write(Paths.get(("./Database/" + AccountManagement.genRandomString())), finalByteArray);
+        }
+        catch(java.io.IOException ioe){
+            screen.displayMessageLine("Error while writing to the Database");
+            ioe.printStackTrace();
+            return;
+        }
+        
+        screen.displayMessageLine("Successfully added account");
+        
    }
 } // end class Account
 
