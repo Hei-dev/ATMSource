@@ -138,7 +138,7 @@ public class Withdrawal extends Transaction
                         break;
                     }
                     else if(!isInputValid){
-                        screen.displayMessageLine("Invalid input, please enter an integer that is the multiplication of 100, and is greater than 100.");
+                        screen.displayMessageLine("Invalid input, please enter an integer that is the multiplication of 100, and is greater or equal to 100.");
                     }
                 }
                   break;
