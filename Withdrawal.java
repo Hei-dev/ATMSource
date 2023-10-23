@@ -147,7 +147,7 @@ public class Withdrawal extends Transaction
                break;
             default: // the user did not enter a value from 1-6
                screen.displayMessageLine( 
-                  "\nIvalid selection. Try again." );
+                  "\nInvalid selection. Try again." );
          } // end switch
       } // end while
 
