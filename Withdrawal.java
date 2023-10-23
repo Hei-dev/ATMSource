@@ -141,6 +141,7 @@ public class Withdrawal extends Transaction
                         screen.displayMessageLine("Invalid input, please enter an integer that is the multiplication of 100, and is greater than 100.");
                     }
                 }
+                  break;
             case CANCELED: // the user chose to cancel
                userChoice = CANCELED; // save user's choice
                break;
