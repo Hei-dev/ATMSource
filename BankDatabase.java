@@ -8,10 +8,51 @@ public class BankDatabase
    // no-argument BankDatabase constructor initializes accounts
    public BankDatabase()
    {
-      accounts = new Account[ 2 ]; // just 2 accounts for testing
-      accounts[ 0 ] = new Account( 12345, 54321, 1000.0, 1200.0 );
-      accounts[ 1 ] = new Account( 98765, 56789, 200.0, 200.0 );  
+       java.util.ArrayList<Account> tempAccountList = new java.util.ArrayList<>(); // Initalise a dummy list to store all the accounts
+       File[] dbList = new File("./Database").listFiles(); // Loads a list of files in the database
+        byte[] dbByte;
+        for(File db : dbList){
+            try {
+                dbByte = Files.readAllBytes(db.toPath()); // read the file
+            } catch (IOException e) { // catch IOException
+                e.printStackTrace();
+                return;
+            }
+			int readPos = 0; // The position to read the byte from
+			double[] doubleVals = new double[6]; // Temp variable to store the double values from the file
+            for(int i=0; i<6; i++){ // Total 6 parameters
+				int doubleLength = dbByte[readPos]; // reads the length of the double
+				byte[] doubleByteVal = new byte[doubleLength]; // initalise a byte array to store the double value in bytes from the file
+				//               OrgArr  OrgPos    DestArr   DestPos       Len
+				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); // Slice the double in bytes from the file bytes
+				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); // Converts to double and store it in the temp. variable
+				readPos += doubleLength+1; // Skips the corresponding pos
+			}
+			
+			// Check for account type
+			tempAccountList.add(newAccount(doubleVals)); // Add accounts to the current system
+        }
+      accounts = tempAccountList.toArray(new Account[tempAccountList.size()]);
+      
+      //accounts[0].saveAccount(null);
    } // end no-argument BankDatabase constructor
+   
+   /**
+     * Creates an account based on the given input
+     * @param dArr the account information, stored in a double array, with the order based on the order of the orginal funcion (theAccountNumber, thePIN, theAvailableBalance, theTotalBalance, theAccountType, extra1)
+     * @returns the Account created based on the input
+     */
+	private Account newAccount(double[] dArr){
+          if(dArr[4]==1){ // Saving Account
+              return new SavingAccount((int)dArr[0],(int)dArr[1], dArr[2], dArr[3], dArr[5]);
+          }
+          else if(dArr[4]==2){ // Current Account
+              return new CurrentAccount((int)dArr[0],(int)dArr[1], dArr[2], dArr[3], dArr[5]);
+          }
+          else{
+              return null;
+          }
+    }
    
    // retrieve Account object containing specified account number
    private Account getAccount( int accountNumber )
