@@ -1,16 +1,22 @@
-public class SavingAccount extends Account{
-    private double interestRate = "0.1";
+public class CurrentAccount extends Account{
+    private double limitPerCheque = 10000;
     // The constructor, which also calls the parent constructor
-    public SavingAccount(int theAccountNumber, int thePIN, double theAvailableBalance, double theTotalBalance ){
+    public CurrentAccount(int theAccountNumber, int thePIN, double theAvailableBalance, double theTotalBalance , double limitPerCheque){
         super(theAccountNumber, thePIN, theAvailableBalance, theTotalBalance);
+        this.limitPerCheque = limitPerCheque;
     }
-    // Getter for interestRate
-    public double getInterestRate(){
-        return interestRate;
+    // Setter for limitPerCheque
+    public void setLimitPerCheque(double amt){
+        limitPerCheque = amt;
     }
     
-    // Setter for interestRate
-    public void setInterestRate(double amt){
-        interestRate = amt;
+    // Getter for limitPerCheque
+    public double getLimitPerCheque(){
+        return limitPerCheque;
+    }
+
+    @Override
+    public void saveAccount(double[] dummy){
+        super.saveAccount(new double[]{(double) super.accountNumber, (double) super.pin, super.availableBalance, super.totalBalance, 2.0, limitPerCheque});
     }
 }
