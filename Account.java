@@ -1,14 +1,14 @@
 // Account.java
 // Represents a bank account
 import java.nio.file.Files;
-import java.util.Random;
+import java.nio.file.Paths;
 
 public class Account 
 {
-   private int accountNumber; // account number
-   private int pin; // PIN for authentication
-   private double availableBalance; // funds available for withdrawal
-   private double totalBalance; // funds available + pending deposits
+   protected int accountNumber; // account number
+   protected int pin; // PIN for authentication
+   protected double availableBalance; // funds available for withdrawal
+   protected double totalBalance; // funds available + pending deposits
 
    // Account constructor initializes attributes
    public Account( int theAccountNumber, int thePIN, 
@@ -59,34 +59,42 @@ public class Account
    {
       return accountNumber;  
    } // end method getAccountNumber
+
+   private static byte[] doubleToByte(double d){
+      return java.nio.ByteBuffer.allocate(Double.BYTES).putDouble(d).array();
+   }
    
    /**
     * Saves account info into a file
     * @param additionalVars
     */
    public void saveAccount(double[] vals){
-       for(double d : vals){
+      byte[] finalByteArray = new byte[0];
+
+       for(double d : vals){ //Loops through every double value
             byte[] doubleByte = doubleToByte(d);
             finalByteArray = java.nio.ByteBuffer
-                .allocate(finalByteArray.length + doubleByte.length)
-                .put(finalByteArray)
-                .put(doubleToByte(d))
-                .array();
+                .allocate(finalByteArray.length + doubleByte.length + 1) // allocate spaces
+                .put(finalByteArray) // append to the byte array
+                .put((byte)doubleByte.length) // append the double length in bytes
+                .put(doubleByte) // append the double
+                .array(); // convert back to array
         }
         
         try{
             Files.createDirectories(Paths.get("./Database"));
-            Files.write(Paths.get(("./Database/" + AccountManagement.genRandomString())), finalByteArray);
+            Files.write(Paths.get(("./Database/" + AccountManagement.genRandomString())), finalByteArray); // Write the data into the file
         }
         catch(java.io.IOException ioe){
-            screen.displayMessageLine("Error while writing to the Database");
+            //new Screen().displayMessageLine("Error while writing to the Database");
             ioe.printStackTrace();
             return;
         }
         
-        screen.displayMessageLine("Successfully added account");
+        //screen.displayMessageLine("Successfully added account");
         
    }
+
 } // end class Account
 
 
