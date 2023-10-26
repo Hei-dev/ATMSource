@@ -53,6 +53,21 @@ public class BankDatabase
               return null;
           }
     }
+
+    /**
+     * Saves the stored account to the Database
+     */
+    public void saveAccounts(){
+        File dbPath = new File("./Database");
+        String[] dbFiles = dbPath.list();
+        for(String s: dbFiles){ // Delete orginal files
+            File currentFile = new File(dbPath,s);
+            currentFile.delete();
+        }
+        for(Account acc : accounts){
+            acc.saveAccount(null);  // Invoke overrided function in the respectve classes
+        }
+    }
    
    // retrieve Account object containing specified account number
    private Account getAccount( int accountNumber )
