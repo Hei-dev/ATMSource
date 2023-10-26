@@ -99,6 +99,8 @@ public class ATM
                break; 
             case EXIT: // user chose to terminate session
                screen.displayMessageLine( "\nExiting the system..." );
+               bankDatabase.saveAccounts(); // Saves the transaction made
+               bankDatabase = new BankDatabase(); // Reload the database
                userExited = true; // this ATM session should end
                break;
             default: // user did not enter an integer from 1-4
