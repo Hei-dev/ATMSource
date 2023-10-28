@@ -130,9 +130,9 @@ public class AccountManagement{
         screen.displayMessageLine("4. Total Balance");
         screen.displayMessageLine("5." + ((accounts.get(accPos) instanceof SavingAccount) ? " Interest Rate" : " Limit Per Cheque")); // Ternary operator to show the corre
         int editVal = -1;
-        while(editVal>-1 && editVal<6){ // Checks if the input is in range
+        while(!(editVal>-1 && editVal<6)){ // Checks if the input is in range
             editVal = sc.nextInt();
-            if(editVal>-1 && editVal<6){
+            if(!(editVal>-1 && editVal<6)){
                 screen.displayMessageLine("Input invalid, please input again.");
             }
         }
@@ -246,7 +246,7 @@ public class AccountManagement{
 				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); // Slice the double in bytes from the file bytes
 				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); // Converts to double and store it in the temp. variable
 				readPos += doubleLength+1; // Skips the corresponding pos
-				System.out.println(i + ":" + doubleVals[i]);
+				
 			}
 			
 			// Check for account type
