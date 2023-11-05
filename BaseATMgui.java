@@ -78,9 +78,6 @@ public class BaseATMgui extends JFrame {
 	    
 		//set text box to center
 		textPanel.add(textPane, BorderLayout.CENTER);
-		//create space for east and west
-		textPanel.add(new JLabel("			"), BorderLayout.EAST);
-		textPanel.add(new JLabel("			"), BorderLayout.WEST);
 		
 	    keys = new JButton[14];
 	    // initialize all digit key buttons
