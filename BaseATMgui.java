@@ -50,7 +50,7 @@ public class BaseATMgui extends JFrame {
 		
 		// set center screen to Grid Layout
 		centreGridPanel = new JPanel();
-		centreGridPanel.setLayout( new GridLayout( 4 , 2) );
+		centreGridPanel.setLayout( new GridLayout( 4 , 2,5,5) );
 		centreGridPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		centreGridPanel.setVisible(true);
 
@@ -62,7 +62,7 @@ public class BaseATMgui extends JFrame {
 		centreOneLinePanel.setVisible(false);
 
 		centerPanel.add(centreGridPanel);
-		centerPanel.add(centreOneLinePanel);
+		//centerPanel.add(centreOneLinePanel);
 		
 		// set left selection panel to Grid Layout
 		leftSelectionPanel = new JPanel();
@@ -161,7 +161,6 @@ public class BaseATMgui extends JFrame {
 	    
 	    // add screen
 	    guiLayout.add(centerPanel , BorderLayout.CENTER);
-	    guiLayout.add(centreOneLinePanel , BorderLayout.CENTER);
 	    // add selection areas
 	    guiLayout.add(leftSelectionPanel , BorderLayout.WEST);
 	    guiLayout.add(rightSelectionPanel , BorderLayout.EAST);
