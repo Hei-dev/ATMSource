@@ -2,15 +2,17 @@
 //The base gui outline of ATM
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -19,24 +21,48 @@ import javax.swing.text.StyledDocument;
 public class BaseATMgui extends JFrame {
 	
 	private JButton keys[], selection[], choice[];
-	private JPanel guiLayout , keyPadPanel, leftSelectionPanel, rightSelectionPanel, centerPanel, textPanel;
+	private JPanel
+		guiLayout ,
+		keyPadPanel,
+		leftSelectionPanel,
+		rightSelectionPanel,
+		centerPanel,
+		centreGridPanel,
+		textPanel;
 	private JTextPane textPane;
+	private JLabel centreOneLinePanel;
 	private String line = "";
 	
-	public BaseATMgui() {
+	protected BaseATMgui() {
 		this("ATM");
 	}
 	
-	public BaseATMgui(String title) {
+	protected BaseATMgui(String title) {
 		super(title);
 		
 		// set upper half gui panel
 		guiLayout = new JPanel();
 		guiLayout.setLayout( new BorderLayout() );
+
+		// set centre screen to allocate different types of screen
+		centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, (int) BoxLayout.PAGE_AXIS));
 		
 		// set center screen to Grid Layout
-		centerPanel = new JPanel();
-		centerPanel.setLayout( new GridLayout( 4 , 2 , 10 , 10) );
+		centreGridPanel = new JPanel();
+		centreGridPanel.setLayout( new GridLayout( 4 , 2) );
+		centreGridPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		centreGridPanel.setVisible(true);
+
+		centreGridPanel.add(new JLabel("TEst"));
+
+		// set center screen with only 1 line be label
+		centreOneLinePanel = new JLabel();
+		centreOneLinePanel.setText("title");
+		centreOneLinePanel.setVisible(false);
+
+		centerPanel.add(centreGridPanel);
+		centerPanel.add(centreOneLinePanel);
 		
 		// set left selection panel to Grid Layout
 		leftSelectionPanel = new JPanel();
@@ -135,6 +161,7 @@ public class BaseATMgui extends JFrame {
 	    
 	    // add screen
 	    guiLayout.add(centerPanel , BorderLayout.CENTER);
+	    guiLayout.add(centreOneLinePanel , BorderLayout.CENTER);
 	    // add selection areas
 	    guiLayout.add(leftSelectionPanel , BorderLayout.WEST);
 	    guiLayout.add(rightSelectionPanel , BorderLayout.EAST);

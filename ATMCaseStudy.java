@@ -21,7 +21,7 @@ public class ATMCaseStudy
    // main method creates and runs the ATM
    public static void main( String[] args )
    {
-      ATMgui theATM = new ATMgui();    
+      ATMgui theATM = ATMgui.get();    
       theATM.run();
    } // end main
 
