@@ -171,19 +171,66 @@ public class BaseATMgui extends JFrame {
 	    // add keypad area
 	    add( keyPadPanel , BorderLayout.SOUTH );
 	    
-	    //create handler for buttons
+	    // create handler for buttons
 	    ButtonHandler handler = new ButtonHandler();
-	    //register event handler
-	    for (int i = 0; i<=13;i++)
+	    // register event handler 
+	    // 0 - 9 , CANCEL , CLEAR , ENTER , 00
+	    for (int i = 0; i<=13; i++)
 	    	 keys[i].addActionListener(handler);
 	}
 	
 	//inner class for button 
-	private class ButtonHandler implements ActionListener{
+	public class ButtonHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			line = line.concat(event.getActionCommand());
-			textPane.setText(line);
+			
+			// enter numbers to text pane, divide buttons ENTER, CANCEL, CLEAR functionality
+			if ((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) {
+				switch (event.getActionCommand()) {
+				// Pressing CANCEL, same as backspace
+				case "CANCEL":
+					line = line.substring(0, line.length() - 1);
+					textPane.setText(line);
+					// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
+					break;
+				// Pressing CLEAR, clear the text from textPane
+				case "CLEAR":
+					line = "";
+					textPane.setText(line);
+					// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
+					break;
+				// Pressing ENTER
+				case "ENTER":
+					enter();
+					// System.out.printf("Before:%nText:%s%nLength:%s%nText in Integer:%id%n%n", line, line.length(), Long.parseLong(line));
+					line = "";
+					// System.out.printf("After:%nText:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(),Long.parseLong(line));
+					textPane.setText(line);
+					break;
+				}
+			} else {
+				// add numbers to text Pane
+				line = line.concat(event.getActionCommand());
+				textPane.setText(line);
+				// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
+			}
 		}
+	}
+	
+	// access the screen
+	public void accessScreen() {
+		
+	}
+	
+	// default as getting number from text pane
+	// can be Override for other functionality (e.g. confirmation) if needed
+	public String enter() {	
+		
+		return getText();
+	}
+	
+	// return number from text pane in String
+	public String getText() {
+		return textPane.getText();
 	}
 	
 	public void run() {
