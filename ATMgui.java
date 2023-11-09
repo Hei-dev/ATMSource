@@ -3,8 +3,12 @@
 
 public class ATMgui extends BaseATMgui{
 
-    private ATMgui(){
+    protected ATMgui(){
         super();
+    }
+    
+    protected ATMgui(String title) {
+    	super(title);
     }
 	
 	// Singleton stuff
