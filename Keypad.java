@@ -15,7 +15,15 @@ public class Keypad
    // return an integer value entered by user 
    public int getInput()
    {
-      return input.nextInt(); // we assume that user enters an integer  
+      try 
+      {
+          String text = input.nextLine(); // we assume that user enters an integer 
+          int integer = Integer.parseInt( text );
+          return integer;
+      } catch (IllegalArgumentException e)
+      {
+          return -1;
+      }
    } // end method getInput
 } // end class Keypad  
 
