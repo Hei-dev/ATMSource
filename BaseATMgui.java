@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Container;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -26,12 +30,17 @@ public class BaseATMgui extends JFrame {
 		keyPadPanel,
 		leftSelectionPanel,
 		rightSelectionPanel,
-		centerPanel,
 		centreGridPanel,
+		centerPanel,
+		upperGUIPanel,
+		lowerGUIPanel,
 		textPanel;
 	private JTextPane textPane;
 	private JLabel centreOneLinePanel;
 	private String line = "";
+	private GridBagConstraints c;
+	private boolean activeFloatingPoint = true,
+					activeFloatingPointButton = true;
 	
 	protected BaseATMgui() {
 		this("ATM");
@@ -44,47 +53,71 @@ public class BaseATMgui extends JFrame {
 		guiLayout = new JPanel();
 		guiLayout.setLayout( new BorderLayout() );
 
-		// set centre screen to allocate different types of screen
+		// set center screen to allocate different types of screen
 		centerPanel = new JPanel();
-		centerPanel.setLayout(new BoxLayout(centerPanel, (int) BoxLayout.PAGE_AXIS));
+		centerPanel.setLayout(new GridBagLayout());
+		centerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		centerPanel.setVisible(true);
 		
+		
+		
+		/*
 		// set center screen to Grid Layout
 		centreGridPanel = new JPanel();
-		centreGridPanel.setLayout( new GridLayout( 4 , 2,5,5) );
+		centreGridPanel.setLayout( new GridLayout( 4 , 2 , 5 , 5) );
 		centreGridPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		centreGridPanel.setVisible(true);
-
+		
+		
 		centreGridPanel.add(new JLabel("TEst"));
-
+		
+		
 		// set center screen with only 1 line be label
 		centreOneLinePanel = new JLabel();
 		centreOneLinePanel.setText("title");
 		centreOneLinePanel.setVisible(false);
-
+		
+		
 		centerPanel.add(centreGridPanel);
 		//centerPanel.add(centreOneLinePanel);
+		*/
+		
+		
+		
+		// divide centreGridPanel to upper and lower panel
+		// upper panel for showing title or description
+		upperGUIPanel = new JPanel();
+		// lower panel for showing choices
+		lowerGUIPanel = new JPanel();
+		upperGUIPanel.add(new JButton("UPPER"));
+		lowerGUIPanel.add(new JButton("LOWER"));
+		
+		centerPanel.add(upperGUIPanel);
+		centerPanel.add(lowerGUIPanel);
 		
 		// set left selection panel to Grid Layout
 		leftSelectionPanel = new JPanel();
-		leftSelectionPanel.setLayout( new GridLayout( 6 , 1 , 0 , 50) );
+		leftSelectionPanel.setLayout( new GridLayout( 8 , 1 , 0 , 30) );
 		
 		// set right selection panel to Grid Layout
 		rightSelectionPanel = new JPanel();
-		rightSelectionPanel.setLayout( new GridLayout( 6 , 1 , 0 , 50) );				
+		rightSelectionPanel.setLayout( new GridLayout( 8 , 1 , 0 , 30) );				
 		
 		selection = new JButton[8];
 		// initialize all selection button, TEMPORARY STRING VALUE FOR RECOGNITION
 		for ( int i = 0; i <= 7; i++ )
 		selection[i] = new JButton( String.valueOf( i ) );
 		
-		// skip a grid in leftSelectionPanel
+		// skip 3 grid in leftSelectionPanel
+		for ( int i = 0; i < 3; i++)
 		leftSelectionPanel.add(new JLabel());
 		// add 4 buttons to left selection panel
 		for ( int i = 0; i <= 3; i++)
 			leftSelectionPanel.add(selection[i]);
 		
-		// skip a grid in rightSelectionPanel
-		rightSelectionPanel.add(new JLabel());
+		// skip 3 grid in rightSelectionPanel
+		for ( int i = 0; i < 3; i++)
+			rightSelectionPanel.add(new JLabel());
 		// add 4 buttons to left selection panel
 		for ( int i = 4; i <= 7; i++)
 			rightSelectionPanel.add(selection[i]);
@@ -105,7 +138,7 @@ public class BaseATMgui extends JFrame {
 		//set text box to center
 		textPanel.add(textPane, BorderLayout.CENTER);
 		
-	    keys = new JButton[14];
+	    keys = new JButton[15];
 	    // initialize all digit key buttons
 	    for ( int i = 0; i <= 9; i++ )
 	    	keys[ i ] = new JButton( String.valueOf( i ) );
@@ -115,6 +148,7 @@ public class BaseATMgui extends JFrame {
 	    keys[ 11 ] = new JButton( "CLEAR" );
 	    keys[ 12 ] = new JButton( "ENTER" );
 	    keys[ 13 ] = new JButton( "00" );
+	    keys[ 14 ] = new JButton( "." );
 
 	    // set keyPadPanel layout to grid layout
 	    keyPadPanel = new JPanel();
@@ -153,10 +187,10 @@ public class BaseATMgui extends JFrame {
 	    // skip a grid
 	    keyPadPanel.add(new JLabel());
 	    keyPadPanel.add(new JLabel());
-	    keyPadPanel.add(new JLabel());
 	    
 	    // 0, 00
 	    keyPadPanel.add( keys[ 0 ] );
+	    keyPadPanel.add( keys[ 14 ]);
 	    keyPadPanel.add( keys[ 13 ] );
 	    
 	    // add screen
@@ -175,7 +209,7 @@ public class BaseATMgui extends JFrame {
 	    ButtonHandler handler = new ButtonHandler();
 	    // register event handler 
 	    // 0 - 9 , CANCEL , CLEAR , ENTER , 00
-	    for (int i = 0; i<=13; i++)
+	    for (int i = 0; i<=14; i++)
 	    	 keys[i].addActionListener(handler);
 	}
 	
@@ -208,16 +242,26 @@ public class BaseATMgui extends JFrame {
 					break;
 				}
 			} else {
+				// check if string has "."
+				activeFloatingPoint = !line.contains(".");
 				// add numbers to text Pane
-				line = line.concat(event.getActionCommand());
-				textPane.setText(line);
-				// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
+				// check if 
+				// 1. "." exist in line
+				// 2. "." button is active
+				if ((event.getActionCommand() == ".") && (activeFloatingPoint == true) && (activeFloatingPointButton == true)) {
+					setFloatingPointSetting();
+				}
+				if (event.getActionCommand() != ".") {
+					line = line.concat(event.getActionCommand());
+					textPane.setText(line);
+				}
+				System.out.printf("Text:%s%nLength:%s%nText in Integer:%f%n%n", line, line.length(), Double.parseDouble(line));
 			}
 		}
 	}
 	
 	// access the screen
-	public void accessScreen() {
+	public void setGUIScreen() {
 		
 	}
 	
@@ -233,10 +277,36 @@ public class BaseATMgui extends JFrame {
 		return textPane.getText();
 	}
 	
+	// enabling / disabling "." button
+	public void setFloatingPointButton_Status(boolean active) {
+		activeFloatingPointButton = active;
+	}
+	
+	// return state of "." button
+	public boolean getActiveFloatingPointButton_Status() {
+		return activeFloatingPointButton;
+	}
+	
+	// setting of Floating Point numbers, only 1 "." can exist once
+	// remember to set back to true after finishing the whole input if set to false
+	public void setFloatingPointSetting() {
+			// check if length of string > 0 and if floating point is enabled
+			if (line.length() > 0) {
+					line = line.concat(".");
+					textPane.setText(line);
+			}
+				//check if the first input is "."
+			else {
+				line = "0.";
+				textPane.setText(line);	
+			}
+	}
+	
 	public void run() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 650);	//set frame size
+		setSize(540, 650);	//set frame size
 		setVisible(true);	//display frame
+		setResizable(false);	//disable resizing window
 	}
 }
 
