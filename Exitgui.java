@@ -1,3 +1,4 @@
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Exitgui extends BaseATMgui{
@@ -7,7 +8,11 @@ public class Exitgui extends BaseATMgui{
 	private Exitgui() {
 		super("Exit");
 		
-		setGUIScreen(ExitGUI);
+		ExitGUI = new JPanel();
+		ExitGUI.add(new JLabel("Please take your card"));
+		
+		
+		setInterface(ExitGUI);
 	}
 	
 }

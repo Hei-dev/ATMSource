@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenugui extends BaseATMgui{
-	private JPanel MainMenu = new JPanel();
+	private JPanel MainMenu;
 	
 	private MainMenugui() {
 		super("MainMenu");
 		
-		setGUIScreen(MainMenu);
+		
+		MainMenu = getdefaultGUI();
+		
+		setInterface(MainMenu);
 	}
 	
 	public class ButtonHandler implements ActionListener {
