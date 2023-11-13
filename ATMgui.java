@@ -1,7 +1,7 @@
 //ATMgui.java
 //Represents the GUI version of ATM
 
-public class ATMgui extends BaseATMgui{
+public class ATMgui extends MainMenugui{
 
     protected ATMgui(){
         super();

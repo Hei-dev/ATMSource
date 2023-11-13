@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -42,11 +43,11 @@ public class BaseATMgui extends JFrame {
 		screenTitle,
 		screenSelection[];
 	
-	protected static final int ATM_WIDTH = 540;
+	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
 	protected static final int DEFAULT_BORDER_WIDTH = 2;
 	
-	private boolean textPaneVisible = true;
+	private boolean enableKeypad = true;
 	
 	protected BaseATMgui() {
 		this("ATM");
@@ -74,8 +75,6 @@ public class BaseATMgui extends JFrame {
 	    SimpleAttributeSet align= new SimpleAttributeSet();
 	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
 	    style.setParagraphAttributes(0, style.getLength(), align, false);
-		// default not visible
-	    textPane.setVisible(textPaneVisible);
 		
 
 	    
@@ -270,8 +269,6 @@ public class BaseATMgui extends JFrame {
 	    
 	    for (int i = 0; i<=7; i++)
 	    	selection[i].addActionListener(handler);
-	    
-	    setActionListener();
 	}
 	
 	//inner class for button 
@@ -280,7 +277,7 @@ public class BaseATMgui extends JFrame {
 			
 			// ActionListener of NumPad
 			// enter numbers to text pane, divide buttons ENTER, CANCEL, CLEAR functionality
-			if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (textPaneVisible == true)) {
+			if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (enableKeypad == true)) {
 				switch (event.getActionCommand()) {
 				// Pressing CANCEL, same as backspace
 				case "CANCEL":
@@ -305,7 +302,7 @@ public class BaseATMgui extends JFrame {
 					textPane.setText(line);
 					break;
 				}
-			} else {
+			} else if (enableKeypad == true) {
 				// check if string has "."
 				activeFloatingPoint = !line.contains(".");
 				// add numbers to text Pane
@@ -338,13 +335,12 @@ public class BaseATMgui extends JFrame {
 
 	// return text pane component and set visibility to true
 	public JTextPane getTextPanel() {
-		textPaneVisible = true;
 		return textPane;
 	}
 	
-	// set visibility of text pane
-	public void setTextPanelVisibility(boolean visible) {
-		textPaneVisible = visible;
+	// set availability of keypad (default true)
+	public void setKeypadAvailability(boolean enable) {
+		enableKeypad = enable;
 	}
 	
 	// put panel onto screen
@@ -371,8 +367,23 @@ public class BaseATMgui extends JFrame {
 		screenSelection[selection].setText(name);
 	}
 	
+	// toggle the display of selection in the screen
+	public void setSelectionDisplay(int selection, boolean display) {
+		if (display == false)
+			screenSelection[selection].setBorder(BorderFactory.createEmptyBorder(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
+		else if (display == true)
+			screenSelection[selection].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+	}
+	
 	// replace "Sample Title" to custom title
 	public void setTitle(String title) {
+		screenTitle.setText(title);
+	}
+	
+	// replace "Sample Title" to custom title, with custom Font style
+	public void setTitle(String title, int style, int size) {
+		Font font = new Font(title, style, size);
+		screenTitle.setFont(font);
 		screenTitle.setText(title);
 	}
 	
@@ -387,6 +398,9 @@ public class BaseATMgui extends JFrame {
 		
 	}
 	
+	public void setSelectionButtonListener() {
+		
+	}
 	//	FUNCTIONALITY RELATED	####################################################
 	
 	// default as getting number from text pane
