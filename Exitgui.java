@@ -5,14 +5,13 @@ public class Exitgui extends BaseATMgui{
 	
 	private JPanel ExitGUI;
 	
-	private Exitgui() {
+	protected Exitgui() {
 		super("Exit");
-		
-		ExitGUI = new JPanel();
-		ExitGUI.add(new JLabel("Please take your card"));
-		
-		
-		setInterface(ExitGUI);
 	}
 	
+	public JPanel setInterface() {
+		ExitGUI = new JPanel();
+		ExitGUI.add(new JLabel("Please take your card"));
+		return ExitGUI;
+	}
 }

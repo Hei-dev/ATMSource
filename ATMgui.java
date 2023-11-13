@@ -6,10 +6,6 @@ public class ATMgui extends BaseATMgui{
     protected ATMgui(){
         super();
     }
-    
-    protected ATMgui(String title) {
-    	super(title);
-    }
 	
 	// Singleton stuff
 	private static ATMgui Gui = null;

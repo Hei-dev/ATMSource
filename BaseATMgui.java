@@ -35,7 +35,9 @@ public class BaseATMgui extends JFrame {
 	private GridBagConstraints 
 		c_hardware,
 		c_interface;
-	private JPanel defaultPanel;	
+	private JPanel 
+		defaultPanel,
+		currentPanel;	
 	private JLabel 
 		screenTitle,
 		screenSelection[];
@@ -53,83 +55,8 @@ public class BaseATMgui extends JFrame {
 	protected BaseATMgui(String title) {
 		super(title);
 		
+		createdefaultPanel();
 		
-		// create default center panel representing screen
-		// create default screen component
-	    // create screen Title
-		screenTitle = new JLabel();
-		screenTitle.setHorizontalAlignment(JLabel.CENTER);
-		screenTitle.setVerticalAlignment(JLabel.CENTER);
-		screenTitle.setText("Sample Title");
-		//screenTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
-		
-		
-		
-		// create text panel for reading input
-		textPane = new JTextPane();
-		textPane.setEditable(false);    // set textArea not editable
-	    textPane.setText(line);  // display line1 in textArea 
-	    StyledDocument style = textPane.getStyledDocument();
-	    SimpleAttributeSet align= new SimpleAttributeSet();
-	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
-	    style.setParagraphAttributes(0, style.getLength(), align, false);
-		// default not visible
-	    textPane.setVisible(textPaneVisible);
-		
-	    
-	    
-	    // create selection box
-	    screenSelection = new JLabel[8];
-	    for (int i = 0; i < 8; i++) {
-	    	screenSelection[i] = new JLabel( String.valueOf(i));
-	    	screenSelection[i].setHorizontalAlignment(JLabel.CENTER);
-	    	screenSelection[i].setVerticalAlignment(JLabel.CENTER);
-	    	screenSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
-	    }
-	    
-
-		// create default screen
-	    defaultPanel = new JPanel();
-	    defaultPanel.setLayout(new GridBagLayout());
-	    
-	    c_interface = new GridBagConstraints();	  	    
-	    
-	    // add title label
-	    c_interface.gridx = 0;
-	    c_interface.gridy = 0;
-	    c_interface.gridwidth = 8;
-	    c_interface.gridheight = 4;
-	    c_interface.weightx = 1;
-	    c_interface.weighty = 0.4;
-	    c_interface.fill = GridBagConstraints.BOTH;
-	    defaultPanel.add(screenTitle, c_interface);
-	    
-	    // add selections
-		c_interface.gridwidth = 4;
-		c_interface.gridheight = 2;
-		c_interface.weightx = 0.5;
-		c_interface.weighty = 0.125;
-		c_interface.fill = GridBagConstraints.BOTH;
-	    int selections = 0;
-	    for (int y = 4; y < 12; y += 2) {
-	    	for (int x = 0; x < 8; x += 4) {
-	    		c_interface.gridx = x;
-	    		c_interface.gridy = y;
-	    		defaultPanel.add(screenSelection[selections], c_interface);
-	    		selections++;
-	    	}
-	    }
-	    
-	    // add textPane for showing input
-	    c_interface.gridx = 0;
-	    c_interface.gridy = 13;
-	    c_interface.gridwidth = 8;
-	    c_interface.gridheight = 1;
-	    c_interface.weightx = 1;
-	    c_interface.weighty = 0.001;
-	    defaultPanel.add(textPane, c_interface);
-	    
-				
 		// create left and right selection button panel
 		// set left selection panel to Grid Layout
 		leftSelectionPanel = new JPanel();
@@ -206,8 +133,9 @@ public class BaseATMgui extends JFrame {
 		c_hardware = new GridBagConstraints();
 	    c_hardware.anchor = GridBagConstraints.CENTER;
 	    
-	    // add default interface
-	 	setInterface();
+	    // check whether currentPanel is null, else set default interface
+	    currentPanel = setInterface();
+	    setPanel();
 	    
 	 	// add top and dummy component for left and right selection Panel
 	 	c_hardware.gridy = 0;
@@ -346,10 +274,9 @@ public class BaseATMgui extends JFrame {
 		textPaneVisible = visible;
 	}
 	
-	// access the screen
-	// use setInterface([YourScreen]); to edit the GUI Screen
-	public void setInterface(JPanel pane) {
-	    c_hardware.weightx = 0.7;
+	// put panel onto screen
+	public void setPanel() {
+		c_hardware.weightx = 0.7;
 	    c_hardware.weighty = 0.7;
 	    c_hardware.anchor = GridBagConstraints.CENTER;
 	    
@@ -361,14 +288,9 @@ public class BaseATMgui extends JFrame {
 	    c_hardware.ipady = 200;
 	    c_hardware.ipadx = 50;
 	    c_hardware.insets = new Insets(5, 5, 5, 5);
-		pane.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
-		pane.setVisible(true);
-	    add(pane, c_hardware);
-	}
-	
-	// default as defaultPanel
-	private void setInterface() {
-		setInterface(defaultPanel);
+		currentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		currentPanel.setVisible(true);
+	    add(currentPanel, c_hardware);
 	}
 	
 	// set Name of selection in defaultPanel
@@ -376,19 +298,102 @@ public class BaseATMgui extends JFrame {
 		screenSelection[selection].setText(name);
 	}
 	
+	// create the template of default panel
+	private void createdefaultPanel() {
+		// create default center panel representing screen
+		// create default screen component
+	    // create screen Title
+		screenTitle = new JLabel();
+		screenTitle.setHorizontalAlignment(JLabel.CENTER);
+		screenTitle.setVerticalAlignment(JLabel.CENTER);
+		screenTitle.setText("Sample Title");
+		//screenTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		
+		
+		
+		// create text panel for reading input
+		textPane = new JTextPane();
+		textPane.setEditable(false);    // set textArea not editable
+	    textPane.setText(line);  // display line1 in textArea 
+	    StyledDocument style = textPane.getStyledDocument();
+	    SimpleAttributeSet align= new SimpleAttributeSet();
+	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
+	    style.setParagraphAttributes(0, style.getLength(), align, false);
+		// default not visible
+	    textPane.setVisible(textPaneVisible);
+		
+
+	    
+	    // create selection box
+	    screenSelection = new JLabel[8];
+	    for (int i = 0; i < 8; i++) {
+	    	screenSelection[i] = new JLabel( String.valueOf(i));
+	    	screenSelection[i].setHorizontalAlignment(JLabel.CENTER);
+	    	screenSelection[i].setVerticalAlignment(JLabel.CENTER);
+	    	screenSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+	    }
+	    
+
+		// create default screen
+	    defaultPanel = new JPanel();
+	    defaultPanel.setLayout(new GridBagLayout());
+	    
+	    c_interface = new GridBagConstraints();	  	    
+	    
+	    // add title label
+	    c_interface.gridx = 0;
+	    c_interface.gridy = 0;
+	    c_interface.gridwidth = 8;
+	    c_interface.gridheight = 4;
+	    c_interface.weightx = 1;
+	    c_interface.weighty = 0.4;
+	    c_interface.fill = GridBagConstraints.BOTH;
+	    defaultPanel.add(screenTitle, c_interface);
+	    
+	    // add selections
+		c_interface.gridwidth = 4;
+		c_interface.gridheight = 2;
+		c_interface.weightx = 0.5;
+		c_interface.weighty = 0.125;
+		c_interface.fill = GridBagConstraints.BOTH;
+	    int selections = 0;
+	    for (int y = 4; y < 12; y += 2) {
+	    	for (int x = 0; x < 8; x += 4) {
+	    		c_interface.gridx = x;
+	    		c_interface.gridy = y;
+	    		defaultPanel.add(screenSelection[selections], c_interface);
+	    		selections++;
+	    	}
+	    }
+	    
+	    // add textPane for showing input
+	    c_interface.gridx = 0;
+	    c_interface.gridy = 13;
+	    c_interface.gridwidth = 8;
+	    c_interface.gridheight = 1;
+	    c_interface.weightx = 1;
+	    c_interface.weighty = 0.001;
+	    defaultPanel.add(textPane, c_interface);
+	}
+	
+	// access the screen
+	// Override this function to edit the GUI Screen
+	public JPanel setInterface() {
+	    return defaultPanel;
+	}
+	
 	// Override to set actionlisteners
 	public void setActionListener() {
 		
 	}
 	
-	
+
 	
 	//	FUNCTIONALITY RELATED	####################################################
 	
 	// default as getting number from text pane
 	// can be Override for other functionality (e.g. confirmation) if needed
 	public String enter() {	
-		
 		return getText();
 	}
 	

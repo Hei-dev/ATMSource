@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 public class MainMenugui extends BaseATMgui{
 	private JPanel MainMenu;
 	
-	private MainMenugui() {
+	protected MainMenugui() {
 		super("MainMenu");
-		
-		
+	}
+	
+	public JPanel setInterface() {
 		MainMenu = getdefaultGUI();
-		
-		setInterface(MainMenu);
+		return MainMenu;
 	}
 	
 	public class ButtonHandler implements ActionListener {
