@@ -22,8 +22,7 @@ import javax.swing.text.StyledDocument;
 
 public class BaseATMgui extends JFrame {
 	
-	private static JButton keys[];
-	protected JButton selection[];
+	private static JButton[] keys, selection;
 	private static GridBagLayout hardwareLayout;
 	private static JPanel
 		keyPadPanel,
@@ -400,8 +399,8 @@ public class BaseATMgui extends JFrame {
 		
 	}
 	
-	public void setSelectionButtonListener() {
-		
+	public void setSelectionButtonListener(int btnNo, ActionListener al) {
+		selection[btnNo].addActionListener(al);
 	}
 	//	FUNCTIONALITY RELATED	####################################################
 	
