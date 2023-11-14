@@ -31,10 +31,11 @@ public class MainMenugui extends ATMgui{
 		setSelectionButtonListener(7, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent evt){
+				System.exit(0);
+
 				ATMgui.get(GUIType.Exit).run();
 
-				javax.swing.JOptionPane.showMessageDialog(null, "Btn clicked");
-				System.exit(0);
+				javax.swing.JOptionPane.showMessageDialog(null, "7 Btn clicked");
 			}
 		});
 
