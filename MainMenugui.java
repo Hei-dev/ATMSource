@@ -1,8 +1,5 @@
 import javax.swing.JPanel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class MainMenugui extends ATMgui{
 	private JPanel MainMenu;
 	
@@ -28,12 +25,9 @@ public class MainMenugui extends ATMgui{
 			setSelectionDisplay(i, false);
 		}
 		
+		
+		
 		return MainMenu;
 	}
-	
-	@Override
-	public void setActionListener() {
-		
-		super.setActionListener();
-	}
+
 }
