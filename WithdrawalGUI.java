@@ -10,6 +10,6 @@ public class WithdrawalGUI extends ATMgui{
 
     @Override
     public JPanel setInterface(){
-
+        return getdefaultGUI();
     }
 }
