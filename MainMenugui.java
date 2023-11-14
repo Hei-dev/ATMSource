@@ -34,6 +34,7 @@ public class MainMenugui extends ATMgui{
 				ATMgui.get(GUIType.Exit).run();
 
 				javax.swing.JOptionPane.showMessageDialog(null, "Btn clicked");
+				System.exit(0);
 			}
 		});
 
