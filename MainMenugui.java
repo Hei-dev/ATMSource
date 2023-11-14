@@ -28,6 +28,13 @@ public class MainMenugui extends ATMgui{
 			setSelectionDisplay(i, false);
 		}
 		
+		setSelectionButtonListener(7, new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent evt){
+				ATMgui.get(GUIType.Exit).run();
+			}
+		});
+
 		return MainMenu;
 	}
 	
