@@ -32,6 +32,8 @@ public class MainMenugui extends ATMgui{
 			@Override
 			public void actionPerformed(ActionEvent evt){
 				ATMgui.get(GUIType.Exit).run();
+
+				javax.swing.JOptionPane.showMessageDialog(null, "Btn clicked");
 			}
 		});
 
