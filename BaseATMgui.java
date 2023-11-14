@@ -278,7 +278,7 @@ public class BaseATMgui extends JFrame {
 			
 			// ActionListener of NumPad
 			// enter numbers to text pane, divide buttons ENTER, CANCEL, CLEAR functionality
-			if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (enableKeypad == true)) {
+			if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (enableKeypad)) {
 				switch (event.getActionCommand()) {
 				// Pressing CANCEL, same as backspace
 				case "CANCEL":
@@ -303,7 +303,7 @@ public class BaseATMgui extends JFrame {
 					textPane.setText(line);
 					break;
 				}
-			} else if (enableKeypad == true) {
+			} else if (enableKeypad) {
 				// check if string has "."
 				activeFloatingPoint = !line.contains(".");
 				// add numbers to text Pane
