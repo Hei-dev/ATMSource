@@ -1,3 +1,5 @@
+import javax.swing.JPanel;
+
 public class WithdrawalGUI extends ATMgui{
 
     private JPanel mainPanel;
