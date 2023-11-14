@@ -22,7 +22,8 @@ import javax.swing.text.StyledDocument;
 
 public class BaseATMgui extends JFrame {
 	
-	private static JButton keys[], selection[];
+	private static JButton keys[];
+	protected JButton selection[];
 	private static GridBagLayout hardwareLayout;
 	private static JPanel
 		keyPadPanel,
