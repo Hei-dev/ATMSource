@@ -3,13 +3,13 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenugui extends BaseATMgui{
+public class MainMenugui extends ATMgui{
 	private JPanel MainMenu;
 	
 	protected MainMenugui() {
 		super("MainMenu");
 	}
-	
+
 	public JPanel setInterface() {
 		MainMenu = getdefaultGUI();
 		
@@ -22,6 +22,7 @@ public class MainMenugui extends BaseATMgui{
 		setSelectionName(5, "Withdraw cash");
 		setSelectionName(6, "Transfer funds");
 		setSelectionName(7, "Exit");
+		// Set the rest of the selection with no text
 		for (int i = 0; i < 4; i++) {
 			setSelectionName(i, "");
 			setSelectionDisplay(i, false);
@@ -30,5 +31,9 @@ public class MainMenugui extends BaseATMgui{
 		return MainMenu;
 	}
 	
-	
+	@Override
+	public void setActionListener() {
+		
+		super.setActionListener();
+	}
 }

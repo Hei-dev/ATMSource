@@ -267,6 +267,7 @@ public class BaseATMgui extends JFrame {
 	    for (int i = 0; i<=14; i++)
 	    	keys[i].addActionListener(handler);
 	    
+		// Side buttons
 	    for (int i = 0; i<=7; i++)
 	    	selection[i].addActionListener(handler);
 	}

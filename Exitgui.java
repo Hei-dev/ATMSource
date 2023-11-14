@@ -1,7 +1,7 @@
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Exitgui extends BaseATMgui{
+public class Exitgui extends ATMgui{
 	
 	private JPanel ExitGUI;
 	
