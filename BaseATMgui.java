@@ -391,7 +391,7 @@ public class BaseATMgui extends JFrame{
 	    	selection[i].addActionListener(selectionListener);
 	}
 	
-	
+
 	
 	//	GUI RELATED	#############################################
 	

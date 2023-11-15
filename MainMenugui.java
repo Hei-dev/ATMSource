@@ -12,8 +12,8 @@ public class MainMenugui extends ATMgui{
 		
 		// change title to "Main Menu"
 		setTitle("Main Menu", 1, 20);
-		// disable keypad
-		setKeypadAvailability(false);
+		// temporary enable keypad to allow side button input
+		setKeypadAvailability(true);
 		// change selection names
 		setSelectionName(4, "View my balance");
 		setSelectionName(5, "Withdraw cash");
@@ -24,8 +24,6 @@ public class MainMenugui extends ATMgui{
 			setSelectionName(i, "");
 			setSelectionDisplay(i, false);
 		}
-		
-		
 		
 		return MainMenu;
 	}
