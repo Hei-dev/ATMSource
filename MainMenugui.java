@@ -1,3 +1,5 @@
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainMenugui extends ATMgui{
@@ -27,5 +29,15 @@ public class MainMenugui extends ATMgui{
 		
 		return MainMenu;
 	}
+
+	/*
+	@Override
+	public void setSelection7Listener() {
+		JPanel ExitGUI = new JPanel();
+		ExitGUI.add(new JLabel("Please take your card"));
+		setMainPanel(ExitGUI);
+		
+		JOptionPane.showMessageDialog(null, "Click");
+	} */
 
 }

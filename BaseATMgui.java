@@ -2,6 +2,8 @@
 //The base gui outline of ATM
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -12,9 +14,11 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -42,6 +46,10 @@ public class BaseATMgui extends JFrame{
 		screenSelection[];
 	
 	private boolean enableKeypad = true;
+
+	private int centrePanelId = -1;
+	private GridBagConstraints centreC_hardware;
+	private JPanel centreBasePanel;
 	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
@@ -51,8 +59,39 @@ public class BaseATMgui extends JFrame{
 	private static final JTextPane defaultTextPane = new JTextPane();
 	private static final JLabel defaultSelection[] = new JLabel[8];
 	private static final JPanel defaultPanel = new JPanel();
+
+	private Component findComponentByName(String name){
+		return findComponentByName(name, getContentPane());
+	}
+
+	// Gets the components inside the main frame.
+	private Component findComponentByName(String name, Container mContainer){
+		Component returnCom = null;
+		for(Component c : mContainer.getComponents()){
+			if(c.getName()==name)
+				return c;
+			if(c instanceof Container)
+				if((returnCom = findComponentByName(name,(Container)c))!=null)
+					return returnCom;
+		}
+		return null;
+	}
+
+	private Component getMainComponents(Component c){
+		System.out.println(c.getClass() + " " + (c instanceof Container) + " " + (new JPanel() instanceof Container));
+		if(c instanceof Container){
+			System.out.println(c + " " + ((Container)c).getComponentCount());
+			if(((Container)c).getComponentCount()==1 || c instanceof JRootPane){
+				return getMainComponents(((Container)c).getComponents()[0]);
+			}
+		}
+		return c;
+	}
+
+
 	protected BaseATMgui() {
 		this("ATM");
+		
 	}
 
 	protected BaseATMgui(String title) {
@@ -216,7 +255,14 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.anchor = GridBagConstraints.CENTER;
 	    
 	    // override the default panel if setInterface() is Overrided
+		try{
+			remove(findComponentByName("MainPanel"));
+		}
+		catch(NullPointerException npe){
+			System.err.println(npe);
+		}
 	    currentPanel = setInterface();
+		currentPanel.setName("MainPanel");
 	    // put panel onto screen
 	    c_hardware.weightx = 0.7;
 	    c_hardware.weighty = 0.7;
@@ -232,7 +278,15 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.insets = new Insets(5, 5, 5, 5);
 		currentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 		currentPanel.setVisible(true);
-	    add(currentPanel, c_hardware);
+
+		centreBasePanel = new JPanel();
+		centreBasePanel.add(currentPanel);
+
+		add(centreBasePanel, c_hardware);
+		centreC_hardware = c_hardware;
+
+		//getComponents()[0];
+		
 	    
 	 	// add top and dummy component for left and right selection Panel
 	 	c_hardware.gridy = 0;
@@ -376,7 +430,7 @@ public class BaseATMgui extends JFrame{
   						setSelection6Listener();
   						break;
   					case "selection7":
-  						setSelection7Listener();
+  						//setSelection7Listener();
   						break;
   				}
   			}
@@ -395,6 +449,18 @@ public class BaseATMgui extends JFrame{
 	
 	//	GUI RELATED	#############################################
 	
+
+	public void setMainPanel(JPanel panel){
+		currentPanel = (JPanel)findComponentByName("MainPanel");
+		centreBasePanel.remove(currentPanel);
+		
+		currentPanel = panel;
+		currentPanel.setName("MainPanel");
+		centreBasePanel.add(currentPanel);
+
+		revalidate();
+		repaint();
+	}
 	
 	/**
 	 * allow the user to get the default interface
@@ -505,8 +571,12 @@ public class BaseATMgui extends JFrame{
 	public void setSelection3Listener() {}
 	public void setSelection4Listener() {}
 	public void setSelection5Listener() {}
-	public void setSelection6Listener() {}
-	public void setSelection7Listener() {}
+	public void setSelection6Listener() {
+		System.out.println(findComponentByName("MainPanel"));
+	}
+	public void setSelection7Listener(ActionListener al) {
+		
+	}
 	
 	/**
 	 * return number from text pane in String

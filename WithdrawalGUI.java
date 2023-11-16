@@ -12,7 +12,7 @@ public class WithdrawalGUI extends ATMgui{
     public JPanel setInterface(){
         mainPanel = getdefaultGUI();
 
-        setTitle("Please select the exact amount, or type the amount using the keypad.")
+        setTitle("Please select the exact amount, or type the amount using the keypad.");
 
         setSelectionName(4, "$200");
 		setSelectionName(5, "$500");

@@ -1,6 +1,9 @@
 // ATMCaseStudy.java
 // Driver program for the ATM case study
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
 public class ATMCaseStudy
 {
@@ -23,6 +26,12 @@ public class ATMCaseStudy
    {
       ATMgui theATM = ATMgui.get(GUIType.MainMenu);
       theATM.run();
+
+      JPanel ExitGUI = new JPanel();
+		ExitGUI.add(new JLabel("Please take your card"));
+
+
+      theATM.get(GUIType.MainMenu).setMainPanel(ExitGUI);
    } // end main
 
 } // end class ATMCaseStudy 
