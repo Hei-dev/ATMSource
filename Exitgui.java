@@ -35,7 +35,7 @@ public class Exitgui{
                 {
                     timer.stop();
                     // MainMenugui mainmenu = new MainMenugui();
-    				//ATMgui.get().setMainPanel(MainMenugui.setInterface());
+    				ATMgui.get().setMainPanel(MainMenugui.setInterface());
                     countdownMessage.setText("Page updated!");
                 }
                 else
