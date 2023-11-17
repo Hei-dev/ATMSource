@@ -26,6 +26,12 @@ public class ATMgui extends BaseATMgui{
 				return new WithdrawalGUI();
 			case Exit:
 				return new Exitgui();
+			case Balance:
+				;
+			case Transfer:
+				;
+			case Login:
+				;
 			default:
 				return new ATMgui();
 		}
@@ -40,9 +46,11 @@ public class ATMgui extends BaseATMgui{
 	 * @return the concerned GUI Type
 	 */
 	public static synchronized ATMgui get(GUIType t){
-		if(t!=currentGUIType){
+		if(Gui == null){
+			//Gui = new ATMgui();
 			Gui = newGui(t);
 		}
+		
 		return Gui;
 	}
 }
