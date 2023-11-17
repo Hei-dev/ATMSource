@@ -21,11 +21,11 @@ public class ATMgui extends BaseATMgui{
 	private static ATMgui newGui(GUIType t){
 		switch(t){
 			case MainMenu:
-				return new MainMenugui(); 
+				//return new MainMenugui(); 
 			case Withdrawal:
 				return new WithdrawalGUI();
 			case Exit:
-				return new Exitgui();
+				//return new Exitgui();
 			case Balance:
 				;
 			case Transfer:
@@ -45,10 +45,10 @@ public class ATMgui extends BaseATMgui{
 	 * @param t the GUIType to be gotten
 	 * @return the concerned GUI Type
 	 */
-	public static synchronized ATMgui get(GUIType t){
+	public static synchronized ATMgui get(){
 		if(Gui == null){
 			//Gui = new ATMgui();
-			Gui = newGui(t);
+			Gui = new ATMgui();
 		}
 		
 		return Gui;

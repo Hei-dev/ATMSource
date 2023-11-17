@@ -3,11 +3,11 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenugui extends ATMgui{
-	private JPanel mainMenu;
+public class MainMenugui{
+	private static JPanel mainMenu;
 	
-	protected MainMenugui() {
-		super("MainMenu");	
+	public static void init() {
+		//super("MainMenu");	
 		
 		// set action listener for view balance
 		ActionListener viewBalance = new ActionListener() {
@@ -17,7 +17,7 @@ public class MainMenugui extends ATMgui{
 				// atm.setMainPanel(ViewBalanceGUI);
 			}
 		};
-		setSelectionListener(2, viewBalance);
+		ATMgui.get().setSelectionListener(2, viewBalance);
 		
 		// set action listener for withdraw
 		ActionListener withdraw = new ActionListener() {
@@ -25,11 +25,11 @@ public class MainMenugui extends ATMgui{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				WithdrawalGUI withdrawalgui = new WithdrawalGUI();
-				setMainPanel(withdrawalgui.setInterface());
+				ATMgui.get().setMainPanel(withdrawalgui.setInterface());
 			}
 			
 		};
-		setSelectionListener(6, withdraw);
+		ATMgui.get().setSelectionListener(6, withdraw);
 		
 		// set action listener for transfer fund
 		ActionListener transferFund = new ActionListener() {
@@ -40,7 +40,7 @@ public class MainMenugui extends ATMgui{
 			}
 			
 		};
-		setSelectionListener(3, transferFund);
+		ATMgui.get().setSelectionListener(3, transferFund);
 		
 		// set action listener for exit
 		ActionListener exit = new ActionListener() {
@@ -52,32 +52,32 @@ public class MainMenugui extends ATMgui{
 				
 				//exitgui.removeCurrentPanel();
 				//setMainPanel(exitgui.setInterface());		naur
-				ATMgui.get(GUIType.Exit);
+				Exitgui.init();
+				ATMgui.get().setMainPanel(Exitgui.setInterface());
 				System.out.println("MainMenugui After calling exitgui");
 			}
 			
 		};
-		setSelectionListener(7, exit);
+		ATMgui.get().setSelectionListener(7, exit);
 	}
 	
-	@Override
-	public JPanel setInterface() {
+	public static JPanel setInterface() {
 
 		mainMenu = new JPanel();
-		mainMenu = getdefaultGUI();
+		mainMenu = ATMgui.get().getdefaultGUI();
 		
 		// change title to "Main Menu"
-		setTitle("Main Menu", 1, 20);
+		ATMgui.get().setTitle("Main Menu", 1, 20);
 		// temporary enable keypad to allow side button input
-		setKeypadAvailability(false);
+		ATMgui.get().setKeypadAvailability(false);
 		// change selection names
-		setSelectionName(4, "View my balance");
-		setSelectionName(5, "Withdraw cash");
-		setSelectionName(6, "Transfer funds");
-		setSelectionName(7, "Exit");
+		ATMgui.get().setSelectionName(4, "View my balance");
+		ATMgui.get().setSelectionName(5, "Withdraw cash");
+		ATMgui.get().setSelectionName(6, "Transfer funds");
+		ATMgui.get().setSelectionName(7, "Exit");
 		// Set the rest of the selection with no text
 		for (int i = 0; i < 4; i++) {
-			setSelectionDisplay(i, false);
+			ATMgui.get().setSelectionDisplay(i, false);
 		}
 		System.out.println("MainMenu setInterface() out");
 		return mainMenu;

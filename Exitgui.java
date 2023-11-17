@@ -10,21 +10,22 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.SwingConstants;
 
-public class Exitgui extends ATMgui{
+public class Exitgui{
 	
-	private JPanel 
+	private static JPanel 
 		exitGUI,
 		countdownGUI;
-	private JLabel 
+	private static JLabel 
 		exitMessage,
 		countdownMessage;
-	private Timer timer;
-	private int 
-		counter = 0,
+	private static Timer timer;
+	private static int 
+		counter = 5,
 		delay = 1000;
 	
-	protected Exitgui() {
-		super("Exit");
+	public static void init() {
+		//super("Exit");
+		
 		ActionListener countdown = new ActionListener()
         {   
             @Override
@@ -34,7 +35,7 @@ public class Exitgui extends ATMgui{
                 {
                     timer.stop();
                     // MainMenugui mainmenu = new MainMenugui();
-    				ATMgui.get(GUIType.MainMenu);
+    				//ATMgui.get().setMainPanel(MainMenugui.setInterface());
                     countdownMessage.setText("Page updated!");
                 }
                 else
@@ -48,9 +49,10 @@ public class Exitgui extends ATMgui{
         timer = new Timer(delay, countdown);
         timer.setInitialDelay(0);
         timer.start();
+        /**/
 	}
 	
-	public JPanel setInterface() {
+	public static JPanel setInterface() {
 		
 		// create exit message
 		exitMessage = new JLabel();
