@@ -9,54 +9,60 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class BaseATMgui extends JFrame{
+
+
+
+public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	private static JButton[] keys, selection;
 	private static GridBagLayout hardwareLayout;
 	private static JPanel
 		keyPadPanel,
 		leftSelectionPanel,
-		rightSelectionPanel;
+		rightSelectionPanel,
+		centreBasePanel;
 	private JTextPane textPane;
 	private String line = "";
 	private boolean activeFloatingPointButton;
 	private GridBagConstraints 
 		c_hardware,
-		c_interface;
+		c_interface = new GridBagConstraints();
 	private JPanel 
-		clonePanel,
+		defaultPanel,
 		currentPanel;	
 	private JLabel 
 		screenTitle,
 		screenSelection[];
 	
 	private boolean enableKeypad = true;
-
-	private JPanel centreBasePanel;
 	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
 	protected static final int DEFAULT_BORDER_WIDTH = 2;
 	
-	private static final JLabel defaultTitle = new JLabel();
+	//private static final JLabel defaultTitle = new JLabel();
 	private static final JTextPane defaultTextPane = new JTextPane();
-	private static final JLabel defaultSelection[] = new JLabel[8];
-	private static final JPanel defaultPanel = new JPanel();
-
+	//private static final JLabel defaultSelection[] = new JLabel[8];
+	//private static final JPanel defaultPanel = new JPanel();
+	
 	private Component findComponentByName(String name){
 		return findComponentByName(name, getContentPane());
 	}
@@ -73,15 +79,18 @@ public class BaseATMgui extends JFrame{
 		}
 		return null;
 	}
-
-
+	
 	protected BaseATMgui() {
 		this("ATM");
-		
 	}
 
 	protected BaseATMgui(String title) {
 		super(title);
+		System.out.println("BaseATMgui start constructor");
+		
+		
+		
+		/*
 		// enable floating point button as default
 		activeFloatingPointButton = true;
 		
@@ -91,19 +100,13 @@ public class BaseATMgui extends JFrame{
 		defaultTitle.setHorizontalAlignment(JLabel.CENTER);
 		defaultTitle.setVerticalAlignment(JLabel.CENTER);
 		defaultTitle.setText("Sample Title");
+		defaultTitle.setName("Title");		// create component title name
 		screenTitle = defaultTitle;
 		//screenTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 		
 		
 		
-		// create text panel for reading input
-		defaultTextPane.setEditable(false);    // set textArea not editable
-	    defaultTextPane.setText(line);  // display line1 in textArea 
-	    StyledDocument style = defaultTextPane.getStyledDocument();
-	    SimpleAttributeSet align= new SimpleAttributeSet();
-	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
-	    style.setParagraphAttributes(0, style.getLength(), align, false);
-		textPane = defaultTextPane;
+		
 
 	    
 	    // create selection box
@@ -113,6 +116,7 @@ public class BaseATMgui extends JFrame{
 	    	defaultSelection[i].setVerticalAlignment(JLabel.CENTER);
 	    	defaultSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 	    	defaultSelection[i].setText(String.valueOf(i));
+	    	defaultSelection[i].setName("selection"+ Integer.toString(i));		// create components selection names
 	    }
 	    screenSelection = defaultSelection;
 	    
@@ -150,16 +154,23 @@ public class BaseATMgui extends JFrame{
 	    		selections++;
 	    	}
 	    }
+	    */
 	    
+		defaultPanel = getdefaultGUI();
+		
+		// create text panel for reading input
+		defaultTextPane.setEditable(false);    // set textArea not editable
+	    defaultTextPane.setText(line);  // display line1 in textArea 
+	    StyledDocument style = defaultTextPane.getStyledDocument();
+	    SimpleAttributeSet align= new SimpleAttributeSet();
+	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
+	    style.setParagraphAttributes(0, style.getLength(), align, false);
+	    defaultTextPane.setName("Input Area");		// create component textpanel name
+		textPane = defaultTextPane;
+		
 	    // add textPane for showing input
-	    c_interface.gridx = 0;
-	    c_interface.gridy = 13;
-	    c_interface.gridwidth = 8;
-	    c_interface.gridheight = 1;
-	    c_interface.weightx = 1;
-	    c_interface.weighty = 0.001;
-	    defaultPanel.add(defaultTextPane, c_interface);
-	    clonePanel.add(textPane, c_interface);
+		setTextPanel(defaultPanel);
+	    //clonePanel.add(textPane, c_interface);
 		
 		// create left and right selection button panel
 		// set left selection panel to Grid Layout
@@ -245,9 +256,12 @@ public class BaseATMgui extends JFrame{
 		//catch(NullPointerException npe){
 			//System.err.println(npe);
 		//}
-	    System.out.println("BaseATMgui Before currentPanel = setInterface();");
-	    currentPanel = setInterface();
-	   System.out.println("BaseATMgui After currentPanel = setInterface();" );
+	    //System.out.println("BaseATMgui Before currentPanel = setInterface();");
+	    
+	    //currentPanel = setInterface();
+	    
+	    //System.out.println("BaseATMgui After currentPanel = setInterface();" );
+	    currentPanel = new JPanel();
 		currentPanel.setName("MainPanel");
 	    // put panel onto screen
 	    c_hardware.weightx = 0.7;
@@ -263,7 +277,7 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.ipadx = 50;
 	    c_hardware.insets = new Insets(5, 5, 5, 5);
 		//currentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
-		currentPanel.setVisible(true);
+		//currentPanel.setVisible(true);
 
 		centreBasePanel = new JPanel(new BorderLayout());
 		centreBasePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
@@ -401,6 +415,8 @@ public class BaseATMgui extends JFrame{
   		// Side buttons
 	    //for (int i = 0; i<=7; i++) {
 	    //	selection[i].addActionListener(selectionListener); 
+  		
+  		System.out.println("BaseATMgui End constructor");
 	}
 	
 
@@ -412,8 +428,9 @@ public class BaseATMgui extends JFrame{
 	}
 	*/
 	
-	public void setMainPanel(JPanel panel){
-		System.out.println("BaseATMgui setMainPanel in");
+	public void addMainPanel(JPanel panel){
+		//System.out.println("BaseATMgui setMainPanel in");
+		
 		currentPanel = (JPanel)findComponentByName("MainPanel");
 		try	{
 			centreBasePanel.remove(currentPanel);
@@ -424,22 +441,26 @@ public class BaseATMgui extends JFrame{
 		currentPanel = panel;
 		currentPanel.setName("MainPanel");
 		centreBasePanel.add(currentPanel);
-
+		
+		
+		//centreBasePanel.add(panel);
+		
 		revalidate();
 		repaint();
-		System.out.println("BaseATMgui setMainPanel out");
+		//System.out.println("BaseATMgui setMainPanel out");
 	}
 	
 	/**
 	 * allow the user to get the default interface
 	 * @return JPanel of the default interface
 	 */
+	/**
 	public JPanel getdefaultGUI() {
-		System.out.println("BaseATMgui getdefaultGUI");
+		//System.out.println("BaseATMgui getdefaultGUI");
 		clonePanel = defaultPanel;
 		return clonePanel;
 	}
-
+	*/
 	/**
 	 * add text panel to your screen component
 	 * @param Jpanel of your panel 
@@ -467,55 +488,122 @@ public class BaseATMgui extends JFrame{
 	 * @param int of selection box number
 	 * @param String name of selection
 	 */
+	/*
 	public void setSelectionName(int selection, String name) {
 		screenSelection[selection].setText(name);
 	}
-	
+	*/
 	/**
 	 * toggle the display of selection in the screen
 	 * @param int of selection box number
 	 * @param boolean display true/false
 	 */
-	public void setSelectionDisplay(int selection, boolean display) {
-		if (display == false) {
-			screenSelection[selection].setBorder(BorderFactory.createEmptyBorder(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
-			screenSelection[selection].setText("");
+	/**
+	public void setSelectionDisplay(JPanel panel, int selection, boolean display) {
+		JLabel temp;
+		String componentName = "selection" + Integer.toString(selection);
+		
+		switch(String.valueOf(display)) {
+		case "true":
+			for(Component c : panel.getComponents()) {
+				if ((c instanceof JLabel) && (c.getName()==componentName)) {
+					temp = (JLabel)c;
+					temp.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+					temp.setText("");
+					c = temp;
+				}
+			}
+		break;
+		case "false":
+			for(Component c : panel.getComponents()) {
+				if ((c instanceof JLabel) && (c.getName()==componentName)) {
+					temp = (JLabel)c;
+					temp.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+					c = temp;
+				}
+			}
+			break;
 		}
-		else if (display == true)
-			screenSelection[selection].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		
 	}
+	*/
+ 
 	
 	/**
 	 * replace "Sample Title" to custom title
 	 * @param String of custom title
 	 */
+	/**
 	public void setTitle(String title) {
 		screenTitle.setText(title);
 	}
-	
+	*/
 	/**
 	 * replace "Sample Title" to custom title, with custom Font style
 	 * @param String of custom title
 	 * @param int of font style
 	 * @param int of font size
 	 */
+	/*
 	public void setTitle(String title, int style, int size) {
 		Font font = new Font(title, style, size);
 		screenTitle.setFont(font);
 		screenTitle.setText(title);
 	}
+	*/
 	
+	/**
+	 * set component text inside copied panel
+	 * @param JPanel panel of your panel
+	 * @param String componentName of the component you want to change
+	 * @param String text of the component
+	 */
+	/*
+	public void setComponentText(JPanel panel, String componentName, String text) {
+		JLabel temp;
+		for(Component c : panel.getComponents()) {
+			if ((c instanceof JLabel) && (c.getName()==componentName)) {
+				temp = (JLabel)c;
+				temp.setText(text);
+				c = temp;
+			}
+		}
+	}
+	*/
+	/**
+	 * set component text inside copied panel, including the font and size
+	 * @param JPanel panel of your panel
+	 * @param String componentName of the component you want to change
+	 * @param String text of the component
+	 * @param int style of the font
+	 * @param int size of the font
+	 */
+	/*
+	public void setComponentText(JPanel panel, String componentName, String text, int style, int size) {
+		JLabel temp;
+		Font font = new Font(text, style, size);
+		for(Component c : panel.getComponents()) {
+			if ((c instanceof JLabel) && (c.getName()==componentName)) {
+				temp = (JLabel)c;
+				temp.setFont(font);
+				temp.setText(text);
+				c = temp;
+			}
+		}
+	}
+	*/
 	/**
 	 * @Override this function to edit the GUI Screen
 	 * access the screen
 	 * @return defaultPanel
 	 */
+	/**
 	public JPanel setInterface() {
 		//setMainPanel(getdefaultGUI());
-		System.out.println("BastATMgui setInterface() out");
+		//System.out.println("BastATMgui setInterface() out");
 	    return getdefaultGUI();
 	}
-	
+	*/
 	
 	
 	//	FUNCTIONALITY RELATED	####################################################
@@ -542,12 +630,13 @@ public class BaseATMgui extends JFrame{
 	}
 	
 	/**
-	//update all selection event to class specific event
+	 * @Override this method by putting all setSelectionListener in this method
+	 * update all selection event to class specific event
+	 */
 	public void setallSelectionListener() {
-		for(int i = 0; i< 8; i++)
-			setSelectionListener(i,selection[i].getAction());
-	}
-	*/
+		for (int i = 1; i < 8; i++)
+			selection[i].addActionListener(null);
+	}	
 	
 	/**
 	 * return number from text pane in String
@@ -563,13 +652,13 @@ public class BaseATMgui extends JFrame{
 	 */
 	public void setFloatingPointButtonStatus(boolean enable) {
 		activeFloatingPointButton = enable;
-	}
+	}	
 	
 	public void run() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ATM_WIDTH, ATM_HEIGHT);	//set frame size
 		setVisible(true);	//display frame
-		//setResizable(false);	//disable resizing window
+		setResizable(false);	//disable resizing window
 	}
 }
 

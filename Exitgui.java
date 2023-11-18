@@ -23,36 +23,7 @@ public class Exitgui{
 		counter = 5,
 		delay = 1000;
 	
-	public static void init() {
-		//super("Exit");
-		
-		ActionListener countdown = new ActionListener()
-        {   
-            @Override
-            public void actionPerformed(ActionEvent event)
-            {
-                if(counter == 0)
-                {
-                    timer.stop();
-                    // MainMenugui mainmenu = new MainMenugui();
-    				ATMgui.get().setMainPanel(MainMenugui.setInterface());
-                    countdownMessage.setText("Page updated!");
-                }
-                else
-                {
-                    countdownMessage.setText("Return to Login page in " + counter + " seconds");
-                    counter--;
-                }
-            }
-        };
-        
-        timer = new Timer(delay, countdown);
-        timer.setInitialDelay(0);
-        timer.start();
-        /**/
-	}
-	
-	public static JPanel setInterface() {
+	protected Exitgui() {
 		
 		// create exit message
 		exitMessage = new JLabel();
@@ -70,8 +41,37 @@ public class Exitgui{
 		exitGUI.add(exitMessage, BorderLayout.CENTER);
 		exitGUI.add(countdownGUI, BorderLayout.SOUTH);
 		
-		System.out.println("Exitgui setInterface() out");
+		//System.out.println("Exitgui setInterface() out");
 		
+	}
+	
+	public void setallSelectionListener() {
+		
+		ActionListener countdown = new ActionListener()
+        {   
+            @Override
+            public void actionPerformed(ActionEvent event)
+            {
+                if(counter == 0)
+                {
+                    timer.stop();
+    				ATMgui.get().display(GUIType.MainMenu);
+                    countdownMessage.setText("Page updated!");
+                }
+                else
+                {
+                    countdownMessage.setText("Return to Login page in " + counter + " seconds");
+                    counter--;
+                }
+            }
+        };
+        
+        timer = new Timer(delay, countdown);
+        timer.setInitialDelay(0);
+        timer.start();
+	}
+	
+	public JPanel getPanel() {
 		return exitGUI;
 	}
 }

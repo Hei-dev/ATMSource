@@ -1,24 +1,25 @@
 import javax.swing.JPanel;
 
-public class WithdrawalGUI extends ATMgui{
+public class WithdrawalGUI implements Defaultgui{
 
-    private JPanel mainPanel;
+    private static JPanel mainPanel;
 
     protected WithdrawalGUI(){
-        super("Withdrawal");
+        //super("Withdrawal");
     }
 
-    @Override
-    public JPanel setInterface(){
+    public JPanel setInterface() {
+
         mainPanel = getdefaultGUI();
 
-        setTitle("Please select the exact amount, or type the amount using the keypad.");
+        ATMgui.get().setComponentText(mainPanel, "Title", "Please select the exact amount, or type the amount using the keypad.");
 
-        setSelectionName(4, "$200");
-		setSelectionName(5, "$500");
-		setSelectionName(6, "$1000");
-		setSelectionName(7, "Exit");
+        ATMgui.get().setComponentText(mainPanel, "selection4", "$200");
+        ATMgui.get().setComponentText(mainPanel, "selection5", "$500");
+        ATMgui.get().setComponentText(mainPanel, "selection6", "$1000");
+        ATMgui.get().setComponentText(mainPanel, "selection7", "Exit");
 
         return mainPanel;
-    }
+        
+   }
 }

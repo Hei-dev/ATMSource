@@ -22,17 +22,10 @@ public class ATMCaseStudy
    // main method creates and runs the ATM
    public static void main( String[] args )
    {
-      ATMgui theATM = ATMgui.get();
-      //ATMgui theATM = new ATMgui();
-      MainMenugui.init();
-      theATM.setMainPanel(MainMenugui.setInterface());
-      theATM.run();
+	   System.out.println("Program start");
+       ATMgui theATM = ATMgui.get();
+       theATM.run();
 
-      //JPanel ExitGUI = new JPanel();
-      //ExitGUI.add(new JLabel("Please take your card"));
-
-
-      //ATMgui.get(GUIType.MainMenu);
    } // end main
 
 } // end class ATMCaseStudy 
