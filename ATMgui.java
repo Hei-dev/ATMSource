@@ -11,15 +11,14 @@ public class ATMgui extends BaseATMgui{
 	WithdrawalGUI withdrawal = new WithdrawalGUI();
 	// Constructors
 
-    protected ATMgui(){
+    private ATMgui(){
         this("ATM");
     }
 
-	protected ATMgui(String title){
-		//super(title);
-		System.out.println("ATMgui Constructor start");
-		display(GUIType.MainMenu);
-		System.out.println("ATMgui Constructor end");
+	private ATMgui(String title){
+		super(title);
+		//System.out.println("ATMgui Constructor start");
+		//System.out.println("ATMgui Constructor end");
 	}
 	
 
@@ -56,10 +55,14 @@ public class ATMgui extends BaseATMgui{
 	public void display(GUIType t) {
 		switch(t){
 			case MainMenu:
+				System.out.println("Mainmenu");
 				addMainPanel(mainmenu.getPanel());
+				System.out.println("2");
 				// disable keypad input
 				setKeypadAvailability(false);
+				System.out.println("3");
 				mainmenu.setallSelectionListener();
+				System.out.println("4");
 				break;
 			case Withdrawal:
 		

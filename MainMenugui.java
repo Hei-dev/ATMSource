@@ -32,14 +32,17 @@ public class MainMenugui implements Defaultgui{
 	
 	public void setallSelectionListener() {
 		// set action listener for view balance
-		ActionListener viewBalance = new ActionListener() {
+		/* */
+		//ActionListener viewBalance = ;
+		ATMgui.get().setSelectionListener(2, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
 			}
-		};
-		ATMgui.get().setSelectionListener(2, viewBalance);
+		});
+
+		System.out.println("a");
 		
 		// set action listener for withdraw
 		ActionListener withdraw = new ActionListener() {
@@ -51,6 +54,8 @@ public class MainMenugui implements Defaultgui{
 			
 		};
 		ATMgui.get().setSelectionListener(6, withdraw);
+
+		System.out.println("b");
 		
 		// set action listener for transfer fund
 		ActionListener transferFund = new ActionListener() {
@@ -62,6 +67,7 @@ public class MainMenugui implements Defaultgui{
 			
 		};
 		ATMgui.get().setSelectionListener(3, transferFund);
+		System.out.println("c");
 		
 		// set action listener for exit
 		ActionListener exit = new ActionListener() {
@@ -73,5 +79,7 @@ public class MainMenugui implements Defaultgui{
 			
 		};
 		ATMgui.get().setSelectionListener(7, exit);
+
+		System.out.println("d");
 	}
 }

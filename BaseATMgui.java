@@ -86,9 +86,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 
 	protected BaseATMgui(String title) {
 		super(title);
-		System.out.println("BaseATMgui start constructor");
-		
-		
 		
 		/*
 		// enable floating point button as default
@@ -416,7 +413,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	    //for (int i = 0; i<=7; i++) {
 	    //	selection[i].addActionListener(selectionListener); 
   		
-  		System.out.println("BaseATMgui End constructor");
 	}
 	
 
@@ -655,6 +651,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	}	
 	
 	public void run() {
+		ATMgui.get().display(GUIType.MainMenu);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ATM_WIDTH, ATM_HEIGHT);	//set frame size
 		setVisible(true);	//display frame
