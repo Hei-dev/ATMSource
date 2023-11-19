@@ -651,7 +651,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	}	
 	
 	public void run() {
-		ATMgui.get().display(GUIType.MainMenu);
+		ATMgui.get().display(GUIType.Login);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ATM_WIDTH, ATM_HEIGHT);	//set frame size

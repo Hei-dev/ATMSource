@@ -4,7 +4,7 @@
 public class BalanceInquiry extends Transaction
 {
    // BalanceInquiry constructor
-   public BalanceInquiry( int userAccountNumber, Screen atmScreen, 
+   public BalanceInquiry( int userAccountNumber, ATMgui atmScreen, 
       BankDatabase atmBankDatabase )
    {
       super( userAccountNumber, atmScreen, atmBankDatabase );
@@ -15,7 +15,7 @@ public class BalanceInquiry extends Transaction
    {
       // get references to bank database and screen
       BankDatabase bankDatabase = getBankDatabase();
-      Screen screen = getScreen();
+      ATMgui screen = getScreen();
 
       // get the available balance for the account involved
       double availableBalance = 
@@ -26,12 +26,14 @@ public class BalanceInquiry extends Transaction
          bankDatabase.getTotalBalance( getAccountNumber() );
       
       // display the balance information on the screen
+      /* 
       screen.displayMessageLine( "\nBalance Information:" );
       screen.displayMessage( " - Available balance: " ); 
       screen.displayDollarAmount( availableBalance );
       screen.displayMessage( "\n - Total balance:     " );
       screen.displayDollarAmount( totalBalance );
       screen.displayMessageLine( "" );
+      */
    } // end method execute
 } // end class BalanceInquiry
 

@@ -23,8 +23,8 @@ public class ATMCaseStudy
    public static void main( String[] args )
    {
 	   System.out.println("Program start");
-       ATMgui theATM = ATMgui.get();
-       theATM.run();
+      ATMgui theATM = ATMgui.get();
+      theATM.run();
 
    } // end main
 

@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 
 public class MainMenugui implements Defaultgui{
 	private JPanel mainMenu;
+	private BankDatabase bankDB;
+
+	private int currentAccountNumber; // current user's account number
+
+	private static final ATMgui SCREEN = ATMgui.get();
 	
 	protected MainMenugui() {
 
@@ -24,7 +29,26 @@ public class MainMenugui implements Defaultgui{
 		for (int i = 0; i < 4; i++) {
 			setSelectionDisplay(mainMenu, i, false);
 		}
+
+		bankDB = new BankDatabase();
 	}
+
+	public int getAccountNumber(){ return currentAccountNumber;}
+
+	/**
+	 * Authenticate user to proceed with their transaction with the inofrmation provided
+	 * @param accountNumber the Account Number to login
+	 * @param pin the PIN of the account number
+	 * @return boolean whether the authentication is successful
+	 */
+	private boolean authenticateUser(int accountNumber, int pin){
+		if(bankDB.authenticateUser( accountNumber, pin )){ // Try to login the user
+			currentAccountNumber = accountNumber; // sets the current accunt number
+			return true;
+		}
+		return false;
+	}
+
 	
 	public JPanel getPanel() {
 		return mainMenu;
@@ -38,7 +62,8 @@ public class MainMenugui implements Defaultgui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+				Transaction temp = new BalanceInquiry( getAccountNumber(), ATMgui.get(),bankDB );
+				temp.execute();
 			}
 		});
 
@@ -49,7 +74,10 @@ public class MainMenugui implements Defaultgui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ATMgui.get().display(GUIType.Withdrawal);
+				Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, 
+               		bankDB, /*keypad, cashDispenser*/new Keypad(), new CashDispenser() );
+				temp.execute();
+				//ATMgui.get().display(GUIType.Withdrawal);
 			}
 			
 		};
@@ -62,7 +90,8 @@ public class MainMenugui implements Defaultgui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Transaction temp = new Transfer( currentAccountNumber, SCREEN, 
+               		bankDB, new Keypad() );
 			}
 			
 		};

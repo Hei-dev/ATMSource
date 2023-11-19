@@ -1,8 +1,9 @@
 // Screen.java
 // Represents the screen of the ATM
 
-public class Screen
+public class Screen extends ATMgui
 {
+   public Screen(){super();}
    // displays a message without a carriage return
    public void displayMessage( String message ) 
    {

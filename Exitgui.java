@@ -56,7 +56,7 @@ public class Exitgui{
                 {
                     timer.stop();
     				ATMgui.get().display(GUIType.MainMenu);
-                    countdownMessage.setText("Page updated!");
+					counter = 5;
                 }
                 else
                 {

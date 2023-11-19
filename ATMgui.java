@@ -8,45 +8,17 @@ public class ATMgui extends BaseATMgui{
 	
 	Exitgui exit = new Exitgui();
 	MainMenugui mainmenu = new MainMenugui();
-	WithdrawalGUI withdrawal = new WithdrawalGUI();
+
 	// Constructors
 
-    private ATMgui(){
+    protected ATMgui(){
         this("ATM");
     }
 
 	private ATMgui(String title){
 		super(title);
-		//System.out.println("ATMgui Constructor start");
-		//System.out.println("ATMgui Constructor end");
 	}
 	
-
-	/**
-	 * Creates a new GUI based on the `GUIType`
-	 * @param t GUIType the GUIType of which to be constructed
-	 * @return ATMgui the GUI of that type.
-	 */
-	/**
-	private static ATMgui newGui(GUIType t){
-		switch(t){
-			case MainMenu:
-				//return new MainMenugui(); 
-			case Withdrawal:
-				//return new WithdrawalGUI();
-			case Exit:
-				//return new Exitgui();
-			case Balance:
-				;
-			case Transfer:
-				;
-			case Login:
-				;
-			default:
-				return new ATMgui();
-		}
-	}
-	*/
 	
 	/**
 	 * Creates a new GUI based on the `GUIType`
@@ -55,17 +27,13 @@ public class ATMgui extends BaseATMgui{
 	public void display(GUIType t) {
 		switch(t){
 			case MainMenu:
-				System.out.println("Mainmenu");
 				addMainPanel(mainmenu.getPanel());
-				System.out.println("2");
 				// disable keypad input
 				setKeypadAvailability(false);
-				System.out.println("3");
 				mainmenu.setallSelectionListener();
-				System.out.println("4");
 				break;
 			case Withdrawal:
-		
+				addMainPanel(WithdrawalGUI.getMainPanel());
 				break;
 			case Exit:
 				addMainPanel(exit.getPanel());
@@ -78,7 +46,8 @@ public class ATMgui extends BaseATMgui{
 		
 				break;
 			case Login:
-		
+				// TODO displays login screen
+				display(GUIType.MainMenu);
 				break;
 			default:
 				break;
@@ -99,6 +68,7 @@ public class ATMgui extends BaseATMgui{
 	public static synchronized ATMgui get(){
 		if(Gui == null){
 			Gui = new ATMgui();
+			//ATM innerATM = new ATM();
 		}
 		return Gui;
 	}
