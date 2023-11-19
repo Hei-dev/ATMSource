@@ -18,10 +18,9 @@ public class ATMgui extends BaseATMgui{
         
     }
 
-    private ATMgui(String title){
-        super(title);
-        System.out.println("ATMgui constructor");
-    }
+	private ATMgui(String title){
+		super(title);
+	}
     
     
     /**
@@ -31,19 +30,15 @@ public class ATMgui extends BaseATMgui{
     public void display(GUIType t) {
         switch(t){
             case Greeting:
-                System.out.println("ATMgui display greeting");
                 addMainPanel(greeting.getPanel());
                 setKeypadAvailability(true, false);
-                System.out.println("ATMgui call listener greeting");
                 greeting.setallSelectionListener();
                 break;
                 
             case MainMenu:
-                System.out.println("ATMgui display mainmenu");
                 // disable keypad input
                 setKeypadAvailability(true, true);
                 addMainPanel(mainmenu.getPanel());
-                System.out.println("ATMgui call listener mainmenu");
                 mainmenu.setallSelectionListener();
                 break;
                 
@@ -58,10 +53,8 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Balance:
-                System.out.println("ATMgui display balance");
                 addMainPanel(balance.getPanel());
                 setKeypadAvailability(true, false);
-                System.out.println("ATMgui call listener balance");
                 balance.setallSelectionListener();
                 break;
                 

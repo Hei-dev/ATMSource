@@ -13,7 +13,6 @@ public class Balancegui implements Defaultgui{
     //private static final ATMgui SCREEN = ATMgui.get();
     
     protected Balancegui() {
-        System.out.println("MainMenugui constructor");
         balance = getdefaultGUI();
         
         // change title to "balance"

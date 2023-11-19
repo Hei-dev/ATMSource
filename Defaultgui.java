@@ -35,7 +35,6 @@ import javax.swing.text.StyledDocument;
 public interface Defaultgui {
  
 	default JPanel getdefaultGUI() {
-		System.out.println("Defaultgui create gui");
 		
 		JLabel defaultTitle = new JLabel();
 	    JLabel defaultSelection[] = new JLabel[8];
@@ -61,7 +60,6 @@ public interface Defaultgui {
 	    	defaultSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 	    	defaultSelection[i].setText(String.valueOf(i));
 	    	defaultSelection[i].setName(setSelectionName(i));		// create components selection names
-	    	System.out.println(defaultSelection[i].getName());
 	    }
 	    
 	
@@ -113,13 +111,13 @@ public interface Defaultgui {
 	    c_interface.weightx = 1;
 	    c_interface.weighty = 0.001;
 	    defaultPanel.add(defaultTextPane, c_interface);
-	    System.out.println("Defaultgui output default gui");
 	    
 
 	    return defaultPanel;
 	}
+	
 	/**
-	 * 
+	 * get input from textpane
 	 * @param panel of current panel
 	 * @return text of input text from keyboard
 	 */
@@ -128,7 +126,6 @@ public interface Defaultgui {
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JTextPane) && (c.getName()=="Input Area")) {
-				System.out.println("has input area");
 				temp = (JTextPane)c;
 				text = temp.getText();
 			}
@@ -136,11 +133,16 @@ public interface Defaultgui {
 		return text;
 	}
 	
+	/**
+	 * change text of textpane
+	 * @param panel
+	 * @param text
+	 */
+	
 	default void updateTextPane(JPanel panel,String text) {
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JTextPane) && (c.getName()=="Input Area")) {
-				//System.out.println("has input area");
 				temp = (JTextPane)c;
 				temp.setText(text);
 				c = temp;
