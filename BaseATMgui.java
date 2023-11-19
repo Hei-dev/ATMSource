@@ -2,83 +2,110 @@
 //The base gui outline of ATM
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class BaseATMgui extends JFrame{
+
+
+
+public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	private static JButton[] keys, selection;
 	private static GridBagLayout hardwareLayout;
 	private static JPanel
 		keyPadPanel,
 		leftSelectionPanel,
-		rightSelectionPanel;
+		rightSelectionPanel,
+		centreBasePanel;
 	private JTextPane textPane;
-	private String line = "";
-	private boolean activeFloatingPointButton;
+	private String line;
 	private GridBagConstraints 
 		c_hardware,
-		c_interface;
+		c_interface = new GridBagConstraints();
 	private JPanel 
-		clonePanel,
+		defaultPanel,
 		currentPanel;	
 	private JLabel 
 		screenTitle,
 		screenSelection[];
 	
-	private boolean enableKeypad = true;
+	private boolean 
+		enableKeypad,
+		enableFloatingPointButton;
 	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
 	protected static final int DEFAULT_BORDER_WIDTH = 2;
 	
-	private static final JLabel defaultTitle = new JLabel();
+	//private static final JLabel defaultTitle = new JLabel();
 	private static final JTextPane defaultTextPane = new JTextPane();
-	private static final JLabel defaultSelection[] = new JLabel[8];
-	private static final JPanel defaultPanel = new JPanel();
+	//private static final JLabel defaultSelection[] = new JLabel[8];
+	//private static final JPanel defaultPanel = new JPanel();
+	
+	private Component findComponentByName(String name){
+		return findComponentByName(name, getContentPane());
+	}
+
+	// Gets the components inside the main frame.
+	private Component findComponentByName(String name, Container mContainer){
+		Component returnCom = null;
+		for(Component c : mContainer.getComponents()){
+			if(c.getName()==name)
+				return c;
+			if(c instanceof Container)
+				if((returnCom = findComponentByName(name,(Container)c))!=null)
+					return returnCom;
+		}
+		return null;
+	}
+	
 	protected BaseATMgui() {
 		this("ATM");
 	}
 
 	protected BaseATMgui(String title) {
 		super(title);
-		// enable floating point button as default
-		activeFloatingPointButton = true;
 		
+		
+		// enable floating point button as default
+		enableFloatingPointButton = true;
+		enableKeypad = true;
+		/*
 		// create default center panel representing screen
 		// create default screen component
 	    // create screen Title
 		defaultTitle.setHorizontalAlignment(JLabel.CENTER);
 		defaultTitle.setVerticalAlignment(JLabel.CENTER);
 		defaultTitle.setText("Sample Title");
+		defaultTitle.setName("Title");		// create component title name
 		screenTitle = defaultTitle;
 		//screenTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 		
 		
 		
-		// create text panel for reading input
-		defaultTextPane.setEditable(false);    // set textArea not editable
-	    defaultTextPane.setText(line);  // display line1 in textArea 
-	    StyledDocument style = defaultTextPane.getStyledDocument();
-	    SimpleAttributeSet align= new SimpleAttributeSet();
-	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
-	    style.setParagraphAttributes(0, style.getLength(), align, false);
-		textPane = defaultTextPane;
+		
 
 	    
 	    // create selection box
@@ -88,6 +115,7 @@ public class BaseATMgui extends JFrame{
 	    	defaultSelection[i].setVerticalAlignment(JLabel.CENTER);
 	    	defaultSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 	    	defaultSelection[i].setText(String.valueOf(i));
+	    	defaultSelection[i].setName("selection"+ Integer.toString(i));		// create components selection names
 	    }
 	    screenSelection = defaultSelection;
 	    
@@ -125,28 +153,36 @@ public class BaseATMgui extends JFrame{
 	    		selections++;
 	    	}
 	    }
-	    
+	    */
+		/*
+		// create text panel for reading input
+		defaultTextPane.setEditable(false);    // set textArea not editable
+	    defaultTextPane.setText(line);  // display line1 in textArea 
+	    StyledDocument style = defaultTextPane.getStyledDocument();
+	    SimpleAttributeSet align= new SimpleAttributeSet();
+	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
+	    style.setParagraphAttributes(0, style.getLength(), align, false);
+	    defaultTextPane.setName("Input Area");		// create component textpanel name
+		//textPane = defaultTextPane;
+
+		//setTextPanel(defaultPanel);
+	    */
+		defaultPanel = getdefaultGUI();
+
+
+		//setTextPanel(defaultPanel);
 	    // add textPane for showing input
-	    c_interface.gridx = 0;
-	    c_interface.gridy = 13;
-	    c_interface.gridwidth = 8;
-	    c_interface.gridheight = 1;
-	    c_interface.weightx = 1;
-	    c_interface.weighty = 0.001;
-	    defaultPanel.add(defaultTextPane, c_interface);
-	    clonePanel.add(textPane, c_interface);
+	    //clonePanel.add(textPane, c_interface);
 		
 		// create left and right selection button panel
 		// set left selection panel to Grid Layout
 		leftSelectionPanel = new JPanel();
-		leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 10) );
-		//leftSelectionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );
 		leftSelectionPanel.setVisible(true);
 		
 		// set right selection panel to Grid Layout
 		rightSelectionPanel = new JPanel();
-		rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 10) );	
-		//rightSelectionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );	
 		rightSelectionPanel.setVisible(true);
 		
 		selection = new JButton[8];
@@ -216,7 +252,19 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.anchor = GridBagConstraints.CENTER;
 	    
 	    // override the default panel if setInterface() is Overrided
-	    currentPanel = setInterface();
+		//try{
+		//	remove(findComponentByName("MainPanel"));
+		//}
+		//catch(NullPointerException npe){
+			//System.err.println(npe);
+		//}
+	    //System.out.println("BaseATMgui Before currentPanel = setInterface();");
+	    
+	    //currentPanel = setInterface();
+	    
+	    //System.out.println("BaseATMgui After currentPanel = setInterface();" );
+	    currentPanel = new JPanel();
+		currentPanel.setName("MainPanel");
 	    // put panel onto screen
 	    c_hardware.weightx = 0.7;
 	    c_hardware.weighty = 0.7;
@@ -230,9 +278,16 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.ipady = 200;
 	    c_hardware.ipadx = 50;
 	    c_hardware.insets = new Insets(5, 5, 5, 5);
-		currentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
-		currentPanel.setVisible(true);
-	    add(currentPanel, c_hardware);
+		//currentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		//currentPanel.setVisible(true);
+
+		centreBasePanel = new JPanel(new BorderLayout());
+		centreBasePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		centreBasePanel.add(currentPanel);
+
+		add(centreBasePanel, c_hardware);
+
+		
 	    
 	 	// add top and dummy component for left and right selection Panel
 	 	c_hardware.gridy = 0;
@@ -284,14 +339,19 @@ public class BaseATMgui extends JFrame{
 	    c_hardware.ipadx = 0;
 	    c_hardware.insets = new Insets(5, 25, 5, 25);
 	    add(keyPadPanel, c_hardware);   
-	    	    
+	    
 	    
 	    
 	    // create handler for keypad buttons
   		ActionListener keyPadListener = new ActionListener() {
   			@Override
   			public void actionPerformed(ActionEvent event) {
-  			
+  				
+  				line = getTextPaneText(currentPanel);
+  				System.out.println("active floating point: "+enableFloatingPointButton);
+  				//System.out.println(currentPanel);
+  				System.out.println("line before input: "+line);
+  				//System.out.println(enableKeypad);
  				// enter numbers to text pane, divide buttons ENTER, CANCEL, CLEAR functionality
  				if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (enableKeypad == true)) {
  					switch (event.getActionCommand()) {
@@ -299,14 +359,18 @@ public class BaseATMgui extends JFrame{
  					case "CANCEL":
  						if (line != "") {
  							line = line.substring(0, line.length() - 1);
- 							textPane.setText(line);
+ 			 				updateTextPane(currentPanel, line);
+ 							//updateTextPane(currentPanel, line);
+ 							//textPane.setText(line);
  						}
  						// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
  						break;
  					// Pressing CLEAR, clear the text from textPane
  					case "CLEAR":
  						line = "";
- 						textPane.setText(line);
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
+ 						//textPane.setText(line);
  						// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
  						break;
  					// Pressing ENTER
@@ -314,8 +378,10 @@ public class BaseATMgui extends JFrame{
  						enter();
  						// System.out.printf("Before:%nText:%s%nLength:%s%nText in Integer:%id%n%n", line, line.length(), Long.parseLong(line));
  						line = "";
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
  						// System.out.printf("After:%nText:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(),Long.parseLong(line));
- 						textPane.setText(line);
+ 						//textPane.setText(line);
  						break;
  					}
  				} else if (enableKeypad == true) {
@@ -326,85 +392,105 @@ public class BaseATMgui extends JFrame{
  					 */
  					if (event.getActionCommand() != ".") {
  						line = line.concat(event.getActionCommand());
- 						textPane.setText(line);
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
+ 						//textPane.setText(line);
  					}
  					// check if "." exist in line
- 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (activeFloatingPointButton == true)) {
+ 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
  						// setting of Floating Point numbers, only 1 "." can exist once
  						// remember to set back to true after finishing the whole input if set to false
  						
  						// check if length of string > 0 and if floating point is enabled
  						if (line.length() > 0) {
- 								line = line.concat(".");
- 								textPane.setText(line);
+							line = line.concat(".");
+							System.out.println("line when updating: "+line);
+			 				updateTextPane(currentPanel, line);
+							//setComponentText(currentPanel, "Input Area", line);
+							//textPane.setText(line);
  						}
  						//check if the first input is "."
  						else {
  							line = "0.";
- 							textPane.setText(line);	
+ 			 				updateTextPane(currentPanel, line); 							
+ 							//setComponentText(currentPanel, "Input Area", line);
+ 							//textPane.setText(line);	
  						}
  					}
  					//System.out.printf("Text:%s%nLength:%s%nText in Integer:%f%n%n", line, line.length(), Double.parseDouble(line));
  				}
+ 				System.out.println("line after input: " + line);
   			}
   		};
   		
-  		// create handler for selection buttons
-  		ActionListener selectionListener = new ActionListener() {
-  			@Override
-  			public void actionPerformed(ActionEvent event) {
-  				switch(event.getActionCommand()) {
-  					case "selection0":
-  						setSelection0Listener();
-  						break;
-  					case "selection1":
-  						setSelection1Listener();
-  						break;
-  					case "selection2":
-  						setSelection2Listener();
-  						break;
-  					case "selection3":
-  						setSelection3Listener();
-  						break;
-  					case "selection4":
-  						setSelection4Listener();
-  						break;
-  					case "selection5":
-  						setSelection5Listener();
-  						break;
-  					case "selection6":
-  						setSelection6Listener();
-  						break;
-  					case "selection7":
-  						setSelection7Listener();
-  						break;
-  				}
-  			}
-  		};
+  		/**
+  		
+  		*/
+  		
   		// register event handler 
   	    // 0 - 9 , CANCEL , CLEAR , ENTER , 00
   		for (int i = 0; i<=14; i++)
   			keys[i].addActionListener(keyPadListener);
   		
+  		
   		// Side buttons
-	    for (int i = 0; i<=7; i++)
-	    	selection[i].addActionListener(selectionListener);
+	    //for (int i = 0; i<=7; i++) {
+	    //	selection[i].addActionListener(selectionListener); 
+  		
 	}
 	
 
 	
 	//	GUI RELATED	#############################################
+	/*
+	public void removeCurrentPanel() {
+		centreBasePanel.remove(currentPanel);
+	}
+	*/
 	
+	public void addMainPanel(JPanel panel){
+		//System.out.println("BaseATMgui setMainPanel in");
+		
+		currentPanel = (JPanel)findComponentByName("MainPanel");
+		try	{
+			System.out.println("BaseATMgui Remove currentPanel");
+			centreBasePanel.remove(currentPanel);
+		} catch (NullPointerException npt) {
+			System.out.println(npt);
+		}
+		System.out.println("BaseATMgui replace currentPanel");
+		currentPanel = panel;
+		//currentPanel.setBackground(Color.BLUE);
+		currentPanel.setName("MainPanel");
+		//currentPanel.add(textPane);
+		//setTextPanel(currentPanel);
+		centreBasePanel.add(currentPanel);
+		
+		// reset selection ActionListener
+		for( JButton currentButton: selection ) {
+		    for( ActionListener al : currentButton.getActionListeners() ) {
+		        currentButton.removeActionListener( al );
+		    }
+		}
+		
+		//centreBasePanel.add(panel);
+		
+		revalidate();
+		repaint();
+		//System.out.println("BaseATMgui setMainPanel out");
+	}
 	
 	/**
 	 * allow the user to get the default interface
 	 * @return JPanel of the default interface
 	 */
+	/**
 	public JPanel getdefaultGUI() {
+		//System.out.println("BaseATMgui getdefaultGUI");
 		clonePanel = defaultPanel;
 		return clonePanel;
 	}
-
+	*/
 	/**
 	 * add text panel to your screen component
 	 * @param Jpanel of your panel 
@@ -420,65 +506,126 @@ public class BaseATMgui extends JFrame{
 	}
 	
 	/**
-	 * set availability of keypad (default true)
-	 * @param boolean enable true/false
-	 */
-	public void setKeypadAvailability(boolean enable) {
-		enableKeypad = enable;
-	}
-	
-	/**
 	 * set Name of selection in defaultPanel
 	 * @param int of selection box number
 	 * @param String name of selection
 	 */
+	/*
 	public void setSelectionName(int selection, String name) {
 		screenSelection[selection].setText(name);
 	}
-	
+	*/
 	/**
 	 * toggle the display of selection in the screen
 	 * @param int of selection box number
 	 * @param boolean display true/false
 	 */
-	public void setSelectionDisplay(int selection, boolean display) {
-		if (display == false) {
-			screenSelection[selection].setBorder(BorderFactory.createEmptyBorder(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
-			screenSelection[selection].setText("");
+	/**
+	public void setSelectionDisplay(JPanel panel, int selection, boolean display) {
+		JLabel temp;
+		String componentName = "selection" + Integer.toString(selection);
+		
+		switch(String.valueOf(display)) {
+		case "true":
+			for(Component c : panel.getComponents()) {
+				if ((c instanceof JLabel) && (c.getName()==componentName)) {
+					temp = (JLabel)c;
+					temp.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+					temp.setText("");
+					c = temp;
+				}
+			}
+		break;
+		case "false":
+			for(Component c : panel.getComponents()) {
+				if ((c instanceof JLabel) && (c.getName()==componentName)) {
+					temp = (JLabel)c;
+					temp.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+					c = temp;
+				}
+			}
+			break;
 		}
-		else if (display == true)
-			screenSelection[selection].setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
+		
 	}
+	*/
+ 
 	
 	/**
 	 * replace "Sample Title" to custom title
 	 * @param String of custom title
 	 */
+	/**
 	public void setTitle(String title) {
 		screenTitle.setText(title);
 	}
-	
+	*/
 	/**
 	 * replace "Sample Title" to custom title, with custom Font style
 	 * @param String of custom title
 	 * @param int of font style
 	 * @param int of font size
 	 */
+	/*
 	public void setTitle(String title, int style, int size) {
 		Font font = new Font(title, style, size);
 		screenTitle.setFont(font);
 		screenTitle.setText(title);
 	}
+	*/
 	
+	/**
+	 * set component text inside copied panel
+	 * @param JPanel panel of your panel
+	 * @param String componentName of the component you want to change
+	 * @param String text of the component
+	 */
+	/*
+	public void setComponentText(JPanel panel, String componentName, String text) {
+		JLabel temp;
+		for(Component c : panel.getComponents()) {
+			if ((c instanceof JLabel) && (c.getName()==componentName)) {
+				temp = (JLabel)c;
+				temp.setText(text);
+				c = temp;
+			}
+		}
+	}
+	*/
+	/**
+	 * set component text inside copied panel, including the font and size
+	 * @param JPanel panel of your panel
+	 * @param String componentName of the component you want to change
+	 * @param String text of the component
+	 * @param int style of the font
+	 * @param int size of the font
+	 */
+	/*
+	public void setComponentText(JPanel panel, String componentName, String text, int style, int size) {
+		JLabel temp;
+		Font font = new Font(text, style, size);
+		for(Component c : panel.getComponents()) {
+			if ((c instanceof JLabel) && (c.getName()==componentName)) {
+				temp = (JLabel)c;
+				temp.setFont(font);
+				temp.setText(text);
+				c = temp;
+			}
+		}
+	}
+	*/
 	/**
 	 * @Override this function to edit the GUI Screen
 	 * access the screen
 	 * @return defaultPanel
 	 */
+	/**
 	public JPanel setInterface() {
+		//setMainPanel(getdefaultGUI());
+		//System.out.println("BastATMgui setInterface() out");
 	    return getdefaultGUI();
 	}
-	
+	*/
 	
 	
 	//	FUNCTIONALITY RELATED	####################################################
@@ -495,40 +642,58 @@ public class BaseATMgui extends JFrame{
 	
 	// method of 8 selection buttons
 	/**
-	 * @Override to change the functionality of different buttons
+	 * change the functionality of different buttons
 	 * default as none
-	 * @param int of btnNo of specific button in selection panel
+	 * @param int i of btnNo of specific button in selection panel
+	 * @param ActionListener al of the specific button event
+	 */	
+	public void setSelectionListener(int i, ActionListener al) {
+		selection[i].addActionListener(al);
+	}
+	
+	/**
+	 * @Override this method by putting all setSelectionListener in this method
+	 * update all selection event to class specific event
 	 */
-	public void setSelection0Listener() {}
-	public void setSelection1Listener() {}
-	public void setSelection2Listener() {}
-	public void setSelection3Listener() {}
-	public void setSelection4Listener() {}
-	public void setSelection5Listener() {}
-	public void setSelection6Listener() {}
-	public void setSelection7Listener() {}
+	public void setallSelectionListener() {
+		for (int i = 1; i < 8; i++)
+			selection[i].addActionListener(null);
+	}	
 	
 	/**
 	 * return number from text pane in String
 	 * @return String of inputed numbers
 	 */
 	public String getText() {
-		return textPane.getText();
+		return line;
 	}	
 	
 	/**
 	 * To enable/disable "." Button
 	 * @param boolean enable true/false
 	 */
+/**
 	public void setFloatingPointButtonStatus(boolean enable) {
-		activeFloatingPointButton = enable;
+		enableFloatingPointButton = enable;
+	}	
+*/
+	/**
+	 * set availability of keypad and floating point
+	 * @param enableNumber true/false
+	 * @param enableFloatingPoint true/false
+	 */
+	public void setKeypadAvailability(boolean enableNumber, boolean enableFloatingPoint) {
+		enableKeypad = enableNumber;
+		enableFloatingPointButton = enableFloatingPoint;
 	}
 	
 	public void run() {
+		ATMgui.get().display(GUIType.MainMenu);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ATM_WIDTH, ATM_HEIGHT);	//set frame size
 		setVisible(true);	//display frame
-		//setResizable(false);	//disable resizing window
+		setResizable(false);	//disable resizing window
 	}
 }
 

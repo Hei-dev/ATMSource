@@ -21,7 +21,7 @@ public class ATM
    {
       userAuthenticated = false; // user is not authenticated to start
       currentAccountNumber = 0; // no current account number to start
-      screen = new Screen(); // create screen
+      screen = (Screen) ATMgui.get(); // create screen
       keypad = new Keypad(); // create keypad 
       cashDispenser = new CashDispenser(); // create cash dispenser
       bankDatabase = new BankDatabase(); // create acct info database
@@ -36,7 +36,7 @@ public class ATM
          // loop while user is not yet authenticated
          while ( !userAuthenticated ) 
          {
-            screen.displayMessageLine( "\nWelcome!" );       
+            screen.display(GUIType.Login);
             authenticateUser(); // authenticate user
          } // end while
          

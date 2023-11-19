@@ -11,7 +11,7 @@ public class Withdrawal extends Transaction
    private final static int CANCELED = 6;
 
    // Withdrawal constructor
-   public Withdrawal( int userAccountNumber, Screen atmScreen, 
+   public Withdrawal( int userAccountNumber, ATMgui atmScreen, 
       BankDatabase atmBankDatabase, Keypad atmKeypad, 
       CashDispenser atmCashDispenser )
    {
@@ -31,7 +31,7 @@ public class Withdrawal extends Transaction
 
       // get references to bank database and screen
       BankDatabase bankDatabase = getBankDatabase(); 
-      Screen screen = getScreen();
+      ATMgui screen = getScreen();
 
       // loop until cash is dispensed or the user cancels
       do
@@ -59,24 +59,26 @@ public class Withdrawal extends Transaction
                   cashDispensed = true; // cash was dispensed
 
                   // instruct user to take cash
-                  screen.displayMessageLine( 
-                     "\nPlease take your cash now." );
+                  //screen.displayMessageLine( "\nPlease take your cash now." );
                } // end if
-               else // cash dispenser does not have enough cash
+               else{ // cash dispenser does not have enough cash
+                  // TODO display error message
+               }
+               /* 
                   screen.displayMessageLine( 
                      "\nInsufficient cash available in the ATM." +
-                     "\n\nPlease choose a smaller amount." );
+                     "\n\nPlease choose a smaller amount." );*/
             } // end if
             else // not enough money available in user's account
             {
-               screen.displayMessageLine( 
-                  "\nInsufficient funds in your account." +
-                  "\n\nPlease choose a smaller amount." );
+               // screen.displayMessageLine( 
+               //    "\nInsufficient funds in your account." +
+               //    "\n\nPlease choose a smaller amount." );
             } // end else
          } // end if
          else // user chose cancel menu option 
          {
-            screen.displayMessageLine( "\nCanceling transaction..." );
+            // screen.displayMessageLine( "\nCanceling transaction..." );
             return; // return to main menu because user canceled
          } // end else
       } while ( !cashDispensed );
@@ -98,7 +100,7 @@ public class Withdrawal extends Transaction
    {
       int userChoice = 0; // local variable to store return value
 
-      Screen screen = getScreen(); // get screen reference
+      ATMgui screen = getScreen(); // get screen reference
       
       // array of amounts to correspond to menu numbers
       int amounts[] = { 0, 100, 200, 500, 1000};
@@ -107,6 +109,7 @@ public class Withdrawal extends Transaction
       while ( userChoice == 0 )
       {
          // display the menu
+         /* 
          screen.displayMessageLine( "\nWithdrawal Menu:" );
          screen.displayMessageLine( "1 - $100" );
          screen.displayMessageLine( "2 - $200" );
@@ -114,7 +117,7 @@ public class Withdrawal extends Transaction
          screen.displayMessageLine( "4 - $1000" );
          screen.displayMessageLine( "5 - Enter a specific amount" );
          screen.displayMessageLine( "6 - Cancel transaction" );
-         screen.displayMessage( "\nChoose a withdrawal amount: " );
+         screen.displayMessage( "\nChoose a withdrawal amount: " );*/
 
          int input = keypad.getInput(); // get user input through keypad
 
@@ -130,7 +133,7 @@ public class Withdrawal extends Transaction
             case 5:
                 boolean isInputValid = false;
                 while(!isInputValid){
-                    screen.displayMessageLine("\nInput the exact amount to withdraw (Enter 0 to quit): ");
+                    //screen.displayMessageLine("\nInput the exact amount to withdraw (Enter 0 to quit): ");
                     userChoice = keypad.getInput();
                     isInputValid = isValidInput(userChoice); // Check if input is valid
                     if(userChoice==0){
@@ -138,7 +141,7 @@ public class Withdrawal extends Transaction
                         break;
                     }
                     else if(!isInputValid){
-                        screen.displayMessageLine("Invalid input, please enter an integer that is the multiplication of 100, and is greater or equal to 100.");
+                        //screen.displayMessageLine("Invalid input, please enter an integer that is the multiplication of 100, and is greater or equal to 100.");
                     }
                 }
                   break;
@@ -146,8 +149,8 @@ public class Withdrawal extends Transaction
                userChoice = CANCELED; // save user's choice
                break;
             default: // the user did not enter a value from 1-6
-               screen.displayMessageLine( 
-                  "\nInvalid selection. Try again." );
+               // screen.displayMessageLine( 
+               //    "\nInvalid selection. Try again." );
          } // end switch
       } // end while
 

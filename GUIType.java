@@ -5,5 +5,6 @@ public enum GUIType {
 	Balance,
 	Withdrawal,
 	Transfer,
-	Exit
+	Exit,
+	Login
 }

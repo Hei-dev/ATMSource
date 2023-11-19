@@ -1,47 +1,80 @@
+
+
 //ATMgui.java
 //Represents the GUI version of ATM
 
 public class ATMgui extends BaseATMgui{
 
+
+	Exitgui exit = new Exitgui();
+	MainMenugui mainmenu = new MainMenugui();
+	
+
 	// Constructors
 
     protected ATMgui(){
-        super();
+        this("ATM");
+        
     }
 
-	protected ATMgui(String title){
+	private ATMgui(String title){
 		super(title);
+		System.out.println("ATMgui constructor");
 	}
-
+	
+	
 	/**
 	 * Creates a new GUI based on the `GUIType`
-	 * @param t GUIType the GUIType of which to be constructed
-	 * @return ATMgui the GUI of that type.
+	 * @param t GUIType the GUIType of which to be called
 	 */
-	private static ATMgui newGui(GUIType t){
+	public void display(GUIType t) {
 		switch(t){
 			case MainMenu:
-				return new MainMenugui(); 
+				System.out.println("ATMgui display mainmenu");
+				// disable keypad input
+				setKeypadAvailability(true, true);
+				addMainPanel(mainmenu.getPanel());
+				System.out.println("ATMgui call listener mainmenu");
+				mainmenu.setallSelectionListener();
+				break;
 			case Withdrawal:
-				return new WithdrawalGUI();
+				addMainPanel(WithdrawalGUI.getMainPanel());
+				break;
 			case Exit:
-				return new Exitgui();
+				setKeypadAvailability(false, false);
+				addMainPanel(exit.getPanel());
+				exit.setallSelectionListener();
+				break;
+			case Balance:
+		
+				break;
+			case Transfer:
+		
+				break;
+			case Login:
+				// TODO displays login screen
+				display(GUIType.MainMenu);
+				break;
 			default:
-				return new ATMgui();
+				break;
 		}
+		
+		revalidate();
+		repaint();
 	}
 	
 	// Singleton stuff
 	private static ATMgui Gui = null;
-	private static GUIType currentGUIType = GUIType.Default;
+	//private static GUIType currentGUIType = GUIType.Default;
 	/**
 	 * Gets the current ATM GUI
 	 * @param t the GUIType to be gotten
 	 * @return the concerned GUI Type
 	 */
-	public static synchronized ATMgui get(GUIType t){
-		if(t!=currentGUIType){
-			Gui = newGui(t);
+	public static synchronized ATMgui get(){
+		if(Gui == null){
+			Gui = new ATMgui();
+			//ATM innerATM = new ATM();
 		}
 		return Gui;
 	}
