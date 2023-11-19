@@ -40,8 +40,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		rightSelectionPanel,
 		centreBasePanel;
 	private JTextPane textPane;
-	private String line = "";
-	private boolean activeFloatingPointButton;
+	private String line;
 	private GridBagConstraints 
 		c_hardware,
 		c_interface = new GridBagConstraints();
@@ -52,7 +51,9 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		screenTitle,
 		screenSelection[];
 	
-	private boolean enableKeypad = true;
+	private boolean 
+		enableKeypad,
+		enableFloatingPointButton;
 	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
@@ -87,10 +88,11 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	protected BaseATMgui(String title) {
 		super(title);
 		
-		/*
-		// enable floating point button as default
-		activeFloatingPointButton = true;
 		
+		// enable floating point button as default
+		enableFloatingPointButton = true;
+		enableKeypad = true;
+		/*
 		// create default center panel representing screen
 		// create default screen component
 	    // create screen Title
@@ -152,9 +154,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	    	}
 	    }
 	    */
-	    
-		defaultPanel = getdefaultGUI();
-		
+		/*
 		// create text panel for reading input
 		defaultTextPane.setEditable(false);    // set textArea not editable
 	    defaultTextPane.setText(line);  // display line1 in textArea 
@@ -163,10 +163,15 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
 	    style.setParagraphAttributes(0, style.getLength(), align, false);
 	    defaultTextPane.setName("Input Area");		// create component textpanel name
-		textPane = defaultTextPane;
-		
+		//textPane = defaultTextPane;
+
+		//setTextPanel(defaultPanel);
+	    */
+		defaultPanel = getdefaultGUI();
+
+
+		//setTextPanel(defaultPanel);
 	    // add textPane for showing input
-		setTextPanel(defaultPanel);
 	    //clonePanel.add(textPane, c_interface);
 		
 		// create left and right selection button panel
@@ -334,14 +339,19 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	    c_hardware.ipadx = 0;
 	    c_hardware.insets = new Insets(5, 25, 5, 25);
 	    add(keyPadPanel, c_hardware);   
-	    	    
+	    
 	    
 	    
 	    // create handler for keypad buttons
   		ActionListener keyPadListener = new ActionListener() {
   			@Override
   			public void actionPerformed(ActionEvent event) {
-  			
+  				
+  				line = getTextPaneText(currentPanel);
+  				System.out.println("active floating point: "+enableFloatingPointButton);
+  				//System.out.println(currentPanel);
+  				System.out.println("line before input: "+line);
+  				//System.out.println(enableKeypad);
  				// enter numbers to text pane, divide buttons ENTER, CANCEL, CLEAR functionality
  				if (((event.getActionCommand() == "CANCEL") || (event.getActionCommand() == "ENTER") || (event.getActionCommand() == "CLEAR")) && (enableKeypad == true)) {
  					switch (event.getActionCommand()) {
@@ -349,14 +359,18 @@ public class BaseATMgui extends JFrame implements Defaultgui{
  					case "CANCEL":
  						if (line != "") {
  							line = line.substring(0, line.length() - 1);
- 							textPane.setText(line);
+ 			 				updateTextPane(currentPanel, line);
+ 							//updateTextPane(currentPanel, line);
+ 							//textPane.setText(line);
  						}
  						// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
  						break;
  					// Pressing CLEAR, clear the text from textPane
  					case "CLEAR":
  						line = "";
- 						textPane.setText(line);
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
+ 						//textPane.setText(line);
  						// System.out.printf("Text:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(), Long.parseLong(line));
  						break;
  					// Pressing ENTER
@@ -364,8 +378,10 @@ public class BaseATMgui extends JFrame implements Defaultgui{
  						enter();
  						// System.out.printf("Before:%nText:%s%nLength:%s%nText in Integer:%id%n%n", line, line.length(), Long.parseLong(line));
  						line = "";
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
  						// System.out.printf("After:%nText:%s%nLength:%s%nText in Integer:%d%n%n", line, line.length(),Long.parseLong(line));
- 						textPane.setText(line);
+ 						//textPane.setText(line);
  						break;
  					}
  				} else if (enableKeypad == true) {
@@ -376,26 +392,34 @@ public class BaseATMgui extends JFrame implements Defaultgui{
  					 */
  					if (event.getActionCommand() != ".") {
  						line = line.concat(event.getActionCommand());
- 						textPane.setText(line);
+ 		 				updateTextPane(currentPanel, line);
+ 						//setComponentText(currentPanel, "Input Area", line);
+ 						//textPane.setText(line);
  					}
  					// check if "." exist in line
- 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (activeFloatingPointButton == true)) {
+ 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
  						// setting of Floating Point numbers, only 1 "." can exist once
  						// remember to set back to true after finishing the whole input if set to false
  						
  						// check if length of string > 0 and if floating point is enabled
  						if (line.length() > 0) {
- 								line = line.concat(".");
- 								textPane.setText(line);
+							line = line.concat(".");
+							System.out.println("line when updating: "+line);
+			 				updateTextPane(currentPanel, line);
+							//setComponentText(currentPanel, "Input Area", line);
+							//textPane.setText(line);
  						}
  						//check if the first input is "."
  						else {
  							line = "0.";
- 							textPane.setText(line);	
+ 			 				updateTextPane(currentPanel, line); 							
+ 							//setComponentText(currentPanel, "Input Area", line);
+ 							//textPane.setText(line);	
  						}
  					}
  					//System.out.printf("Text:%s%nLength:%s%nText in Integer:%f%n%n", line, line.length(), Double.parseDouble(line));
  				}
+ 				System.out.println("line after input: " + line);
   			}
   		};
   		
@@ -429,15 +453,25 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		
 		currentPanel = (JPanel)findComponentByName("MainPanel");
 		try	{
+			System.out.println("BaseATMgui Remove currentPanel");
 			centreBasePanel.remove(currentPanel);
 		} catch (NullPointerException npt) {
 			System.out.println(npt);
 		}
-		
+		System.out.println("BaseATMgui replace currentPanel");
 		currentPanel = panel;
+		//currentPanel.setBackground(Color.BLUE);
 		currentPanel.setName("MainPanel");
+		//currentPanel.add(textPane);
+		//setTextPanel(currentPanel);
 		centreBasePanel.add(currentPanel);
 		
+		// reset selection ActionListener
+		for( JButton currentButton: selection ) {
+		    for( ActionListener al : currentButton.getActionListeners() ) {
+		        currentButton.removeActionListener( al );
+		    }
+		}
 		
 		//centreBasePanel.add(panel);
 		
@@ -469,14 +503,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	    c_interface.weightx = 1;
 	    c_interface.weighty = 0.001;
 	    panel.add(textPane, c_interface);
-	}
-	
-	/**
-	 * set availability of keypad (default true)
-	 * @param boolean enable true/false
-	 */
-	public void setKeypadAvailability(boolean enable) {
-		enableKeypad = enable;
 	}
 	
 	/**
@@ -639,19 +665,30 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	 * @return String of inputed numbers
 	 */
 	public String getText() {
-		return textPane.getText();
+		return line;
 	}	
 	
 	/**
 	 * To enable/disable "." Button
 	 * @param boolean enable true/false
 	 */
+/**
 	public void setFloatingPointButtonStatus(boolean enable) {
-		activeFloatingPointButton = enable;
+		enableFloatingPointButton = enable;
 	}	
+*/
+	/**
+	 * set availability of keypad and floating point
+	 * @param enableNumber true/false
+	 * @param enableFloatingPoint true/false
+	 */
+	public void setKeypadAvailability(boolean enableNumber, boolean enableFloatingPoint) {
+		enableKeypad = enableNumber;
+		enableFloatingPointButton = enableFloatingPoint;
+	}
 	
 	public void run() {
-		ATMgui.get().display(GUIType.Login);
+		ATMgui.get().display(GUIType.MainMenu);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ATM_WIDTH, ATM_HEIGHT);	//set frame size

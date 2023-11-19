@@ -5,18 +5,21 @@
 
 public class ATMgui extends BaseATMgui{
 
-	
+
 	Exitgui exit = new Exitgui();
 	MainMenugui mainmenu = new MainMenugui();
+	
 
 	// Constructors
 
     protected ATMgui(){
         this("ATM");
+        
     }
 
 	private ATMgui(String title){
 		super(title);
+		System.out.println("ATMgui constructor");
 	}
 	
 	
@@ -27,15 +30,18 @@ public class ATMgui extends BaseATMgui{
 	public void display(GUIType t) {
 		switch(t){
 			case MainMenu:
-				addMainPanel(mainmenu.getPanel());
+				System.out.println("ATMgui display mainmenu");
 				// disable keypad input
-				setKeypadAvailability(false);
+				setKeypadAvailability(true, true);
+				addMainPanel(mainmenu.getPanel());
+				System.out.println("ATMgui call listener mainmenu");
 				mainmenu.setallSelectionListener();
 				break;
 			case Withdrawal:
 				addMainPanel(WithdrawalGUI.getMainPanel());
 				break;
 			case Exit:
+				setKeypadAvailability(false, false);
 				addMainPanel(exit.getPanel());
 				exit.setallSelectionListener();
 				break;

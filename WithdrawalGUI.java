@@ -8,6 +8,7 @@ public class WithdrawalGUI implements Defaultgui{
         //super("Withdrawal");
     }
 
+
     public static JPanel getMainPanel() {
 
         mainPanel = ATMgui.get().getdefaultGUI();

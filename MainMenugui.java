@@ -8,17 +8,16 @@ public class MainMenugui implements Defaultgui{
 	private BankDatabase bankDB;
 
 	private int currentAccountNumber; // current user's account number
-
-	private static final ATMgui SCREEN = ATMgui.get();
+	
+	private ATMgui SCREEN;
+	//private static final ATMgui SCREEN = ATMgui.get();
 	
 	protected MainMenugui() {
-
+		System.out.println("MainMenugui constructor");
 		mainMenu = getdefaultGUI();
 		
 		// change title to "Main Menu"
 		setComponentText(mainMenu, "Title", "Main Menu", 1, 20);
-		
-		setComponentText(mainMenu, "selection4", "View my balance");
 
 		// change selection names
 		setComponentText(mainMenu, "selection4", "View my balance");
@@ -29,7 +28,7 @@ public class MainMenugui implements Defaultgui{
 		for (int i = 0; i < 4; i++) {
 			setSelectionDisplay(mainMenu, i, false);
 		}
-
+		//setTextPanel(mainMenu);
 		bankDB = new BankDatabase();
 	}
 
@@ -41,6 +40,7 @@ public class MainMenugui implements Defaultgui{
 	 * @param pin the PIN of the account number
 	 * @return boolean whether the authentication is successful
 	 */
+	/**
 	private boolean authenticateUser(int accountNumber, int pin){
 		if(bankDB.authenticateUser( accountNumber, pin )){ // Try to login the user
 			currentAccountNumber = accountNumber; // sets the current accunt number
@@ -48,9 +48,10 @@ public class MainMenugui implements Defaultgui{
 		}
 		return false;
 	}
-
+	*/
 	
 	public JPanel getPanel() {
+		System.out.println("MainMenu getPanel()");
 		return mainMenu;
 	}
 	
@@ -62,12 +63,14 @@ public class MainMenugui implements Defaultgui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ATMgui.get().display(null);
 				Transaction temp = new BalanceInquiry( getAccountNumber(), ATMgui.get(),bankDB );
 				temp.execute();
+				ATMgui.get().display(GUIType.Balance);
 			}
 		});
 
-		System.out.println("a");
+		System.out.println("MainMenugui balance listener");
 		
 		// set action listener for withdraw
 		ActionListener withdraw = new ActionListener() {
@@ -77,26 +80,26 @@ public class MainMenugui implements Defaultgui{
 				Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, 
                		bankDB, /*keypad, cashDispenser*/new Keypad(), new CashDispenser() );
 				temp.execute();
-				//ATMgui.get().display(GUIType.Withdrawal);
+				ATMgui.get().display(GUIType.Withdrawal);
 			}
 			
 		};
 		ATMgui.get().setSelectionListener(6, withdraw);
 
-		System.out.println("b");
+		System.out.println("MainMenugui withdraw listener");
 		
 		// set action listener for transfer fund
 		ActionListener transferFund = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Transaction temp = new Transfer( currentAccountNumber, SCREEN, 
-               		bankDB, new Keypad() );
+				//Transaction temp = new Transfer( currentAccountNumber, SCREEN, bankDB, new Keypad() );
+				ATMgui.get().display(GUIType.Transfer);
 			}
 			
 		};
 		ATMgui.get().setSelectionListener(3, transferFund);
-		System.out.println("c");
+		System.out.println("MainMenugui transfer listener");
 		
 		// set action listener for exit
 		ActionListener exit = new ActionListener() {
@@ -108,7 +111,6 @@ public class MainMenugui implements Defaultgui{
 			
 		};
 		ATMgui.get().setSelectionListener(7, exit);
-
-		System.out.println("d");
+		System.out.println("MainMenugui exit listener");
 	}
 }
