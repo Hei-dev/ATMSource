@@ -59,7 +59,9 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Transfer:
-        
+        	setKeypadAvailability(true, true);
+		addMainPanel(transfer.getPanel());
+		transfer.setallSelectionListener();
                 break;
             case Login:
                 // TODO displays login screen
