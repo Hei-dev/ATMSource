@@ -40,7 +40,7 @@ public class Balancegui implements Defaultgui{
         return balance;
     }
     
-    public void setallSelectionListener() {
+    public void setallListener() {
         // set action listener for Available Balance
 
         ActionListener availableBalance = new ActionListener() {

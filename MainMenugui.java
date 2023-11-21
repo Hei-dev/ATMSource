@@ -34,7 +34,7 @@ public class MainMenugui implements Defaultgui{
 		return mainMenu;
 	}
 	
-	public void setallSelectionListener() {
+	public void setallListener() {
 		// set action listener for view balance
 		ATMgui.get().setSelectionListener(2, new ActionListener() {
 
@@ -65,12 +65,6 @@ public class MainMenugui implements Defaultgui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
-              			currentAccountNumber = 12345;
-                		Transaction temp = new Transfer( currentAccountNumber, SCREEN, 
-                       		bankDB, new Keypad() );
-               			temp.execute();
-               			*/
 				ATMgui.get().display(GUIType.Transfer);
 			}
 			

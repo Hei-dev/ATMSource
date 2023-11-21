@@ -143,7 +143,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         keyPadPanel.add( keys[ 12 ] );    
         // 0, 00
         keyPadPanel.add( keys[ 0 ] );
-        keyPadPanel.add( keys[ 14 ]);
+        keyPadPanel.add( keys[ 14 ] );
         keyPadPanel.add( keys[ 13 ] );
 
         
@@ -289,7 +289,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
   	    // 0 - 9 , CANCEL , CLEAR , ENTER , 00
   		for (int i = 0; i<=14; i++)
   			keys[i].addActionListener(keyPadListener);
-  		  		
 	}
 	
 
@@ -317,22 +316,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		
 		revalidate();
 		repaint();
-	}
-	
-	/**
-	 * add text panel to your screen component
-	 * @param Jpanel of your panel 
-	 */
-	public void setTextPanel(JPanel panel) {
-	    c_interface.gridx = 0;
-	    c_interface.gridy = 13;
-	    c_interface.gridwidth = 8;
-	    c_interface.gridheight = 1;
-	    c_interface.weightx = 1;
-	    c_interface.weighty = 0.001;
-	    panel.add(textPane, c_interface);
-	}
-	
+	}	
 	
 	
 	
@@ -370,28 +354,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	public void setSelectionListener(int i, ActionListener al) {
 		selection[i].addActionListener(al);
 	}
-	
-	/**
-	 * @Override this method by putting all setSelectionListener in this method
-	 * update all selection event to class specific event
-	 */
-	public void setallSelectionListener() {
-		for (int i = 1; i < 8; i++)
-			selection[i].addActionListener(null);
-	}	
-	
-	/**
-	 * return number from text pane in String
-	 * @return String of inputed numbers
-	 */
-	public String getText() {
-		return line;
-	}	
-	
-	/**
-	 * To enable/disable "." Button
-	 * @param boolean enable true/false
-	 */
 
 	/**
 	 * set availability of keypad and floating point

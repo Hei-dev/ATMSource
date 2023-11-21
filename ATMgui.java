@@ -39,7 +39,7 @@ public class ATMgui extends BaseATMgui{
                 // disable keypad input
                 setKeypadAvailability(true, true);
                 addMainPanel(mainmenu.getPanel());
-                mainmenu.setallSelectionListener();
+                mainmenu.setallListener();
                 break;
                 
             case Withdrawal:
@@ -49,19 +49,17 @@ public class ATMgui extends BaseATMgui{
             case Exit:
                 setKeypadAvailability(false, false);
                 addMainPanel(exit.getPanel());
-                exit.setallSelectionListener();
+                exit.setallListener();
                 break;
                 
             case Balance:
                 addMainPanel(balance.getPanel());
                 setKeypadAvailability(true, false);
-                balance.setallSelectionListener();
+                balance.setallListener();
                 break;
                 
             case Transfer:
-        	setKeypadAvailability(true, true);
-		addMainPanel(transfer.getPanel());
-		transfer.setallSelectionListener();
+        
                 break;
             case Login:
                 // TODO displays login screen

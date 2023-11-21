@@ -69,7 +69,7 @@ public class TransferGUI implements Defaultgui
         ATMgui.get().setComponentText(TransferGUI, "selection7", "Cancel", 1, 12);
     }
     
-    public void setallSelectionListener()
+    public void setallListener()
     {
         ActionListener buttonListener = new ActionListener()
         

@@ -37,7 +37,7 @@ public class Exitgui{
 		
 	}
 	
-	public void setallSelectionListener() {
+	public void setallListener() {
 		ATMgui.get().setSelectionListener(7, new ActionListener() {
 
 			@Override
