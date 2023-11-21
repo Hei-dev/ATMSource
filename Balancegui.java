@@ -2,10 +2,12 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class Balancegui implements Defaultgui{
     private JPanel balance;
     private BankDatabase bankDB;
+    private Font balancefont;
 
     private int currentAccountNumber; // current user's account number
     
@@ -14,15 +16,16 @@ public class Balancegui implements Defaultgui{
     
     protected Balancegui() {
         balance = getdefaultGUI();
+        balancefont = new Font("balfont", 1, 20);
         
         // change title to "balance"
-        setComponentText(balance, "Title", "View my balance", 1, 20);
+        setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
 
         // change selection names
-        setComponentText(balance, "selection4", "Available balance");
-        setComponentText(balance, "selection5", "Total balance");
-        setComponentText(balance, "selection6", "Main menu");
-        setComponentText(balance, "selection7", "Exit");
+        setComponentText(balance, Defaultgui.SELECTION4_LABEL, "Available balance");
+        setComponentText(balance, Defaultgui.SELECTION5_LABEL, "Total balance");
+        setComponentText(balance, Defaultgui.SELECTION6_LABEL, "Main menu");
+        setComponentText(balance, Defaultgui.SELECTION7_LABEL, "Exit");
         // Set the rest of the selection with no text
         for (int i = 0; i < 4; i++) {
             setSelectionDisplay(balance, i, false);
@@ -49,7 +52,7 @@ public class Balancegui implements Defaultgui{
             public void actionPerformed(ActionEvent e) {
                 //Transaction temp = new Transfer( currentAccountNumber, SCREEN, bankDB, new Keypad() );
                 String AvailableBalance = Double.toString(bankDB.getAvailableBalance(getAccountNumber()));
-                setComponentText(balance, "Title", "Available Balance: " + AvailableBalance, 1, 20);
+                setComponentText(balance, "Title", "Available Balance: " + AvailableBalance, balancefont);
                 //+ AvailableBalance
             }
         };
@@ -63,7 +66,7 @@ public class Balancegui implements Defaultgui{
             public void actionPerformed(ActionEvent e) {
                 //Transaction temp = new Transfer( currentAccountNumber, SCREEN, bankDB, new Keypad() );
                 String TotalBalance = Double.toString(bankDB.getTotalBalance(getAccountNumber()));
-                setComponentText(balance, "Title", "Total Balance: " + TotalBalance, 1, 20);
+                setComponentText(balance, "Title", "Total Balance: " + TotalBalance, balancefont);
                 //+ TotalBalance
             }
         };

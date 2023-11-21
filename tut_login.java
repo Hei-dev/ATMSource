@@ -1,4 +1,4 @@
-
+/**
 // start display login ui
 
 // Acc number enter
@@ -53,4 +53,4 @@ private void passwordCheck(){
         }
     }
 }
-
+*/

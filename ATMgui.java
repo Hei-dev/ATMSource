@@ -63,7 +63,7 @@ public class ATMgui extends BaseATMgui{
                 break;
             case Login:
                 // TODO displays login screen
-                display(GUIType.MainMenu);
+                display(GUIType.Greeting);
                 break;
             default:
                 break;

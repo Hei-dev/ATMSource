@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class TransferGUI implements Defaultgui 
 {
@@ -9,17 +10,22 @@ public class TransferGUI implements Defaultgui
     
     private String target_account;
     private String amount;
+    private Font 
+    	transferfont,
+    	amountfont;
     
     protected TransferGUI()
     {
         TransferGUI = getdefaultGUI();
+        transferfont = new Font("Transfont", 1, 20);
+        amountfont = new Font("Amtfont", 1, 12);
         
         target_account = "-1";
         amount = "-1";
                     
         // change title
         setComponentText
-        (TransferGUI, "Title", "Please enter transfer amount (0 to cancel)", 1, 20);
+        (TransferGUI, "Title", "Please enter transfer amount (0 to cancel)", transferfont);
             
         //disable all selection message
         for (int i = 0; i < 8; i++)
@@ -39,7 +45,7 @@ public class TransferGUI implements Defaultgui
         amount = input;
         
         setComponentText
-        (TransferGUI, "Title", "Please enter target account (0 to cancel)", 1, 20);
+        (TransferGUI, "Title", "Please enter target account (0 to cancel)", transferfont);
         
         return Double.parseDouble( amount );
     }
@@ -55,17 +61,17 @@ public class TransferGUI implements Defaultgui
     public void promt_confirm()
     {   
         setComponentText
-        (TransferGUI, "Title", "Please check all inputs are correct", 1, 20);
+        (TransferGUI, "Title", "Please check all inputs are correct", transferfont);
         for (int i = 2; i<= 7; i++)
         {
             setSelectionDisplay(TransferGUI, i, true);
         }
-        ATMgui.get().setComponentText(TransferGUI, "selection2", "transfer amount:",1, 12);
-        ATMgui.get().setComponentText(TransferGUI, "selection3", amount);
-        ATMgui.get().setComponentText(TransferGUI, "selection4", "target account:",1 ,12);
-        ATMgui.get().setComponentText(TransferGUI, "selection5", target_account);
-        ATMgui.get().setComponentText(TransferGUI, "selection6", "Confirm", 1, 12);
-        ATMgui.get().setComponentText(TransferGUI, "selection7", "Cancel", 1, 12);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "transfer amount:", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, amount);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, "target account:", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, target_account);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION6_LABEL, "Confirm", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION7_LABEL, "Cancel", amountfont);
     }
     
     public void setallListener()

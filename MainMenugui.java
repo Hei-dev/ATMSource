@@ -18,12 +18,12 @@ public class MainMenugui implements Defaultgui{
 		mainMenuFont = new Font("mainMenuFont", 1 ,20);
 		
 		// change title to "Main Menu"
-		setComponentText(mainMenu, "Title", "Main Menu", mainMenuFont);
+		setComponentText(mainMenu, Defaultgui.TITLE_LABEL, "Main Menu", mainMenuFont);
         // change selection names
-        setComponentText(mainMenu, "selection4", "View my balance");
-        setComponentText(mainMenu, "selection5", "Withdraw cash");
-        setComponentText(mainMenu, "selection6", "Transfer funds");
-        setComponentText(mainMenu, "selection7", "Exit");
+        setComponentText(mainMenu, Defaultgui.SELECTION4_LABEL, "View my balance");
+        setComponentText(mainMenu, Defaultgui.SELECTION5_LABEL, "Withdraw cash");
+        setComponentText(mainMenu, Defaultgui.SELECTION6_LABEL, "Transfer funds");
+        setComponentText(mainMenu, Defaultgui.SELECTION7_LABEL, "Exit");
         // Set the rest of the selection with no text
         for (int i = 0; i < 4; i++) {
             setSelectionDisplay(mainMenu, i, false);
