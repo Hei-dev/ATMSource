@@ -34,7 +34,7 @@ public class SwingTemp extends JFrame{
         tb_f.getDocument().putProperty("name","f");
         c.add(tb_f);
 
-        setSize(200,100);
+        setSize(200,300);
         setTitle("Swing TempConvertor");
         setVisible(true);
         
