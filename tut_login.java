@@ -13,8 +13,8 @@ ATMgui.get().setEnterListener(new ActionListener(){
 // Password check
 private void passwordCheck(){
     ATMgui.get().setEnterListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae){
+        @Override
+        public void actionPerformed(ActionEvent ae){
             boolean userAuthenticated = bankDatabase.authenticateUser( accountNumber, pin );
             
             // check whether authentication succeeded
