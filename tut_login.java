@@ -14,7 +14,17 @@ ATMgui.get().setEnterListener(new ActionListener(){
          // proceeed to main menu
       } 
       else{
-        login_ui.getContentPane().add(new JLabel("Wrong PIN"));
+        JLabel error_message = new JLabel("");
+        error_message.setName("err_msg");
+        login_ui.add(error_message);
+
+        error_message = (JLabel)ATMgui.get().findComponentByName("err_msg");
+
+        login_ui.remove(error_message);
+
+        error_message.setText("Invalid");
+
+        login_ui.add(error_message);
         ATMgui.get().addMainPanel(login_ui)
       }
     }
