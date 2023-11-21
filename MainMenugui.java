@@ -1,11 +1,13 @@
 import javax.swing.JPanel;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenugui implements Defaultgui{
     private JPanel mainMenu;
     private BankDatabase bankDB;
+    private Font mainMenuFont;
 
 	private int currentAccountNumber; // current user's account number
 	
@@ -13,9 +15,10 @@ public class MainMenugui implements Defaultgui{
 	
 	protected MainMenugui() {
 		mainMenu = getdefaultGUI();
+		mainMenuFont = new Font("mainMenuFont", 1 ,20);
 		
 		// change title to "Main Menu"
-		setComponentText(mainMenu, "Title", "Main Menu", 1, 20);
+		setComponentText(mainMenu, "Title", "Main Menu", mainMenuFont);
         // change selection names
         setComponentText(mainMenu, "selection4", "View my balance");
         setComponentText(mainMenu, "selection5", "Withdraw cash");
