@@ -243,23 +243,23 @@ public class BaseATMgui extends JFrame implements Defaultgui{
   	  				case "CANCEL":
 						if (line != "") {
 							line = line.substring(0, line.length() - 1);
-			 				setTextPane(currentPanel, line);
+			 				setTextPaneText(currentPanel, line);
 						}
 						break;
 					// Pressing CLEAR, clear the text from textPane
 					case "CLEAR":
 						line = "";
-		 				setTextPane(currentPanel, line);
+		 				setTextPaneText(currentPanel, line);
 						break;
 					// Pressing ENTER
 					case "ENTER":
 						line = "";
-		 				setTextPane(currentPanel, line);
+		 				setTextPaneText(currentPanel, line);
 						break;
 					default:
 						if (event.getActionCommand() != ".") {
 	 						line = line.concat(event.getActionCommand());
-	 		 				setTextPane(currentPanel, line);
+	 		 				setTextPaneText(currentPanel, line);
 	 					}
 	 					// check if "." exist in line
 	 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
@@ -268,12 +268,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	 						// check if length of string > 0 and if floating point is enabled
 	 						if (line.length() > 0) {
 								line = line.concat(".");
-				 				setTextPane(currentPanel, line);
+				 				setTextPaneText(currentPanel, line);
 	 						}
 	 						//check if the first input is "."
 	 						else {
 	 							line = "0.";
-	 			 				setTextPane(currentPanel, line);
+	 			 				setTextPaneText(currentPanel, line);
 	 						}
 	 					}
   	  				}
@@ -334,7 +334,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				line = "";
-				setTextPane(currentPanel, line);
+				setTextPaneText(currentPanel, line);
 			}
 			
 		});

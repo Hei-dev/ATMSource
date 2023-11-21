@@ -133,7 +133,7 @@ public interface Defaultgui {
 	 * @param panel
 	 * @param text
 	 */	
-	default void setTextPane(JPanel panel,String text) {
+	default void setTextPaneText(JPanel panel,String text) {
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JTextPane) && (c.getName()==INPUT_AREA_PANEL)) {
