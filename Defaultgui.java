@@ -19,7 +19,7 @@ public interface Defaultgui {
 	
 	final String 
 		TITLE_LABEL = "Title",
-		INPUT_AREA_LABEL = "Input Area",
+		INPUT_AREA_PANEL = "Input Area",
 		SELECTION0_LABEL = "selection0",
 		SELECTION1_LABEL = "selection1",
 		SELECTION2_LABEL = "selection2",
@@ -64,7 +64,7 @@ public interface Defaultgui {
  	    SimpleAttributeSet align= new SimpleAttributeSet();
  	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
  	    style.setParagraphAttributes(0, style.getLength(), align, false);
- 	    defaultTextPane.setName(INPUT_AREA_LABEL);		// create component textpanel name
+ 	    defaultTextPane.setName(INPUT_AREA_PANEL);		// create component textpanel name
 	    
 	
 
@@ -120,7 +120,7 @@ public interface Defaultgui {
 		String text = null;
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
-			if ((c instanceof JTextPane) && (c.getName()=="Input Area")) {
+			if ((c instanceof JTextPane) && (c.getName()==INPUT_AREA_PANEL)) {
 				temp = (JTextPane)c;
 				text = temp.getText();
 			}
@@ -136,7 +136,7 @@ public interface Defaultgui {
 	default void setTextPane(JPanel panel,String text) {
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
-			if ((c instanceof JTextPane) && (c.getName()=="Input Area")) {
+			if ((c instanceof JTextPane) && (c.getName()==INPUT_AREA_PANEL)) {
 				temp = (JTextPane)c;
 				temp.setText(text);
 				c = temp;
@@ -170,9 +170,8 @@ public interface Defaultgui {
 	 * @param int size of the font
 	 */
 	
-	default void setComponentText(JPanel panel, String componentName, String text, int style, int size) {
+	default void setComponentText(JPanel panel, String componentName, String text, Font font) {
 		JLabel temp;
-		Font font = new Font(text, style, size);
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JLabel) && (c.getName()==componentName)) {
 				temp = (JLabel)c;
