@@ -16,9 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
-
-
 
 
 public class BaseATMgui extends JFrame implements Defaultgui{
@@ -43,22 +40,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	protected static final int DEFAULT_BORDER_WIDTH = 2;
 	
 
-	private Component findComponentByName(String name){
-		return findComponentByName(name, getContentPane());
-	}
-
-    // Gets the components inside the main frame.
-    private Component findComponentByName(String name, Container mContainer){
-        Component returnCom = null;
-        for(Component c : mContainer.getComponents()){
-            if(c.getName()==name)
-                return c;
-            if(c instanceof Container)
-                if((returnCom = findComponentByName(name,(Container)c))!=null)
-                    return returnCom;
-        }
-        return null;
-    }
     
     protected BaseATMgui() {
         this("ATM");
@@ -318,6 +299,28 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	
 	//	FUNCTIONALITY RELATED	####################################################
+	
+    /**
+     * Gets the components inside the main frame.
+     * @param name
+     * @param mContainer
+     * @return component
+     */
+    private Component findComponentByName(String name, Container mContainer){
+        Component returnCom = null;
+        for(Component c : mContainer.getComponents()){
+            if(c.getName()==name)
+                return c;
+            if(c instanceof Container)
+                if((returnCom = findComponentByName(name,(Container)c))!=null)
+                    return returnCom;
+        }
+        return null;
+    }
+    
+    private Component findComponentByName(String name){
+		return findComponentByName(name, getContentPane());
+	}
 	
 	/**
 	 * change functionality of enter button
