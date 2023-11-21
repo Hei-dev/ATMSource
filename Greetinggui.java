@@ -1,18 +1,11 @@
 import java.awt.Font;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.SwingConstants;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Greetinggui implements Defaultgui{
     private JPanel 
@@ -21,7 +14,6 @@ public class Greetinggui implements Defaultgui{
     private JLabel 
                 greetingMessage,
                 nextStepMessage;
-    private final static String newline = "\n";
     
     //private ATMgui SCREEN;
     

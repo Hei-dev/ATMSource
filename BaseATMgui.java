@@ -30,11 +30,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		leftSelectionPanel,
 		rightSelectionPanel,
 		centreBasePanel;
-	private JTextPane textPane;
 	private String line;
-	private GridBagConstraints 
-		c_hardware,
-		c_interface = new GridBagConstraints();
+	private GridBagConstraints c_hardware;
 	private JPanel currentPanel;	
 	
 	private boolean 
@@ -246,23 +243,23 @@ public class BaseATMgui extends JFrame implements Defaultgui{
   	  				case "CANCEL":
 						if (line != "") {
 							line = line.substring(0, line.length() - 1);
-			 				updateTextPane(currentPanel, line);
+			 				setTextPane(currentPanel, line);
 						}
 						break;
 					// Pressing CLEAR, clear the text from textPane
 					case "CLEAR":
 						line = "";
-		 				updateTextPane(currentPanel, line);
+		 				setTextPane(currentPanel, line);
 						break;
 					// Pressing ENTER
 					case "ENTER":
 						line = "";
-		 				updateTextPane(currentPanel, line);
+		 				setTextPane(currentPanel, line);
 						break;
 					default:
 						if (event.getActionCommand() != ".") {
 	 						line = line.concat(event.getActionCommand());
-	 		 				updateTextPane(currentPanel, line);
+	 		 				setTextPane(currentPanel, line);
 	 					}
 	 					// check if "." exist in line
 	 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
@@ -271,12 +268,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	 						// check if length of string > 0 and if floating point is enabled
 	 						if (line.length() > 0) {
 								line = line.concat(".");
-				 				updateTextPane(currentPanel, line);
+				 				setTextPane(currentPanel, line);
 	 						}
 	 						//check if the first input is "."
 	 						else {
 	 							line = "0.";
-	 			 				updateTextPane(currentPanel, line);
+	 			 				setTextPane(currentPanel, line);
 	 						}
 	 					}
   	  				}
@@ -337,7 +334,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				line = "";
-				updateTextPane(currentPanel, line);
+				setTextPane(currentPanel, line);
 			}
 			
 		});

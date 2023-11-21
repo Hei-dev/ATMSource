@@ -1,9 +1,6 @@
 import java.awt.*;         // Using AWT's containers and components
 import java.awt.event.*;   // Using AWT's event classes and listener interfaces
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 public class SwingTemp extends JFrame{
     private JLabel la_c;
     private JLabel la_f;

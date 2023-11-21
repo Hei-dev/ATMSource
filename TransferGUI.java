@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 public class TransferGUI implements Defaultgui 
 {
     private JPanel TransferGUI;
-    private Transfer transfer;
     
     private String target_account;
     private String amount;

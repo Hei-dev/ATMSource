@@ -36,7 +36,7 @@ private void passwordCheck(){
                 error_message.setText("Invalid");
 
                 login_ui.add(error_message);
-                ATMgui.get().addMainPanel(login_ui)
+                ATMgui.get().addMainPanel(login_ui);
 
 
                 ATMgui.get().revalidate();
@@ -51,6 +51,6 @@ private void passwordCheck(){
 
             }
         }
-    })
+    }
 }
 

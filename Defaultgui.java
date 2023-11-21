@@ -1,23 +1,6 @@
 //Defaultgui.java
 //interface for implementing default gui and its functions
 
-/**
- * Default GUI Component name:
- * Title label: 
- * "Title"
- * 
- * Selection label:
- * "selection0"
- * "selection1"
- * "selection2"
- * "selection3"
- * "selection4"
- * "selection5"
- * "selection6"
- * "selection7"
- *  
- */
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -33,7 +16,19 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 public interface Defaultgui {
- 
+	
+	final String 
+		TITLE_LABEL = "Title",
+		INPUT_AREA_LABEL = "Input Area",
+		SELECTION0_LABEL = "selection0",
+		SELECTION1_LABEL = "selection1",
+		SELECTION2_LABEL = "selection2",
+		SELECTION3_LABEL = "selection3",
+		SELECTION4_LABEL = "selection4",
+		SELECTION5_LABEL = "selection5",
+		SELECTION6_LABEL = "selection6",
+		SELECTION7_LABEL = "selection7";
+	
 	default JPanel getdefaultGUI() {
 		
 		JLabel defaultTitle = new JLabel();
@@ -47,7 +42,7 @@ public interface Defaultgui {
 		defaultTitle.setHorizontalAlignment(JLabel.CENTER);
 		defaultTitle.setVerticalAlignment(JLabel.CENTER);
 		defaultTitle.setText("Sample Title");
-		defaultTitle.setName("Title");		// create component title name
+		defaultTitle.setName(TITLE_LABEL);		// create component title name
 		//screenTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
 		
 	    
@@ -59,8 +54,17 @@ public interface Defaultgui {
 	    	defaultSelection[i].setVerticalAlignment(JLabel.CENTER);
 	    	defaultSelection[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 	    	defaultSelection[i].setText(String.valueOf(i));
-	    	defaultSelection[i].setName(setSelectionName(i));		// create components selection names
+	    	defaultSelection[i].setName(getSelectionName(i));		// create components selection names
 	    }
+	    
+	    // create text panel for reading input
+ 		defaultTextPane.setEditable(false);    // set textArea not editable
+ 	    //defaultTextPane.setText(line);  // display line1 in textArea 
+ 	    StyledDocument style = defaultTextPane.getStyledDocument();
+ 	    SimpleAttributeSet align= new SimpleAttributeSet();
+ 	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
+ 	    style.setParagraphAttributes(0, style.getLength(), align, false);
+ 	    defaultTextPane.setName(INPUT_AREA_LABEL);		// create component textpanel name
 	    
 	
 
@@ -94,15 +98,6 @@ public interface Defaultgui {
 	    		selections++;
 	    	}
 	    }
-	    
-	    // create text panel for reading input
- 		defaultTextPane.setEditable(false);    // set textArea not editable
- 	    //defaultTextPane.setText(line);  // display line1 in textArea 
- 	    StyledDocument style = defaultTextPane.getStyledDocument();
- 	    SimpleAttributeSet align= new SimpleAttributeSet();
- 	    StyleConstants.setAlignment(align, StyleConstants.ALIGN_RIGHT);	//set right alignment
- 	    style.setParagraphAttributes(0, style.getLength(), align, false);
- 	    defaultTextPane.setName("Input Area");		// create component textpanel name
  	    
  	    c_interface.gridx = 0;
 	    c_interface.gridy = 13;
@@ -137,9 +132,8 @@ public interface Defaultgui {
 	 * change text of textpane
 	 * @param panel
 	 * @param text
-	 */
-	
-	default void updateTextPane(JPanel panel,String text) {
+	 */	
+	default void setTextPane(JPanel panel,String text) {
 		JTextPane temp;
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JTextPane) && (c.getName()=="Input Area")) {
@@ -196,7 +190,7 @@ public interface Defaultgui {
 	 */
 	default void setSelectionDisplay(JPanel panel, int selection, boolean display) {
 		JLabel temp;
-		String componentName = setSelectionName(selection);
+		String componentName = getSelectionName(selection);
 		
 		if (display == false) {
 			for(Component c : panel.getComponents()) {
@@ -218,38 +212,31 @@ public interface Defaultgui {
 		}
 	}
 	
-	private String setSelectionName(int selection) {
-		String compName = new String();
+	/**
+	 *  set the name of selections
+	 * @param selection
+	 * @return selection name
+	 */
+	private String getSelectionName(int selection) {
 		switch(selection) {
 		case 0:
-			compName = "selection0";
-			break;
+			return SELECTION0_LABEL;
 		case 1:
-			compName = "selection1";
-			break;
+			return SELECTION1_LABEL;
 		case 2:
-			compName = "selection2";
-			break;
+			return SELECTION2_LABEL;
 		case 3:
-			compName = "selection3";
-			break;
+			return SELECTION3_LABEL;
 		case 4:
-			compName = "selection4";
-			break;
+			return SELECTION4_LABEL;
 		case 5:
-			compName = "selection5";
-			break;
+			return SELECTION5_LABEL;
 		case 6:
-			compName = "selection6";
-			break;
+			return SELECTION6_LABEL;
 		case 7:
-			compName = "selection7";
-			break;
+			return SELECTION7_LABEL;
 		default:
-			compName = null;
-			break;
+			return null;
 		}
-		
-		return compName;
 	}
 }
