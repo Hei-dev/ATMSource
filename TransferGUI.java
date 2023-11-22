@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
@@ -11,8 +10,8 @@ public class TransferGUI implements Defaultgui
     private String target_account;
     private String amount;
     private Font 
-    	transferfont,
-    	amountfont;
+        transferfont,
+        amountfont;
     
     protected TransferGUI()
     {
@@ -39,7 +38,7 @@ public class TransferGUI implements Defaultgui
         return TransferGUI;
     }
     
-    public double execute_amount()
+    private void execute_amount()
     {
         String input = getTextPaneText( TransferGUI );
         amount = input;
@@ -47,10 +46,9 @@ public class TransferGUI implements Defaultgui
         setComponentText
         (TransferGUI, "Title", "Please enter target account (0 to cancel)", transferfont);
         
-        return Double.parseDouble( amount );
     }
     
-    public void execute_targetaccount()
+    private void execute_targetaccount()
     {
         String input = getTextPaneText (TransferGUI );
         target_account = input;
@@ -58,7 +56,7 @@ public class TransferGUI implements Defaultgui
         promt_confirm();
     }
     
-    public void promt_confirm()
+    private void promt_confirm()
     {   
         setComponentText
         (TransferGUI, "Title", "Please check all inputs are correct", transferfont);
@@ -74,30 +72,51 @@ public class TransferGUI implements Defaultgui
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION7_LABEL, "Cancel", amountfont);
     }
     
+    private void transfer_execute()
+    {
+        for (int i = 0; i<= 7; i++)
+        {
+            setSelectionDisplay(TransferGUI, i, false);
+        }
+        setComponentText
+        (TransferGUI, "Title", "Transfer successed", transferfont);
+    }
+    
     public void setallListener()
     {
         ActionListener buttonListener = new ActionListener()
         
-            {
+        {
                  @Override
                  public void actionPerformed(ActionEvent e)
                  {
-                    if (amount == "-1")
-                    execute_amount();
-                    else if (target_account == "-1")
-                    execute_targetaccount();
+                     if (amount == "-1")
+                     execute_amount();
+                     else if (target_account == "-1")
+                     execute_targetaccount();
                  }
-            };
+        };
         
         ATMgui.get().setEnterListener( buttonListener );
-        
-            ATMgui.get().setSelectionListener(7, new ActionListener() {
+         
+        ATMgui.get().setSelectionListener(7, new ActionListener() 
+        {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                ATMgui.get().display(GUIType.MainMenu);
-            }
+                @Override
+                public void actionPerformed(ActionEvent e) 
+                {
+                    ATMgui.get().display(GUIType.MainMenu);
+                }
+        });
+        ATMgui.get().setSelectionListener(3, new ActionListener() 
+        {
+
+                @Override
+                public void actionPerformed(ActionEvent e) 
+                {
+                    if (amount != "-1" && target_account !="-1")
+                    transfer_execute();
+                }
         });
     }
 }
