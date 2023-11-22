@@ -59,7 +59,10 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Transfer:
-        
+        	TransferGUI transfer = new TransferGUI();
+                setKeypadAvailability(true, true);
+                addMainPanel(transfer.getPanel());
+                transfer.setallListener();
                 break;
             case Login:
                 // TODO displays login screen
