@@ -50,39 +50,35 @@ public class MainMenugui implements Defaultgui{
 		});
 		
 		// set action listener for withdraw
-		ActionListener withdraw = new ActionListener() {
+		ATMgui.get().setSelectionListener(6, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, 
-               		bankDB, new Keypad(), new CashDispenser() );
+				Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, bankDB, new Keypad(), new CashDispenser() );
 				temp.execute();
 				ATMgui.get().display(GUIType.Withdrawal);
 			}
 			
-		};
-		ATMgui.get().setSelectionListener(6, withdraw);
+		});
 		
 		// set action listener for transfer fund
-		ActionListener transferFund = new ActionListener() {
+		ATMgui.get().setSelectionListener(3, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ATMgui.get().display(GUIType.Transfer);
 			}
 			
-		};
-		ATMgui.get().setSelectionListener(3, transferFund);
+		});
 		
 		// set action listener for exit
-		ActionListener exit = new ActionListener() {
+		ATMgui.get().setSelectionListener(7, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ATMgui.get().display(GUIType.Exit);
 			}
 			
-		};
-		ATMgui.get().setSelectionListener(7, exit);
+		});
 	}
 }
