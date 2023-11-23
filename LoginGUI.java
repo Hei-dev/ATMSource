@@ -49,8 +49,6 @@ public class LoginGUI implements Defaultgui{
         ATMgui.get().setEnterListener(new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent ae){
-            line = "";
-            setTextPaneText(login, line);
             accountNumber = Integer.parseInt(line);
             passwordCheck();
             System.out.println("enter acc number");

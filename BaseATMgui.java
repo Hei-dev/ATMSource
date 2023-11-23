@@ -368,7 +368,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	}
 
 	/**
-	 * set availability of keypad and floating point
+	 * set availability of keypad and floating point and change display of input
 	 * @param enableNumber true/false
 	 * @param enableFloatingPoint true/false
 	 */
