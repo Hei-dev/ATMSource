@@ -9,10 +9,17 @@ public class TransferGUI implements Defaultgui
     
     private String target_account;
     private String amount;
+    private int current_account;
     private Font 
         transferfont,
         amountfont;
-    
+    private BankDatabase bankDB;
+        
+    private final static int CANCELED = 0; // constant for cancel option
+    private final static int Decimal_value = -2; // constant for handle non-integer
+    private final static int Insufficient_cash = -3; // constant for not enough money
+    private final static int same_account = -4; // constant for not enough money
+    private final static int Invaild_value = -404; // constant for handle invaild value    
     protected TransferGUI()
     {
         TransferGUI = getdefaultGUI();
@@ -24,7 +31,7 @@ public class TransferGUI implements Defaultgui
                     
         // change title
         setComponentText
-        (TransferGUI, "Title", "Please enter transfer amount (0 to cancel)", transferfont);
+        (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)</html>", transferfont);
             
         //disable all selection message
         for (int i = 0; i < 8; i++)
@@ -41,19 +48,77 @@ public class TransferGUI implements Defaultgui
     private void execute_amount()
     {
         String input = getTextPaneText( TransferGUI );
-        amount = input;
-        
-        setComponentText
-        (TransferGUI, "Title", "Please enter target account (0 to cancel)", transferfont);
-        
+        int status = Transfer.check_amount ( input );
+        if (status == CANCELED)
+        {
+            ATMgui.get().display(GUIType.MainMenu);
+        }
+        else if (status == Invaild_value)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            "<br/><br/><br/><br/>Only support numbers! Input again</html>"
+            , transferfont);
+        }
+        else if (status == Decimal_value)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
+            "<br/><br/><br/><br/>Only integer number allow!<br/>Please enter again!</html>"
+            , transferfont);
+        }
+        else if (status == Insufficient_cash)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
+            "<br/><br/><br/><br/>Insufficient cash available<br/>Please select smaller amount</html>"
+            , transferfont);
+        }
+        else
+        {
+            amount = input;
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter target account number<br/>(0 to cancel)</html>", transferfont);
+        }
     }
     
     private void execute_targetaccount()
     {
         String input = getTextPaneText (TransferGUI );
-        target_account = input;
-        
-        promt_confirm();
+        int status = Transfer.check_account ( input );
+        if (status == CANCELED)
+        {
+            ATMgui.get().display(GUIType.MainMenu);
+        }
+        else if (status == Decimal_value)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            "<br/><br/><br/><br/>Only support integer value! Input again</html>"
+            , transferfont);
+        }
+        else if (status == Invaild_value)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            "<br/><br/><br/><br/>Only support numbers! Input again</html>"
+            , transferfont);
+        }
+        else if (status == same_account)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
+            "<br/><br/><br/><br/>Transfer to your own account<br/>is unavailable" + 
+            "<br/>Please input again</html>"
+            , transferfont);
+        }
+        else
+        {
+            target_account = input;
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter target account number<br/>(0 to cancel)</html>", transferfont);
+            promt_confirm();
+        }
     }
     
     private void promt_confirm()
@@ -78,6 +143,9 @@ public class TransferGUI implements Defaultgui
         {
             setSelectionDisplay(TransferGUI, i, false);
         }
+        //bankDB = new BankDatabase();
+        //bankDB.credit( Integer.parseInt(target_account), Double.parseDouble(amount) );
+        //bankDB.debit( current_account, Double.parseDouble(amount) );
         setComponentText
         (TransferGUI, "Title", "Transfer successed", transferfont);
     }
