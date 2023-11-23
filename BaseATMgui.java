@@ -331,12 +331,13 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	 * change functionality of enter button
 	 * @param al of preferred actionlistener for enter key
 	 */
-	public void setEnterListener(ActionListener al) {	
+    public void setEnterListener(ActionListener al) {	
 		// reset enter button ActionListener
 		for( ActionListener a : keys[12].getActionListeners() ) {
 		    keys[12].removeActionListener( a );
 		    break;
 		}
+		keys[12].addActionListener(al);
 		keys[12].addActionListener(new ActionListener(){
 
 			@Override
@@ -346,9 +347,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 			}
 			
 		});
-		keys[12].addActionListener(al);
 	}
-	
+    
 	// method of 8 selection buttons
 	/**
 	 * change the functionality of different buttons
