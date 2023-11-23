@@ -282,7 +282,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	//	GUI RELATED	#############################################
 	
-	public void addMainPanel(JPanel panel){
+	public void setMainPanel(JPanel panel){
 		
 		currentPanel = (JPanel)findComponentByName("MainPanel", getContentPane());
 		try	{

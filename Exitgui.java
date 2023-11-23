@@ -64,7 +64,7 @@ public class Exitgui implements Defaultgui {
 			public void actionPerformed(ActionEvent e) {
 				
 				// set take card and recipt GUI
-				ATMgui.get().addMainPanel(cardAndReciptGUI);
+				ATMgui.get().setMainPanel(cardAndReciptGUI);
 				ATMgui.get().setSelectionListener(3, new ActionListener() {
 					// take recipt
 					@Override
@@ -100,7 +100,7 @@ public class Exitgui implements Defaultgui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// set take card only GUI
-				ATMgui.get().addMainPanel(cardOnlyGUI);
+				ATMgui.get().setMainPanel(cardOnlyGUI);
 				ATMgui.get().setSelectionListener(7, new ActionListener() {
 					// take recipt
 					@Override
