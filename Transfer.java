@@ -3,178 +3,95 @@
 
 public class Transfer extends Transaction
 {
-   private double amount; // amount to transfer
-   private int target_account; // target account # to transfer
-   private int confirm; // user option 
-   private Keypad keypad; // reference to keypad
+   private static double amount; // amount to transfer
+   private static int target_account; // target account # to transfer
+   private static int current_account;
+   private static double available_balance;   
+   private static int account_checker; // special checker for detect same account
+   
    private final static int CANCELED = 0; // constant for cancel option
+   private final static int Decimal_value = -2; // constant for handle non-integer
+   private final static int Insufficient_cash = -3; // constant for not enough money
+   private final static int same_account = -4; // constant for same account number
+   private final static int Invaild_value = -404; // constant for handle invaild value
+   
 
    // Transfer constructor
    public Transfer( int userAccountNumber, ATMgui atmScreen, 
-      BankDatabase atmBankDatabase, Keypad atmKeypad)
+      BankDatabase atmBankDatabase)
    {
       // initialize superclass variables
       super( userAccountNumber, atmScreen, atmBankDatabase );
-
-      // initialize references to keypad
-      keypad = atmKeypad;
    } // end Transfer constructor
-
+   
+   public double return_balance()
+   {
+       return available_balance;
+   }
+    
    // perform transaction
    public void execute()
    {
       BankDatabase bankDatabase = getBankDatabase(); // get reference
       ATMgui screen = getScreen(); // get reference
-      boolean Not_enough_balance = false;
-      boolean Invalid_account = false;
       
-      //process transfer amount
-      do
-      {
-          amount = promptForTransferAmount(); // get transfer amount from user
-          
-          // check whether user entered canceled
-          if ( amount == CANCELED) 
-          {
-              //screen.displayMessageLine( "\nCanceling transaction..." );
-          } // end if
-          else if ( bankDatabase.getAvailableBalance( getAccountNumber() ) < amount )
-          {
-            //   screen.displayMessageLine( 
-            //         "\nInsufficient cash available in the ATM." +
-            //         "\n\nPlease choose a smaller amount." );
-              Not_enough_balance = true;
-          } // end if
-          else
-          {
-              Not_enough_balance = false;
-          }
-      } while (Not_enough_balance && amount != CANCELED); //end do-while
+      current_account = 12345;
+      //current_account = getAccountNumber();
       
-      // process target account #
-      do
-      {
-          target_account = promptForTargetAccount(); 
-          
-          // check whether user entered canceled
-          if ( target_account == CANCELED)
-          {
-              //screen.displayMessageLine( "\nCanceling transaction..." );
-          } //end if
-          else if ( !bankDatabase.authenticateUser( target_account ) )
-          {
-              //screen.displayMessageLine( "\nInvalid account number." +
-              //      "\n\nPlease input again." );
-              Invalid_account = true;
-          } // end if
-          else if ( target_account == getAccountNumber() )
-          {
-            //   screen.displayMessageLine( "\nTransfer to your own account " +
-            //         "is unavailable" + "\n\nPlease input again." );
-              Invalid_account = true;
-          } // end if
-          else
-          {
-              Invalid_account = false;
-          }
-      } while (Invalid_account && target_account != CANCELED); // end do-while
-     
-      // confirm user transfer to the target account #
-      do {      
-          confirm = promptForConfirm();
-          
-          if ( confirm == CANCELED)
-          {
-              //screen.displayMessageLine( "\nCanceling transaction..." );
-          } //end if
-          else if ( confirm == 1 )
-          {
-               // credit account to reflect the transfer
-               bankDatabase.debit( getAccountNumber(), amount ); 
-               bankDatabase.credit( target_account, amount );
-               
-            //    screen.displayMessageLine( "\nYour envelope has been " + 
-            //        "transfered.\n" );
-          } //end if
-          else
-          {
-            //    screen.displayMessageLine( "\nOnly 1 or 0 are accepted" + 
-            //        "\nPlease input again.\n" );
-          }
-      } while (confirm != 1 && confirm != CANCELED); //end do-while
-   } // end method execute
-
-   // prompt user to enter a tramsfer amount in cents 
-   private double promptForTransferAmount()
-   {
-      ATMgui screen = getScreen(); // get reference to screen
-
-      // display the prompt
-    //   screen.displayMessage( "\nPlease enter a transfer amount in " + 
-    //      "CENTS (or 0 to cancel): " );
-      int input = keypad.getInput(); // receive input of transfer amount
-      
-      // check whether the user canceled or entered a transfer amount
-      if ( input == CANCELED ) 
-      {
-          return CANCELED;
-      }
-      else
-      {
-         return ( double ) input / 100; // return dollar amount 
-      } // end else
-   } // end method promptForTransferAmount
-   
-   // prompt user to enter a target account #
-   private int promptForTargetAccount()
-   {
-       ATMgui screen = getScreen(); // get reference to screen
-       BankDatabase bankDatabase = getBankDatabase(); // get reference to bank database
-       
-       // display the prompt
-    //    screen.displayMessage( "\nPlease enter a target account number " +
-    //        "(or 0 to cancel): ");
-       int input = keypad.getInput(); // receive input of target account number
-       
-       // check whether the user canceled or entered bank account
-       if ( input == CANCELED )
-       {
-           return CANCELED;
-       } //end if
-       else 
-       {
-           return input;
-       }
+      available_balance = 1000;
+      //available_balance = bankDatabase.getAvailableBalance( current_account );
    } // end method promptForTargetAccount
    
-   // prompt user to enter a target account #
-   private int promptForConfirm()
-   {
-       ATMgui screen = getScreen(); // get reference to screen
-       BankDatabase bankDatabase = getBankDatabase(); // get reference to bank database
-       
-       // display the prompt
-       /* 
-       screen.displayMessageLine( "\nAre you sure to transfer" );
-       screen.displayDollarAmount( amount );
-       screen.displayMessageLine( "." );
-       screen.displayMessageLine( "to the following account?" );
-       screen.displayAccountNumber( target_account );
-
-       screen.displayMessageLine( "\n\nPlease Enter 1 to confirm" +
-              " (or 0 to cancel): ");*/
-       int input = keypad.getInput(); // receive input of user option
-       
-       // check whether the user canceled or entered bank account
-       if ( input == CANCELED )
-       {
-           return CANCELED;
-       } //end if
-       else 
-       {
-           return input;
-       }
-   } // end method promptForTargetAccount
+   public static int check_amount( String input )
+   {    
+        try 
+        {
+            amount = Double.parseDouble( input );
+        } catch (IllegalArgumentException e) {
+            return Invaild_value;
+        }
+        if ( amount == CANCELED)
+        {
+            return CANCELED;
+        }
+        else if ( amount > available_balance )
+        {
+            return Insufficient_cash;
+        }
+        else 
+        {
+            return 1;
+        }
+   }
+   
+   public static int check_account( String input )
+   {    
+        double target_account_temp;
+        try 
+        {
+            target_account_temp = Double.parseDouble( input );
+            account_checker = Integer.parseInt( input );
+        } catch (IllegalArgumentException e) {
+            return Invaild_value;
+        }
+        if ( target_account_temp % 1 != 0) 
+        {   
+            return Decimal_value;
+        }
+        else if ( target_account_temp == CANCELED)
+        {
+            return CANCELED;
+        }
+        else if ( account_checker == current_account)
+        {
+            return same_account;
+        }
+        else 
+        {
+            target_account = Integer.parseInt( input );
+            return 1;
+        }
+   }
 } // end class Transfer
 
 
