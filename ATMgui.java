@@ -9,7 +9,7 @@ public class ATMgui extends BaseATMgui{
     Exitgui exit = new Exitgui();
     MainMenugui mainmenu = new MainMenugui();
     Balancegui balance = new Balancegui();
-    
+    LoginGUI login = new LoginGUI();
 
     // Constructors
 
@@ -59,14 +59,15 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Transfer:
-        	TransferGUI transfer = new TransferGUI();
+            	TransferGUI transfer = new TransferGUI();
         		setKeypadConfiguration(true, true, false);
                 setMainPanel(transfer.getPanel());
                 transfer.setallListener();
                 break;
             case Login:
-                // TODO displays login screen
-                display(GUIType.Greeting);
+                setKeypadConfiguration(true, false, false);
+                setMainPanel(login.getPanel());
+                login.setAllListener();
                 break;
             default:
                 break;

@@ -72,7 +72,7 @@ public class Greetinggui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ATMgui.get().display(GUIType.MainMenu);
+                ATMgui.get().display(GUIType.Login);
             }
             
         });
