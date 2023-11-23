@@ -33,7 +33,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	private boolean 
 		enableKeypad,
-		enableFloatingPointButton;
+		enableFloatingPointButton,
+		isPassword;
 	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
@@ -52,6 +53,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		// enable floating point button as default
 		enableFloatingPointButton = true;
 		enableKeypad = true;
+		isPassword = false;
 		
 		// get default gui panel
 
@@ -239,22 +241,33 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 						break;
 					default:
 						if (event.getActionCommand() != ".") {
-	 						line = line.concat(event.getActionCommand());
-	 		 				setTextPaneText(currentPanel, line);
+							// check if input is for password
+							if (isPassword == false) {
+								line = line.concat(event.getActionCommand());
+								setTextPaneText(currentPanel, line);
+							} else {
+								line = line.concat("*");
+								setTextPaneText(currentPanel, line);
+							}
 	 					}
 	 					// check if "." exist in line
 	 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
 	 						// setting of Floating Point numbers, only 1 "." can exist once
 	 						// remember to set back to true after finishing the whole input if set to false						
 	 						// check if length of string > 0 and if floating point is enabled
-	 						if (line.length() > 0) {
-								line = line.concat(".");
-				 				setTextPaneText(currentPanel, line);
-	 						}
-	 						//check if the first input is "."
-	 						else {
-	 							line = "0.";
-	 			 				setTextPaneText(currentPanel, line);
+	 						if (isPassword == false) {
+		 						if (line.length() > 0) {
+									line = line.concat(".");
+					 				setTextPaneText(currentPanel, line);
+		 						}
+		 						//check if the first input is "."
+		 						else {
+		 							line = "0.";
+		 			 				setTextPaneText(currentPanel, line);
+		 						}
+	 						} else {
+	 							line = line.concat("*");
+	 							setTextPaneText(currentPanel, line);
 	 						}
 	 					}
   	  				}
@@ -275,7 +288,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	
 	public void addMainPanel(JPanel panel){
 		
-		currentPanel = (JPanel)findComponentByName("MainPanel");
+		currentPanel = (JPanel)findComponentByName("MainPanel", getContentPane());
 		try	{
 			centreBasePanel.remove(currentPanel);
 		} catch (NullPointerException npt) {
@@ -318,10 +331,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         return null;
     }
     
-    private Component findComponentByName(String name){
-		return findComponentByName(name, getContentPane());
-	}
-	
 	/**
 	 * change functionality of enter button
 	 * @param al of preferred actionlistener for enter key
@@ -360,9 +369,10 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 	 * @param enableNumber true/false
 	 * @param enableFloatingPoint true/false
 	 */
-	public void setKeypadAvailability(boolean enableNumber, boolean enableFloatingPoint) {
+	public void setKeypadConfiguration(boolean enableNumber, boolean enableFloatingPoint, boolean pw) {
 		enableKeypad = enableNumber;
 		enableFloatingPointButton = enableFloatingPoint;
+		isPassword = pw;
 	}
 	
 	public void run() {

@@ -31,13 +31,13 @@ public class ATMgui extends BaseATMgui{
         switch(t){
             case Greeting:
                 addMainPanel(greeting.getPanel());
-                setKeypadAvailability(true, false);
+                setKeypadConfiguration(true, false, false);;
                 greeting.setallSelectionListener();
                 break;
                 
             case MainMenu:
                 // disable keypad input
-                setKeypadAvailability(true, true);
+            	setKeypadConfiguration(true, true, false);
                 addMainPanel(mainmenu.getPanel());
                 mainmenu.setallListener();
                 break;
@@ -47,20 +47,20 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Exit:
-                setKeypadAvailability(false, false);
+            	setKeypadConfiguration(false, false, false);
                 addMainPanel(exit.getPanel());
                 exit.setallListener();
                 break;
                 
             case Balance:
                 addMainPanel(balance.getPanel());
-                setKeypadAvailability(true, false);
+                setKeypadConfiguration(true, false, false);
                 balance.setallListener();
                 break;
                 
             case Transfer:
         	TransferGUI transfer = new TransferGUI();
-                setKeypadAvailability(true, true);
+        		setKeypadConfiguration(true, true, false);
                 addMainPanel(transfer.getPanel());
                 transfer.setallListener();
                 break;
