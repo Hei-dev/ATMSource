@@ -141,7 +141,7 @@ public class ATM
             break; 
          case TRANSFER: // create new Deposit transaction
             temp = new Transfer( currentAccountNumber, screen, 
-               bankDatabase, keypad );
+               bankDatabase );
             break;
       } // end switch
 
