@@ -240,22 +240,18 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		 				setTextPaneText(currentPanel, line);
 						break;
 					default:
-						if (event.getActionCommand() != ".") {
-							// check if input is for password
-							if (isPassword == false) {
-								line = line.concat(event.getActionCommand());
-								setTextPaneText(currentPanel, line);
-							} else {
-								line = line.concat("*");
-								setTextPaneText(currentPanel, line);
-							}
-	 					}
-	 					// check if "." exist in line
-	 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
-	 						// setting of Floating Point numbers, only 1 "." can exist once
-	 						// remember to set back to true after finishing the whole input if set to false						
-	 						// check if length of string > 0 and if floating point is enabled
-	 						if (isPassword == false) {
+						if (isPassword == false) {
+							if (event.getActionCommand() != ".") {
+								// check if input is for password
+									line = line.concat(event.getActionCommand());
+									setTextPaneText(currentPanel, line);
+								
+		 					}
+		 					// check if "." exist in line
+		 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
+		 						// setting of Floating Point numbers, only 1 "." can exist once
+		 						// remember to set back to true after finishing the whole input if set to false						
+		 						// check if length of string > 0 and if floating point is enabled
 		 						if (line.length() > 0) {
 									line = line.concat(".");
 					 				setTextPaneText(currentPanel, line);
@@ -265,11 +261,11 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		 							line = "0.";
 		 			 				setTextPaneText(currentPanel, line);
 		 						}
-	 						} else {
-	 							line = line.concat("*");
-	 							setTextPaneText(currentPanel, line);
-	 						}
-	 					}
+		 					}
+						} else {
+							line = line.concat("*");
+							setTextPaneText(currentPanel, line);
+						}
   	  				}
   				}
   			}
