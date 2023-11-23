@@ -68,10 +68,11 @@ public class Exitgui implements Defaultgui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						recipt = true;
+						setSelectionDisplay(cardAndReciptGUI, 6, false);
 						if ((recipt == true) && (card == true)) {
 							card = false;
 							recipt = false;
-							ATMgui.get().display(GUIType.Login);
+							ATMgui.get().display(GUIType.Greeting);
 						}
 					}
 					
@@ -81,10 +82,11 @@ public class Exitgui implements Defaultgui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						card = true;
+						setSelectionDisplay(cardAndReciptGUI, 7, false);
 						if ((recipt == true) && (card == true)) {
 							card = false;
 							recipt = false;
-							ATMgui.get().display(GUIType.Login);
+							ATMgui.get().display(GUIType.Greeting);
 						}
 					}
 					
@@ -103,7 +105,7 @@ public class Exitgui implements Defaultgui {
 					// take recipt
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						ATMgui.get().display(GUIType.Login);
+						ATMgui.get().display(GUIType.Greeting);
 					}
 					
 				});
