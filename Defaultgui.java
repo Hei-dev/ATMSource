@@ -122,6 +122,7 @@ public interface Defaultgui {
 		for(Component c : panel.getComponents()) {
 			if ((c instanceof JTextPane) && (c.getName()==INPUT_AREA_PANEL)) {
 				temp = (JTextPane)c;
+				System.out.println("text: " + temp.getText());
 				text = temp.getText();
 			}
 		} 

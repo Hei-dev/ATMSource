@@ -26,38 +26,39 @@ public class LoginGUI implements Defaultgui{
     protected LoginGUI(){
         System.out.println("Login");
         login = getdefaultGUI();
-	loginFont = new Font("loginFont", 1 ,20);
+        loginFont = new Font("loginFont", 1 ,20);
 	
-	setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your Account Number", loginFont);
+        setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your Account Number", loginFont);
 	
 	
         for (int i = 0; i < 8; i++) {
             setSelectionDisplay(login, i, false);
         }
-        
         loginBankDB = new BankDatabase();
-        
     }
     
-        public JPanel getPanel() {
+    public JPanel getPanel() {
         return login;
     }
     
     // Acc number enter
     public void setAllListener() {
     // Acc number enter
-        ATMgui.get().setEnterListener(new ActionListener(){
+        ATMgui.get().setEnterListener(new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent ae){
-            accountNumber = Integer.parseInt(line);
+        public void actionPerformed(ActionEvent ae) {
+
+            System.out.println("TextPane: "+getTextPaneText(login));
+            accountNumber = Integer.parseInt(getTextPaneText(login));
             passwordCheck();
             System.out.println("enter acc number");
+			setTextPaneText(login, "");
         }
         });
-}
+    }
 // Password check
         public void passwordCheck(){
-        ATMgui.get().setEnterListener(new ActionListener(){
+        ATMgui.get().setEnterListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae){
                 
@@ -65,9 +66,7 @@ public class LoginGUI implements Defaultgui{
                 ATMgui.get().revalidate();
                 ATMgui.get().repaint();
                 
-            line = "";
-            setTextPaneText(login, line);
-            PIN = Integer.parseInt(line);
+            PIN = Integer.parseInt(getTextPaneText(login));
             boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
             System.out.println("password enter");
             // check whether authentication succeeded

@@ -345,6 +345,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		    break;
 		}
 		keys[12].addActionListener(al);
+		/*
 		keys[12].addActionListener(new ActionListener(){
 
 			@Override
@@ -354,6 +355,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 			}
 			
 		});
+		*/
 	}
     
 	// method of 8 selection buttons
