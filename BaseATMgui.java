@@ -36,6 +36,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		enableFloatingPointButton,
 		isPassword;
 	
+	private String pw;
+	
 	protected static final int ATM_WIDTH = 538;
 	protected static final int ATM_HEIGHT = 650;
 	protected static final int DEFAULT_BORDER_WIDTH = 2;
@@ -52,8 +54,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		
 		// enable floating point button as default
 		enableFloatingPointButton = true;
+		// enable Keypad as default
 		enableKeypad = true;
+		// disable encapsulating password
 		isPassword = false;
+		//
+		pw = "";
 		
 		// get default gui panel
 
@@ -243,8 +249,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 						if (isPassword == false) {
 							if (event.getActionCommand() != ".") {
 								// check if input is for password
-									line = line.concat(event.getActionCommand());
-									setTextPaneText(currentPanel, line);
+								line = line.concat(event.getActionCommand());
+								setTextPaneText(currentPanel, line);
 								
 		 					}
 		 					// check if "." exist in line
@@ -262,8 +268,9 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		 			 				setTextPaneText(currentPanel, line);
 		 						}
 		 					}
-						} else {
+						} else if (isPassword == true) {
 							line = line.concat("*");
+ 							pw = pw.concat(event.getActionCommand());
 							setTextPaneText(currentPanel, line);
 						}
   	  				}
@@ -369,6 +376,21 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		enableKeypad = enableNumber;
 		enableFloatingPointButton = enableFloatingPoint;
 		isPassword = pw;
+	}
+	
+	/**
+	 * reset pw value
+	 */
+	public void resetEncapsulatedInput() {
+		pw = "";
+	}
+	
+	/**
+	 * get encapsulated Input
+	 * @return pw encapsulated Input
+	 */
+	public String getEncapsulatedInput() {
+		return pw;
 	}
 	
 	public void run() {

@@ -37,7 +37,7 @@ public class ATMgui extends BaseATMgui{
                 
             case MainMenu:
                 // disable keypad input
-            	setKeypadConfiguration(true, true, false);
+            	setKeypadConfiguration(true, true, true);
                 setMainPanel(mainmenu.getPanel());
                 mainmenu.setallListener();
                 break;

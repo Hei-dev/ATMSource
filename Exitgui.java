@@ -59,9 +59,12 @@ public class Exitgui implements Defaultgui {
 	public void setallListener() {
 		
 		ATMgui.get().setSelectionListener(3, new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				// reset password input
+				ATMgui.get().resetEncapsulatedInput();
 				
 				// set take card and recipt GUI
 				ATMgui.get().setMainPanel(cardAndReciptGUI);
