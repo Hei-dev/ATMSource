@@ -19,70 +19,70 @@ import javax.swing.JPanel;
 
 
 public class BaseATMgui extends JFrame implements Defaultgui{
-	
-	private static JButton[] keys, selection;
-	private static GridBagLayout hardwareLayout;
-	private static JPanel
-		keyPadPanel,
-		leftSelectionPanel,
-		rightSelectionPanel,
-		centreBasePanel;
-	private String line;
-	private GridBagConstraints c_hardware;
-	private JPanel currentPanel;	
-	
-	private boolean 
-		enableKeypad,
-		enableFloatingPointButton,
-		isPassword;
-	
-	private String pw;
-	
-	protected static final int ATM_WIDTH = 538;
-	protected static final int ATM_HEIGHT = 650;
-	protected static final int DEFAULT_BORDER_WIDTH = 2;
-	
+    
+    private static JButton[] keys, selection;
+    private static GridBagLayout hardwareLayout;
+    private static JPanel
+        keyPadPanel,
+        leftSelectionPanel,
+        rightSelectionPanel,
+        centreBasePanel;
+    private String line;
+    private GridBagConstraints c_hardware;
+    private JPanel currentPanel;    
+    
+    private boolean 
+        enableKeypad,
+        enableFloatingPointButton,
+        isPassword;
+    
+    private String pw;
+    
+    protected static final int ATM_WIDTH = 538;
+    protected static final int ATM_HEIGHT = 650;
+    protected static final int DEFAULT_BORDER_WIDTH = 2;
+    
 
     
     protected BaseATMgui() {
         this("ATM");
     }
 
-	protected BaseATMgui(String title) {
-		super(title);
-		
-		
-		// enable floating point button as default
-		enableFloatingPointButton = true;
-		// enable Keypad as default
-		enableKeypad = true;
-		// disable encapsulating password
-		isPassword = false;
-		//
-		pw = "";
-		
-		// get default gui panel
+    protected BaseATMgui(String title) {
+        super(title);
+        
+        
+        // enable floating point button as default
+        enableFloatingPointButton = true;
+        // enable Keypad as default
+        enableKeypad = true;
+        // disable encapsulating password
+        isPassword = false;
+        //
+        pw = "";
+        
+        // get default gui panel
 
-	    // add textPane for showing input
-		
-		// create left and right selection button panel
-		// set left selection panel to Grid Layout
-		leftSelectionPanel = new JPanel();
-		leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );
-		leftSelectionPanel.setVisible(true);
-		
-		// set right selection panel to Grid Layout
-		rightSelectionPanel = new JPanel();
-		rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );	
-		rightSelectionPanel.setVisible(true);
-		
-		selection = new JButton[8];
-		// initialize all selection button, TEMPORARY STRING VALUE FOR RECOGNITION
-		// set the ActionCommand for button handler when temporary string value is deleted
-		for ( int i = 0; i <= 7; i++ ) {
-			selection[i] = new JButton( String.valueOf( i ) );
-			selection[i].setActionCommand("selection" + String.valueOf(i));
-		}
+        // add textPane for showing input
+        
+        // create left and right selection button panel
+        // set left selection panel to Grid Layout
+        leftSelectionPanel = new JPanel();
+        leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );
+        leftSelectionPanel.setVisible(true);
+        
+        // set right selection panel to Grid Layout
+        rightSelectionPanel = new JPanel();
+        rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );    
+        rightSelectionPanel.setVisible(true);
+        
+        selection = new JButton[8];
+        // initialize all selection button, TEMPORARY STRING VALUE FOR RECOGNITION
+        // set the ActionCommand for button handler when temporary string value is deleted
+        for ( int i = 0; i <= 7; i++ ) {
+            selection[i] = new JButton( String.valueOf( i ) );
+            selection[i].setActionCommand("selection" + String.valueOf(i));
+        }
 
         // add 4 buttons to left selection panel
         for ( int i = 0; i <= 3; i++)
@@ -139,25 +139,25 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         hardwareLayout = new GridBagLayout();
         setLayout(hardwareLayout);
 
-		c_hardware = new GridBagConstraints();
-	    c_hardware.anchor = GridBagConstraints.CENTER;
-	    
-	    
-	    currentPanel = new JPanel();
-		currentPanel.setName("MainPanel");
-	    // put panel onto screen
-	    c_hardware.weightx = 0.7;
-	    c_hardware.weighty = 0.7;
-	    c_hardware.anchor = GridBagConstraints.CENTER;
-	    
-	    c_hardware.gridy = 0;
-	    c_hardware.gridx = 2;
-	    c_hardware.gridwidth = 8;
-	    c_hardware.gridheight = 13;
-	    c_hardware.fill = GridBagConstraints.BOTH;
-	    c_hardware.ipady = 200;
-	    c_hardware.ipadx = 50;
-	    c_hardware.insets = new Insets(5, 5, 5, 5);
+        c_hardware = new GridBagConstraints();
+        c_hardware.anchor = GridBagConstraints.CENTER;
+        
+        
+        currentPanel = new JPanel();
+        currentPanel.setName("MainPanel");
+        // put panel onto screen
+        c_hardware.weightx = 0.7;
+        c_hardware.weighty = 0.7;
+        c_hardware.anchor = GridBagConstraints.CENTER;
+        
+        c_hardware.gridy = 0;
+        c_hardware.gridx = 2;
+        c_hardware.gridwidth = 8;
+        c_hardware.gridheight = 13;
+        c_hardware.fill = GridBagConstraints.BOTH;
+        c_hardware.ipady = 200;
+        c_hardware.ipadx = 50;
+        c_hardware.insets = new Insets(5, 5, 5, 5);
 
         centreBasePanel = new JPanel(new BorderLayout());
         centreBasePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_WIDTH));
@@ -165,157 +165,157 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 
         add(centreBasePanel, c_hardware);
 
-	    
         
-	 	// add top and dummy component for left and right selection Panel
-	 	c_hardware.gridy = 0;
-	 	c_hardware.gridx = 0;
-	 	c_hardware.gridwidth = 2;
-	 	c_hardware.gridheight = 2;
-	 	c_hardware.weightx = 0.3;
-	 	c_hardware.weighty = 0.5;
-	    c_hardware.ipady = 0;
-	    c_hardware.ipadx = 0;
-	    c_hardware.fill = GridBagConstraints.BOTH;
-	    c_hardware.insets = new Insets(35,0,50,0);
-	 	add(new JLabel(), c_hardware);	// top right dummy
-	 	c_hardware.gridx = 10;
-	 	add(new JLabel(), c_hardware);	// top left dummy
-	 	c_hardware.gridy = 11;
-	 	c_hardware.gridheight = 1;
-	 	c_hardware.weighty = 0.3;
-	 	c_hardware.insets = new Insets(0,0,0,0);
-	 	add(new JLabel(), c_hardware);	// bottom right dummy
-	 	c_hardware.gridx = 0;
-	 	add(new JLabel(), c_hardware);	// bottom left dummy
-	 	
-	    // add left selection Panel
-	    c_hardware.gridy = 2;
-	    c_hardware.gridx = 0;
-	    c_hardware.gridwidth = 2;
-	    c_hardware.gridheight = 8;
-	    c_hardware.weightx = 0.3;
-	    c_hardware.weighty = 0.7;
-	    c_hardware.ipady = 0;
-	    c_hardware.ipadx = 0;
-	    c_hardware.fill = GridBagConstraints.BOTH;
-	    add(leftSelectionPanel, c_hardware);
-	    
-	    //add right selection Panel;
-	    c_hardware.gridx = 10;
-	    add(rightSelectionPanel, c_hardware);
-	    
-	    //add keyPad
-	    c_hardware.gridy = 13;
-	    c_hardware.gridx = 4;
-	    c_hardware.gridwidth = 4;
-	    c_hardware.gridheight = 4;
-	    c_hardware.weightx = 0.5;
-	    c_hardware.weighty = 0.3;
-	    c_hardware.fill = GridBagConstraints.NONE;
-	    c_hardware.ipady = 100;
-	    c_hardware.ipadx = 0;
-	    c_hardware.insets = new Insets(5, 25, 5, 25);
-	    add(keyPadPanel, c_hardware);   
-	    
-	    
-	    
-	    // create handler for keypad buttons
-  		ActionListener keyPadListener = new ActionListener() {
-  			@Override
-  			public void actionPerformed(ActionEvent event) {
-  				
-  				line = getTextPaneText(currentPanel);
-  				
-  				if (enableKeypad == true) {
-  	  				switch (event.getActionCommand()) {
-  	  				case "CANCEL":
-						if (line != "") {
-							line = line.substring(0, line.length() - 1);
-			 				setTextPaneText(currentPanel, line);
-						}
-						break;
-					// Pressing CLEAR, clear the text from textPane
-					case "CLEAR":
-						line = "";
-		 				setTextPaneText(currentPanel, line);
-						break;
-					// Pressing ENTER
-					case "ENTER":
-						line = "";
-		 				setTextPaneText(currentPanel, line);
-						break;
-					default:
-						if (isPassword == false) {
-							if (event.getActionCommand() != ".") {
-								// check if input is for password
-								line = line.concat(event.getActionCommand());
-								setTextPaneText(currentPanel, line);
-								
-		 					}
-		 					// check if "." exist in line
-		 					else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
-		 						// setting of Floating Point numbers, only 1 "." can exist once
-		 						// remember to set back to true after finishing the whole input if set to false						
-		 						// check if length of string > 0 and if floating point is enabled
-		 						if (line.length() > 0) {
-									line = line.concat(".");
-					 				setTextPaneText(currentPanel, line);
-		 						}
-		 						//check if the first input is "."
-		 						else {
-		 							line = "0.";
-		 			 				setTextPaneText(currentPanel, line);
-		 						}
-		 					}
-						} else if (isPassword == true) {
-							line = line.concat("*");
- 							pw = pw.concat(event.getActionCommand());
-							setTextPaneText(currentPanel, line);
-						}
-  	  				}
-  				}
-  			}
-  		};
-  		
-  		
-  		// register event handler 
-  	    // 0 - 9 , CANCEL , CLEAR , ENTER , 00
-  		for (int i = 0; i<=14; i++)
-  			keys[i].addActionListener(keyPadListener);
-	}
-	
+        
+         // add top and dummy component for left and right selection Panel
+         c_hardware.gridy = 0;
+         c_hardware.gridx = 0;
+         c_hardware.gridwidth = 2;
+         c_hardware.gridheight = 2;
+         c_hardware.weightx = 0.3;
+         c_hardware.weighty = 0.5;
+        c_hardware.ipady = 0;
+        c_hardware.ipadx = 0;
+        c_hardware.fill = GridBagConstraints.BOTH;
+        c_hardware.insets = new Insets(35,0,50,0);
+         add(new JLabel(), c_hardware);    // top right dummy
+         c_hardware.gridx = 10;
+         add(new JLabel(), c_hardware);    // top left dummy
+         c_hardware.gridy = 11;
+         c_hardware.gridheight = 1;
+         c_hardware.weighty = 0.3;
+         c_hardware.insets = new Insets(0,0,0,0);
+         add(new JLabel(), c_hardware);    // bottom right dummy
+         c_hardware.gridx = 0;
+         add(new JLabel(), c_hardware);    // bottom left dummy
+         
+        // add left selection Panel
+        c_hardware.gridy = 2;
+        c_hardware.gridx = 0;
+        c_hardware.gridwidth = 2;
+        c_hardware.gridheight = 8;
+        c_hardware.weightx = 0.3;
+        c_hardware.weighty = 0.7;
+        c_hardware.ipady = 0;
+        c_hardware.ipadx = 0;
+        c_hardware.fill = GridBagConstraints.BOTH;
+        add(leftSelectionPanel, c_hardware);
+        
+        //add right selection Panel;
+        c_hardware.gridx = 10;
+        add(rightSelectionPanel, c_hardware);
+        
+        //add keyPad
+        c_hardware.gridy = 13;
+        c_hardware.gridx = 4;
+        c_hardware.gridwidth = 4;
+        c_hardware.gridheight = 4;
+        c_hardware.weightx = 0.5;
+        c_hardware.weighty = 0.3;
+        c_hardware.fill = GridBagConstraints.NONE;
+        c_hardware.ipady = 100;
+        c_hardware.ipadx = 0;
+        c_hardware.insets = new Insets(5, 25, 5, 25);
+        add(keyPadPanel, c_hardware);   
+        
+        
+        
+        // create handler for keypad buttons
+          ActionListener keyPadListener = new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                  
+                  line = getTextPaneText(currentPanel);
+                  
+                  if (enableKeypad == true) {
+                        switch (event.getActionCommand()) {
+                        case "CANCEL":
+                        if (line != "") {
+                            line = line.substring(0, line.length() - 1);
+                             setTextPaneText(currentPanel, line);
+                        }
+                        break;
+                    // Pressing CLEAR, clear the text from textPane
+                    case "CLEAR":
+                        line = "";
+                         setTextPaneText(currentPanel, line);
+                        break;
+                    // Pressing ENTER
+                    case "ENTER":
+                        line = "";
+                         setTextPaneText(currentPanel, line);
+                        break;
+                    default:
+                        if (isPassword == false) {
+                            if (event.getActionCommand() != ".") {
+                                // check if input is for password
+                                line = line.concat(event.getActionCommand());
+                                setTextPaneText(currentPanel, line);
+                                
+                             }
+                             // check if "." exist in line
+                             else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
+                                 // setting of Floating Point numbers, only 1 "." can exist once
+                                 // remember to set back to true after finishing the whole input if set to false                        
+                                 // check if length of string > 0 and if floating point is enabled
+                                 if (line.length() > 0) {
+                                    line = line.concat(".");
+                                     setTextPaneText(currentPanel, line);
+                                 }
+                                 //check if the first input is "."
+                                 else {
+                                     line = "0.";
+                                      setTextPaneText(currentPanel, line);
+                                 }
+                             }
+                        } else if (isPassword == true) {
+                            line = line.concat("*");
+                             pw = pw.concat(event.getActionCommand());
+                            setTextPaneText(currentPanel, line);
+                        }
+                        }
+                  }
+              }
+          };
+          
+          
+          // register event handler 
+          // 0 - 9 , CANCEL , CLEAR , ENTER , 00
+          for (int i = 0; i<=14; i++)
+              keys[i].addActionListener(keyPadListener);
+    }
+    
 
-	
-	//	GUI RELATED	#############################################
-	
-	public void setMainPanel(JPanel panel){
-		
-		currentPanel = (JPanel)findComponentByName("MainPanel", getContentPane());
-		try	{
-			centreBasePanel.remove(currentPanel);
-		} catch (NullPointerException npt) {
-			System.out.println(npt);
-		}
-		currentPanel = panel;
-		currentPanel.setName("MainPanel");
-		centreBasePanel.add(currentPanel);
-		
-		// reset selection ActionListener
-		for( JButton currentButton: selection ) {
-		    for( ActionListener al : currentButton.getActionListeners() ) {
-		        currentButton.removeActionListener( al );
-		    }
-		}
-		
-		revalidate();
-		repaint();
-	}	
-	
-	
-	
-	//	FUNCTIONALITY RELATED	####################################################
-	
+    
+    //    GUI RELATED    #############################################
+    
+    public void setMainPanel(JPanel panel){
+        
+        currentPanel = (JPanel)findComponentByName("MainPanel", getContentPane());
+        try    {
+            centreBasePanel.remove(currentPanel);
+        } catch (NullPointerException npt) {
+            System.out.println(npt);
+        }
+        currentPanel = panel;
+        currentPanel.setName("MainPanel");
+        centreBasePanel.add(currentPanel);
+        
+        // reset selection ActionListener
+        for( JButton currentButton: selection ) {
+            for( ActionListener al : currentButton.getActionListeners() ) {
+                currentButton.removeActionListener( al );
+            }
+        }
+        
+        revalidate();
+        repaint();
+    }    
+    
+    
+    
+    //    FUNCTIONALITY RELATED    ####################################################
+    
     /**
      * Gets the components inside the main frame.
      * @param name
@@ -334,63 +334,58 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         return null;
     }
     
-	/**
-	 * change functionality of enter button
-	 * @param al of preferred actionlistener for enter key
-	 */
-    public void setEnterListener(ActionListener al) {	
-		// reset enter button ActionListener
-		for( ActionListener a : keys[12].getActionListeners() ) {
-		    keys[12].removeActionListener( a );
-		    break;
-		}
-		keys[12].addActionListener(al);
-	}
-
-	public void clear_keypad(JPanel panel)
-    {
-        line = "";
-        setTextPaneText( panel, line);
+    /**
+     * change functionality of enter button
+     * @param al of preferred actionlistener for enter key
+     */
+    public void setEnterListener(ActionListener al) {    
+        // reset enter button ActionListener
+        for( ActionListener a : keys[12].getActionListeners() ) {
+            keys[12].removeActionListener( a );
+            break;
+        }
+        keys[12].addActionListener(al);
     }
-	// method of 8 selection buttons
-	/**
-	 * change the functionality of different buttons
-	 * default as none
-	 * @param int i of btnNo of specific button in selection panel
-	 * @param ActionListener al of the specific button event
-	 */	
-	public void setSelectionListener(int i, ActionListener al) {
-		selection[i].addActionListener(al);
-	}
+    
+    // method of 8 selection buttons
+    /**
+     * change the functionality of different buttons
+     * default as none
+     * @param int i of btnNo of specific button in selection panel
+     * @param ActionListener al of the specific button event
+     */    
+    public void setSelectionListener(int i, ActionListener al) {
+        selection[i].addActionListener(al);
+    }
 
-	/**
-	 * set availability of keypad and floating point and change display of input
-	 * @param enableNumber true/false
-	 * @param enableFloatingPoint true/false
-	 */
-	public void setKeypadConfiguration(boolean enableNumber, boolean enableFloatingPoint, boolean pw) {
-		enableKeypad = enableNumber;
-		enableFloatingPointButton = enableFloatingPoint;
-		isPassword = pw;
-	}
-	
-	/**
-	 * reset pw value
-	 */
-	public void resetEncapsulatedInput() {
-		pw = "";
-	}
-	
-	/**
-	 * get encapsulated Input
-	 * @return pw encapsulated Input
-	 */
-	public String getEncapsulatedInput() {
-		return pw;
-	}
-	
-	public void run() {
-		ATMgui.get().display(GUIType.Greeting);
+    /**
+     * set availability of keypad and floating point and change display of input
+     * @param enableNumber true/false
+     * @param enableFloatingPoint true/false
+     */
+    public void setKeypadConfiguration(boolean enableNumber, boolean enableFloatingPoint, boolean pw) {
+        enableKeypad = enableNumber;
+        enableFloatingPointButton = enableFloatingPoint;
+        isPassword = pw;
+    }
+    
+    /**
+     * reset pw value
+     */
+    public void resetEncapsulatedInput() {
+        pw = "";
+    }
+    
+    /**
+     * get encapsulated Input
+     * @return pw encapsulated Input
+     */
+    public String getEncapsulatedInput() {
+        return pw;
+    }
+    
+    public void run() {
+        ATMgui.get().display(GUIType.Greeting);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(ATM_WIDTH, ATM_HEIGHT);    //set frame size
         setVisible(true);    //display frame
