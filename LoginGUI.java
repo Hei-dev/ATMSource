@@ -56,16 +56,18 @@ public class LoginGUI implements Defaultgui{
         }
         });
     }
-// Password check
-        public void passwordCheck(){
-        ATMgui.get().setEnterListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae){
-                
-                setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
-                ATMgui.get().revalidate();
-                ATMgui.get().repaint();
-                
+    
+    // Password check
+    public void passwordCheck() {
+	    ATMgui.get().setEnterListener(new ActionListener() 
+	    {
+	        @Override
+	        public void actionPerformed(ActionEvent ae)
+	        {
+	            setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
+	            ATMgui.get().revalidate();
+	            ATMgui.get().repaint();
+	            
 	            PIN = Integer.parseInt(getTextPaneText(login));
 	            boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
 	            System.out.println("password enter");
@@ -77,22 +79,24 @@ public class LoginGUI implements Defaultgui{
 	                ATMgui.get().display(GUIType.MainMenu);
 	                // proceeed to main menu
 	            } 
-	            else {
-	                
+	            else 
+	            {
 	                 setComponentText(login, Defaultgui.TITLE_LABEL, "<html>Account Number or PIN wrong,<br />Please Enter Again</html>", loginFont);                
 	                 ATMgui.get().revalidate();
 	                 ATMgui.get().repaint();
 	                
-	                 ATMgui.get().setEnterListener(new ActionListener(){
-	                    @Override
-	                     public void actionPerformed(ActionEvent evt){
+	                 ATMgui.get().setEnterListener(new ActionListener() 
+	                 {
+	                     @Override
+	                     public void actionPerformed(ActionEvent evt)
+	                     {
 	                        passwordCheck();
 	                        System.out.println("wrong acc or pin");
-	             			setTextPaneText(login, "");
-	                 }
-                });
-            }
-        }
-    });
-}
+	                        setTextPaneText(login, "");
+		                 }
+	                 });
+	            }
+	        }
+	    });
+    }
 }
