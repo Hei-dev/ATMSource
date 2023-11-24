@@ -163,7 +163,7 @@ public class TransferGUI implements Defaultgui
                      else if (target_account == "-1")
                      execute_targetaccount();
                      
-                     ATMgui.get().clear_keypad( TransferGUI );
+                     setTextPaneText(TransferGUI, "");
                  }
         };
         
