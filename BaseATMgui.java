@@ -241,10 +241,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                 if (enableKeypad == true) {
                       switch (event.getActionCommand()) {
                       case "CANCEL":
-                    	  if (line != "") {
+                    	  try {
                     		  line = line.substring(0, line.length() - 1);
                     		  setTextPaneText(currentPanel, line);
-                      		}
+                    	  } catch (NullPointerException npe) {
+                    		  System.out.println(npe);
+                    	  }
                       	  break;
                       // Pressing CLEAR, clear the text from textPane
                       case "CLEAR":
@@ -253,8 +255,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                     	  break;
                       // Pressing ENTER
                       case "ENTER":
-                    	  line = "";
-                          setTextPaneText(currentPanel, line);
+                		  line = "";
+                		  setTextPaneText(currentPanel, line);
                           break;
                       default:
                     	  if ((isPassword == false) && (line.length() < wordLength)) {
@@ -269,13 +271,13 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                                  // remember to set back to true after finishing the whole input if set to false                        
                                  // check if length of string > 0 and if floating point is enabled
                                  if (line.length() > 0) {
-                                    line = line.concat(".");
+                                     line = line.concat(".");
                                      setTextPaneText(currentPanel, line);
                                  }
                                  //check if the first input is "."
                                  else {
                                      line = "0.";
-                                      setTextPaneText(currentPanel, line);
+                                     setTextPaneText(currentPanel, line);
                                  }
                              }
                     	  } else if (isPassword == true) {

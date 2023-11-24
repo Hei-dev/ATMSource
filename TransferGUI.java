@@ -163,7 +163,8 @@ public class TransferGUI implements Defaultgui
                      else if (target_account == "-1")
                      execute_targetaccount();
                      
-                     setTextPaneText(TransferGUI, "");
+                     if (getTextPaneText(TransferGUI) != "")
+                    	 setTextPaneText(TransferGUI, "");
                  }
         };
         

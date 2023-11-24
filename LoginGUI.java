@@ -49,13 +49,18 @@ public class LoginGUI implements Defaultgui{
             public void actionPerformed(ActionEvent ae){
                 setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
                 String accountNumberinput = getTextPaneText (login);
-                accountNumber = Integer.parseInt(accountNumberinput);
+                try {
+                    accountNumber = Integer.parseInt(accountNumberinput);
+                } catch (NumberFormatException nfe) {
+                	System.out.println(nfe);
+                }
                 //setComponentText(login, "Title", accountNumberinput, loginFont);
                 //String input = getTextPaneText( TransferGUI );
                 System.out.println(accountNumber);
                 passwordCheck();
                 System.out.println("enter acc number");
-                setTextPaneText(login, "");
+                if (getTextPaneText(login) != "")
+                	setTextPaneText(login, "");
             }
         });
     }
@@ -66,11 +71,16 @@ public class LoginGUI implements Defaultgui{
             public void actionPerformed(ActionEvent ae){
 
                 String PINinput = getTextPaneText (login);
-                PIN = Integer.parseInt(PINinput);
+                try {
+                	PIN = Integer.parseInt(PINinput);
+                } catch (NumberFormatException nfe) {
+                	System.out.println(nfe);
+                }
                 System.out.println(PIN);
                 boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
                 System.out.println("password enter");
-                setTextPaneText(login, "");
+                if (getTextPaneText(login) != "")
+                	setTextPaneText(login, "");
                 // check whether authentication succeeded
                 if ( userAuthenticated )
                 {
@@ -88,7 +98,8 @@ public class LoginGUI implements Defaultgui{
                         public void actionPerformed(ActionEvent evt){
                             passwordCheck();
                             System.out.println("wrong acc or pin");
-                            setTextPaneText(login, "");
+                            if (getTextPaneText(login) != "")
+                            	setTextPaneText(login, "");
                         }
                     });
                 }
