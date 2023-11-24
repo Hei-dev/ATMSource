@@ -344,7 +344,13 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         }
         return null;
     }
-  
+    
+    /**
+     * get scaled size of image icon
+     * @param image
+     * @param scale of required size
+     * @return Imageicon
+     */
     private ImageIcon getScaledIcon(final Image image, final double scale)
     {
         ImageIcon scaledIcon = new ImageIcon(image)
@@ -366,7 +372,10 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         };
         return scaledIcon;
     }
-  
+    
+    /**
+     * load imange from file
+     */
     private void loadImage()
     {
         String righturl = "images/Right_Arrow.png";
@@ -378,7 +387,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
             rightarrow = ImageIO.read(urlright);
             leftarrow = ImageIO.read(urlleft);
         }
-        catch(MalformedURLException mue)
+        catch(MalformedURLException mue)	
         {
             System.out.println("bad URL: " + mue.getMessage());
         }
