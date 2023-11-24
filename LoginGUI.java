@@ -95,4 +95,8 @@ public class LoginGUI implements Defaultgui{
             }
         });
     }
+    
+    public int getcurrentAccountNumber() {
+    	return currentAccountNumber;
+    }
 }

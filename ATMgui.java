@@ -5,13 +5,14 @@
 
 public class ATMgui extends BaseATMgui{
 
+    // Constructors
     Greetinggui greeting = new Greetinggui();
     Exitgui exit = new Exitgui();
     MainMenugui mainmenu = new MainMenugui();
     Balancegui balance = new Balancegui();
     LoginGUI login = new LoginGUI();
-
-    // Constructors
+    
+    int currentaccountnumber;
 
     protected ATMgui(){
         this("ATM");
@@ -68,6 +69,7 @@ public class ATMgui extends BaseATMgui{
                 setKeypadConfiguration(true, false, false);
                 setMainPanel(login.getPanel());
                 login.setAllListener();
+                currentaccountnumber = login.getcurrentAccountNumber();
                 break;
             default:
                 break;
