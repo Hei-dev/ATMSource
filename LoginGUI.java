@@ -66,29 +66,30 @@ public class LoginGUI implements Defaultgui{
                 ATMgui.get().revalidate();
                 ATMgui.get().repaint();
                 
-            PIN = Integer.parseInt(getTextPaneText(login));
-            boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
-            System.out.println("password enter");
-            // check whether authentication succeeded
-            if ( userAuthenticated )
-            {
-                currentAccountNumber = accountNumber; // save user's account #
-                ATMgui.get().display(GUIType.MainMenu);
-                // proceeed to main menu
-            } 
-            
-            else{
-                
-                setComponentText(login, Defaultgui.TITLE_LABEL, "Account Number or PIN wrong, Please Enter Again", loginFont);                
-                ATMgui.get().revalidate();
-                ATMgui.get().repaint();
-                
-                ATMgui.get().setEnterListener(new ActionListener(){
-                    @Override
-                    public void actionPerformed(ActionEvent evt){
-                        passwordCheck();
-                        System.out.println("wrong acc or pin");
-            }
+	            PIN = Integer.parseInt(getTextPaneText(login));
+	            boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
+	            System.out.println("password enter");
+				setTextPaneText(login, "");
+	            // check whether authentication succeeded
+	            if ( userAuthenticated )
+	            {
+	                currentAccountNumber = accountNumber; // save user's account #
+	                ATMgui.get().display(GUIType.MainMenu);
+	                // proceeed to main menu
+	            } 
+	            else {
+	                
+	                 setComponentText(login, Defaultgui.TITLE_LABEL, "<html>Account Number or PIN wrong,<br />Please Enter Again</html>", loginFont);                
+	                 ATMgui.get().revalidate();
+	                 ATMgui.get().repaint();
+	                
+	                 ATMgui.get().setEnterListener(new ActionListener(){
+	                    @Override
+	                     public void actionPerformed(ActionEvent evt){
+	                        passwordCheck();
+	                        System.out.println("wrong acc or pin");
+	             			setTextPaneText(login, "");
+	                 }
                 });
             }
         }

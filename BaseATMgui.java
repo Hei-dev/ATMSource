@@ -11,7 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.awt.Graphics;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,29 +27,32 @@ import javax.swing.JPanel;
 
 
 public class BaseATMgui extends JFrame implements Defaultgui{
-    
-    private static JButton[] keys, selection;
-    private static GridBagLayout hardwareLayout;
-    private static JPanel
-        keyPadPanel,
-        leftSelectionPanel,
-        rightSelectionPanel,
-        centreBasePanel;
-    private String line;
-    private GridBagConstraints c_hardware;
-    private JPanel currentPanel;    
-    
-    private boolean 
-        enableKeypad,
-        enableFloatingPointButton,
-        isPassword;
-    
-    private String pw;
-    
-    protected static final int ATM_WIDTH = 538;
-    protected static final int ATM_HEIGHT = 650;
-    protected static final int DEFAULT_BORDER_WIDTH = 2;
-    
+	
+	private static JButton[] keys, selection;
+	private static GridBagLayout hardwareLayout;
+	private static JPanel
+		keyPadPanel,
+		leftSelectionPanel,
+		rightSelectionPanel,
+		centreBasePanel;
+	private String line;
+	private GridBagConstraints c_hardware;
+	private JPanel currentPanel;	
+	
+	private boolean 
+		enableKeypad,
+		enableFloatingPointButton,
+		isPassword;
+	
+	private String pw;
+	
+	private Image 
+		rightarrow,
+		leftarrow;
+	
+	protected static final int ATM_WIDTH = 638;
+	protected static final int ATM_HEIGHT = 750;
+	protected static final int DEFAULT_BORDER_WIDTH = 2;
 
     
     protected BaseATMgui() {
@@ -49,7 +60,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
     }
 
     protected BaseATMgui(String title) {
-        super(title);
+    	super(title);
         
         
         // enable floating point button as default
@@ -63,35 +74,36 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         
         // get default gui panel
 
-        // add textPane for showing input
-        
-        // create left and right selection button panel
-        // set left selection panel to Grid Layout
-        leftSelectionPanel = new JPanel();
-        leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );
-        leftSelectionPanel.setVisible(true);
-        
-        // set right selection panel to Grid Layout
-        rightSelectionPanel = new JPanel();
-        rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );    
-        rightSelectionPanel.setVisible(true);
-        
-        selection = new JButton[8];
-        // initialize all selection button, TEMPORARY STRING VALUE FOR RECOGNITION
-        // set the ActionCommand for button handler when temporary string value is deleted
-        for ( int i = 0; i <= 7; i++ ) {
-            selection[i] = new JButton( String.valueOf( i ) );
-            selection[i].setActionCommand("selection" + String.valueOf(i));
-        }
-
-        // add 4 buttons to left selection panel
-        for ( int i = 0; i <= 3; i++)
+	    // add textPane for showing input
+		
+		// create left and right selection button panel
+		// set left selection panel to Grid Layout
+		leftSelectionPanel = new JPanel();
+		leftSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );
+		leftSelectionPanel.setVisible(true);
+		
+		// set right selection panel to Grid Layout
+		rightSelectionPanel = new JPanel();
+		rightSelectionPanel.setLayout( new GridLayout( 4 , 1 , 0 , 7) );	
+		rightSelectionPanel.setVisible(true);
+		
+		selection = new JButton[8];
+		//load in the button icon
+		loadImage();
+		
+		// initialize all selection button and add to respective panel, TEMPORARY STRING VALUE FOR RECOGNITION
+		// set the ActionCommand for button handler when temporary string value is deleted
+		for ( int i = 0; i <= 3; i++ ) {
+			selection[i] = new JButton(getScaledIcon(leftarrow, 0.018));
+			selection[i].setActionCommand("selection" + String.valueOf(i));
             leftSelectionPanel.add(selection[i]);
-        
-        // add 4 buttons to left selection panel
-        for ( int i = 4; i <= 7; i++)
+		}
+		for ( int i = 4; i <= 7; i++) {
+			selection[i] = new JButton(getScaledIcon(rightarrow, 0.018));
+			selection[i].setActionCommand("selection" + String.valueOf(i));	
             rightSelectionPanel.add(selection[i]);
-        
+		}
+		
         
         
         // set keyPadPanel layout to grid layout
@@ -167,28 +179,28 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 
         
         
-         // add top and dummy component for left and right selection Panel
-         c_hardware.gridy = 0;
-         c_hardware.gridx = 0;
-         c_hardware.gridwidth = 2;
-         c_hardware.gridheight = 2;
-         c_hardware.weightx = 0.3;
-         c_hardware.weighty = 0.5;
-        c_hardware.ipady = 0;
-        c_hardware.ipadx = 0;
-        c_hardware.fill = GridBagConstraints.BOTH;
-        c_hardware.insets = new Insets(35,0,50,0);
-         add(new JLabel(), c_hardware);    // top right dummy
-         c_hardware.gridx = 10;
-         add(new JLabel(), c_hardware);    // top left dummy
-         c_hardware.gridy = 11;
-         c_hardware.gridheight = 1;
-         c_hardware.weighty = 0.3;
-         c_hardware.insets = new Insets(0,0,0,0);
-         add(new JLabel(), c_hardware);    // bottom right dummy
-         c_hardware.gridx = 0;
-         add(new JLabel(), c_hardware);    // bottom left dummy
-         
+		// add top and dummy component for left and right selection Panel
+		c_hardware.gridy = 0;
+		c_hardware.gridx = 0;
+		c_hardware.gridwidth = 2;
+		c_hardware.gridheight = 2;
+		c_hardware.weightx = 0.3;
+		c_hardware.weighty = 0.5;
+		c_hardware.ipady = 0;
+		c_hardware.ipadx = 0;
+		c_hardware.fill = GridBagConstraints.BOTH;
+		c_hardware.insets = new Insets(35,0,50,0);
+		add(new JLabel(), c_hardware);    // top right dummy
+		c_hardware.gridx = 10;
+		add(new JLabel(), c_hardware);    // top left dummy
+		c_hardware.gridy = 11;
+		c_hardware.gridheight = 1;
+		c_hardware.weighty = 0.3;
+		c_hardware.insets = new Insets(0,0,0,0);
+		add(new JLabel(), c_hardware);    // bottom right dummy
+		c_hardware.gridx = 0;
+		add(new JLabel(), c_hardware);    // bottom left dummy
+        
         // add left selection Panel
         c_hardware.gridy = 2;
         c_hardware.gridx = 0;
@@ -221,37 +233,36 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         
         
         // create handler for keypad buttons
-          ActionListener keyPadListener = new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent event) {
-                  
-                  line = getTextPaneText(currentPanel);
-                  
-                  if (enableKeypad == true) {
-                        switch (event.getActionCommand()) {
-                        case "CANCEL":
-                        if (line != "") {
-                            line = line.substring(0, line.length() - 1);
-                             setTextPaneText(currentPanel, line);
-                        }
-                        break;
-                    // Pressing CLEAR, clear the text from textPane
-                    case "CLEAR":
-                        line = "";
-                         setTextPaneText(currentPanel, line);
-                        break;
-                    // Pressing ENTER
-                    case "ENTER":
-                        line = "";
-                         setTextPaneText(currentPanel, line);
-                        break;
-                    default:
-                        if (isPassword == false) {
-                            if (event.getActionCommand() != ".") {
-                                // check if input is for password
-                                line = line.concat(event.getActionCommand());
-                                setTextPaneText(currentPanel, line);
-                                
+        ActionListener keyPadListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+                line = getTextPaneText(currentPanel);
+                
+                if (enableKeypad == true) {
+                      switch (event.getActionCommand()) {
+                      case "CANCEL":
+                    	  if (line != "") {
+                    		  line = line.substring(0, line.length() - 1);
+                    		  setTextPaneText(currentPanel, line);
+                      		}
+                      	  break;
+                      // Pressing CLEAR, clear the text from textPane
+                      case "CLEAR":
+                    	  line = "";
+                    	  setTextPaneText(currentPanel, line);
+                    	  break;
+                      // Pressing ENTER
+                      case "ENTER":
+                    	  line = "";
+                          setTextPaneText(currentPanel, line);
+                          break;
+                      default:
+                    	  if (isPassword == false) {
+                    		  if (event.getActionCommand() != ".") {
+                    			  // check if input is for password
+                    			  line = line.concat(event.getActionCommand());
+                    			  setTextPaneText(currentPanel, line);
                              }
                              // check if "." exist in line
                              else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
@@ -268,12 +279,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                                       setTextPaneText(currentPanel, line);
                                  }
                              }
-                        } else if (isPassword == true) {
-                            line = line.concat("*");
-                             pw = pw.concat(event.getActionCommand());
-                            setTextPaneText(currentPanel, line);
-                        }
-                        }
+                    	  } else if (isPassword == true) {
+                    		  line = line.concat("*");
+                    		  pw = pw.concat(event.getActionCommand());
+                    		  setTextPaneText(currentPanel, line);
+                    	  }
+                      }
                   }
               }
           };
@@ -332,6 +343,49 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                     return returnCom;
         }
         return null;
+    }
+  
+    private ImageIcon getScaledIcon(final Image image, final double scale)
+    {
+        ImageIcon scaledIcon = new ImageIcon(image)
+        {
+            public int getIconWidth()
+            {
+                return (int)(image.getWidth(null) * scale);
+            }
+  
+            public int getIconHeight()
+            {
+                return (int)(image.getHeight(null) * scale);
+            }
+  
+            public void paintIcon(Component c, Graphics g, int x, int y)
+            {
+                g.drawImage(image, x, y, getIconWidth(), getIconHeight(), c);
+            }
+        };
+        return scaledIcon;
+    }
+  
+    private void loadImage()
+    {
+        String righturl = "images/Right_Arrow.png";
+        String lefturl = "images/Left_Arrow.png";
+        try
+        {
+            URL urlright = getClass().getResource(righturl);
+            URL urlleft = getClass().getResource(lefturl);
+            rightarrow = ImageIO.read(urlright);
+            leftarrow = ImageIO.read(urlleft);
+        }
+        catch(MalformedURLException mue)
+        {
+            System.out.println("bad URL: " + mue.getMessage());
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("io help: " + ioe.getMessage());
+        }
     }
     
     /**
