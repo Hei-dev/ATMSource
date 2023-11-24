@@ -13,6 +13,8 @@ public class MainMenugui implements Defaultgui{
     
     private ATMgui SCREEN;
     
+    LoginGUI login = new LoginGUI();
+    
     protected MainMenugui() {
         mainMenu = getdefaultGUI();
         mainMenuFont = new Font("mainMenuFont", 1 ,20);
@@ -31,8 +33,6 @@ public class MainMenugui implements Defaultgui{
         bankDB = new BankDatabase();
     }
 
-    public int getAccountNumber(){ return currentAccountNumber;}
-    
     public JPanel getPanel() {
         return mainMenu;
     }
@@ -43,7 +43,7 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new BalanceInquiry( getAccountNumber(), ATMgui.get(),bankDB );
+                Transaction temp = new BalanceInquiry( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
                 temp.execute();
                 ATMgui.get().display(GUIType.Balance);
             }
@@ -54,7 +54,7 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, bankDB, new Keypad(), new CashDispenser() );
+                Transaction temp = new Withdrawal( ATMgui.get().getAccountNumber(), SCREEN, bankDB, new Keypad(), new CashDispenser() );
                 temp.execute();
                 ATMgui.get().display(GUIType.Withdrawal);
             }
@@ -66,7 +66,7 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new Transfer( getAccountNumber(), ATMgui.get(),bankDB );
+                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
                 temp.execute();
                 ATMgui.get().display(GUIType.Transfer);
             }
