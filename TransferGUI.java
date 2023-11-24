@@ -158,10 +158,12 @@ public class TransferGUI implements Defaultgui
                  @Override
                  public void actionPerformed(ActionEvent e)
                  {
-                     if (amount == "-1")
+                     if (amount == "-1") 
                      execute_amount();
                      else if (target_account == "-1")
                      execute_targetaccount();
+                     
+                     ATMgui.get().clear_keypad( TransferGUI );
                  }
         };
         
