@@ -19,10 +19,14 @@ public class ATMgui extends BaseATMgui{
         
     }
 
-	private ATMgui(String title){
-		super(title);
-	}
+    private ATMgui(String title){
+        super(title);
+    }
     
+    public int getAccountNumber()
+    { 
+        return currentaccountnumber;
+    }
     
     /**
      * Creates a new GUI based on the `GUIType`
@@ -37,8 +41,10 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case MainMenu:
+                currentaccountnumber = login.getcurrentAccountNumber();
+                
                 // disable keypad input
-            	setKeypadConfiguration(false, false, false);
+                setKeypadConfiguration(true, false, false);
                 setMainPanel(mainmenu.getPanel());
                 mainmenu.setallListener();
                 break;
@@ -48,7 +54,7 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Exit:
-            	setKeypadConfiguration(false, false, false);
+                setKeypadConfiguration(false, false, false);
                 setMainPanel(exit.getPanel());
                 exit.setallListener();
                 break;
@@ -60,8 +66,8 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Transfer:
-            	TransferGUI transfer = new TransferGUI();
-        		setKeypadConfiguration(true, true, false);
+                TransferGUI transfer = new TransferGUI();
+                setKeypadConfiguration(true, true, false);
                 setMainPanel(transfer.getPanel());
                 transfer.setallListener();
                 break;
@@ -69,7 +75,6 @@ public class ATMgui extends BaseATMgui{
                 setKeypadConfiguration(true, false, false);
                 setMainPanel(login.getPanel());
                 login.setAllListener();
-                currentaccountnumber = login.getcurrentAccountNumber();
                 break;
             default:
                 break;
@@ -77,7 +82,7 @@ public class ATMgui extends BaseATMgui{
         
         revalidate();
         repaint();
-    }
+        }
     
     // Singleton stuff
     private static ATMgui Gui = null;
