@@ -18,7 +18,6 @@ public class Greetinggui implements Defaultgui{
     //private ATMgui SCREEN;
     
     protected Greetinggui() {
-        System.out.println("Greetinggui constructor");
         greeting = getdefaultGUI();
         
         greetingMessage = new JLabel();
@@ -42,11 +41,6 @@ public class Greetinggui implements Defaultgui{
         //to Bank of KWOK Tsz Chun (Hong Kong) Limited (Please press any button to continue)
 
         // change selection names
-        /*setComponentText(greeting, "selection4", "-");
-        setComponentText(greeting, "selection5", "-");
-        setComponentText(greeting, "selection6", "-");
-        setComponentText(greeting, "selection7", "-");
-        */
         // Set the rest of the selection with no text
         for (int i = 0; i < 8; i++) {
             setSelectionDisplay(greeting, i, false);
@@ -57,7 +51,6 @@ public class Greetinggui implements Defaultgui{
 
     
     public JPanel getPanel() {
-        System.out.println("Greeting getPanel()");
         return greeting;
     }
     
@@ -76,7 +69,6 @@ public class Greetinggui implements Defaultgui{
             }
             
         });
-        System.out.println("Greetinggui mainMenu listener");
     }
     }
 }
