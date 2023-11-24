@@ -26,7 +26,7 @@ public class LoginGUI implements Defaultgui{
         login = getdefaultGUI();
         loginFont = new Font("loginFont", 1 ,20);
 
-        setComponentText(login, "Title", "Please Enter Your Account Number", loginFont);
+        setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your Account Number", loginFont);
 
 
         for (int i = 0; i < 8; i++) {
@@ -47,12 +47,15 @@ public class LoginGUI implements Defaultgui{
         ATMgui.get().setEnterListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae){
+                setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
                 String accountNumberinput = getTextPaneText (login);
-                setComponentText(login, "Title", accountNumberinput, loginFont);
+                accountNumber = Integer.parseInt(accountNumberinput);
+                //setComponentText(login, "Title", accountNumberinput, loginFont);
                 //String input = getTextPaneText( TransferGUI );
-                System.out.println(accountNumberinput);
+                System.out.println(accountNumber);
                 passwordCheck();
                 System.out.println("enter acc number");
+                setTextPaneText(login, "");
             }
         });
     }
@@ -62,12 +65,12 @@ public class LoginGUI implements Defaultgui{
             @Override
             public void actionPerformed(ActionEvent ae){
 
-                setComponentText(login, "Title", "Please Enter Your PIN", loginFont);
-
                 String PINinput = getTextPaneText (login);
-                //PIN = Integer.parseInt(PINinput);
+                PIN = Integer.parseInt(PINinput);
+                System.out.println(PIN);
                 boolean userAuthenticated = loginBankDB.authenticateUser( accountNumber, PIN );
                 System.out.println("password enter");
+                setTextPaneText(login, "");
                 // check whether authentication succeeded
                 if ( userAuthenticated )
                 {
@@ -78,13 +81,14 @@ public class LoginGUI implements Defaultgui{
 
                 else{
 
-                    setComponentText(login, "Title", "Account Number or PIN wrong, Please Enter Again", loginFont);
-
+                    setComponentText(login, "Title", "<html>Account Number or PIN wrong, <li>Please Enter Again</html>", loginFont);
+                    
                     ATMgui.get().setEnterListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent evt){
                             passwordCheck();
                             System.out.println("wrong acc or pin");
+                            setTextPaneText(login, "");
                         }
                     });
                 }
