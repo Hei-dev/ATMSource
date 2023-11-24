@@ -90,7 +90,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		//load in the button icon
 		loadImage();
 		
-		// initialize all selection button and add to respective panel, TEMPORARY STRING VALUE FOR RECOGNITION
+		// initialize all selection button and add to respective panel
 		// set the ActionCommand for button handler when temporary string value is deleted
 		for ( int i = 0; i <= 3; i++ ) {
 			selection[i] = new JButton(getScaledIcon(leftarrow, 0.018));
