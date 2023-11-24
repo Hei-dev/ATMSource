@@ -45,6 +45,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		isPassword;
 	
 	private String pw;
+	private int wordLength;
 	
 	private Image 
 		rightarrow,
@@ -69,12 +70,10 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         enableKeypad = true;
         // disable encapsulating password
         isPassword = false;
-        //
+        // set encrypted password to null
         pw = "";
-        
-        // get default gui panel
-
-	    // add textPane for showing input
+        // set default wordLength to 9
+        wordLength = 9;
 		
 		// create left and right selection button panel
 		// set left selection panel to Grid Layout
@@ -258,7 +257,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                           setTextPaneText(currentPanel, line);
                           break;
                       default:
-                    	  if (isPassword == false) {
+                    	  if ((isPassword == false) && (line.length() < wordLength)) {
                     		  if (event.getActionCommand() != ".") {
                     			  // check if input is for password
                     			  line = line.concat(event.getActionCommand());
@@ -318,7 +317,8 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                 currentButton.removeActionListener( al );
             }
         }
-        
+        // reset word length
+        wordLength = 9;
         revalidate();
         repaint();
     }    
@@ -445,6 +445,14 @@ public class BaseATMgui extends JFrame implements Defaultgui{
      */
     public String getEncapsulatedInput() {
         return pw;
+    }
+    
+    /**
+     * set the word length inside text pane
+     * @param wl of required word length
+     */
+    public void setWordLength(int wl) {
+    	wordLength = wl;
     }
     
     public void run() {
