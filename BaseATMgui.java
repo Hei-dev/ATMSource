@@ -346,7 +346,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		}
 		keys[12].addActionListener(al);
 	}
-    
+
+	public void clear_keypad(JPanel panel)
+    {
+        line = "";
+        setTextPaneText( panel, line);
+    }
 	// method of 8 selection buttons
 	/**
 	 * change the functionality of different buttons
