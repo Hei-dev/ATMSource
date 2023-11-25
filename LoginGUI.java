@@ -88,6 +88,7 @@ public class LoginGUI implements Defaultgui{
                 if ( userAuthenticated )
                 {
                     currentAccountNumber = accountNumber; // save user's account #
+                    inputWrongCount = 0;
                     ATMgui.get().display(GUIType.MainMenu);
                     // proceeed to main menu
                 }
