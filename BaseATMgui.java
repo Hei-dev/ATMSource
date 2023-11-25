@@ -376,6 +376,45 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         return null;
     }
     
+    public Component findMainComponentByName(String name){
+        Component returnCom = null;
+        for(Component c : getContentPane().getComponents()){
+            if(c.getName()==name)
+                return c;
+            if(c instanceof Container)
+                if((returnCom = findComponentByName(name,(Container)c))!=null)
+                    return returnCom;
+        }
+        return null;
+    }
+    
+    /**
+     * get scaled size of image icon
+     * @param image
+     * @param scale of required size
+     * @return Imageicon
+     */
+    private ImageIcon getScaledIcon(final Image image, final double scale)
+    {
+        ImageIcon scaledIcon = new ImageIcon(image)
+        {
+            public int getIconWidth()
+            {
+                return (int)(image.getWidth(null) * scale);
+            }
+  
+            public int getIconHeight()
+            {
+                return (int)(image.getHeight(null) * scale);
+            }
+  
+            public void paintIcon(Component c, Graphics g, int x, int y)
+            {
+                g.drawImage(image, x, y, getIconWidth(), getIconHeight(), c);
+            }
+        };
+        return scaledIcon;
+    }
     
     /**
      * load imange from file
