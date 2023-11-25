@@ -18,8 +18,10 @@ public class LoginGUI implements Defaultgui{
 
     private Font loginFont;
 
-    public int accountNumber;
-    public int PIN;
+    private int accountNumber;
+    private int PIN;
+
+    private int inputWrongCount = 0;
 
     protected LoginGUI(){
         System.out.println("Login");
@@ -39,6 +41,10 @@ public class LoginGUI implements Defaultgui{
 
     public JPanel getPanel() {
         return login;
+    }
+
+    public int getcurrentAccountNumber() {
+    	return currentAccountNumber;
     }
 
     // Acc number enter
@@ -89,12 +95,24 @@ public class LoginGUI implements Defaultgui{
                 }
 
                 else{
-
-                    setComponentText(login, "Title", "<html>Account Number or PIN wrong, <li>Please Enter Again</html>", loginFont);
+                    inputWrongCount++;
+                    if(inputWrongCount == 1){
+                        setComponentText(login, "Title", "<html>Account Number or PIN wrong, <li>You can try 2 more times, <li>Please Enter Again</html>", loginFont);
+                    }
+                    if(inputWrongCount == 2){
+                        setComponentText(login, "Title", "<html>Account Number or PIN wrong, <li>You can try 1 more times, <li>Please Enter Again</html>", loginFont);
+                    }
+                    if(inputWrongCount%3 == 0 && inputWrongCount != 0){
+                            setComponentText(login, "Title", "<html>Your card is freezed, <li>Please contact us, <li>Click Enter back to greeting page</html>", loginFont);
+                    }
                     
                     ATMgui.get().setEnterListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent evt){
+                            if(inputWrongCount%3 == 0 && inputWrongCount != 0 ){
+                                setComponentText(login, "Title", "Please Enter Your Account Number", loginFont);
+                                ATMgui.get().display(GUIType.Greeting);
+                            }
                             setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
                             String accountNumberinput = getTextPaneText (login);
                             accountNumber = Integer.parseInt(accountNumberinput);
@@ -109,7 +127,4 @@ public class LoginGUI implements Defaultgui{
         });
     }
     
-    public int getcurrentAccountNumber() {
-    	return currentAccountNumber;
-    }
 }
