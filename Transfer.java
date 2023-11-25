@@ -32,6 +32,7 @@ public class Transfer extends Transaction
        bankDatabase.credit(target_account, amount);
        bankDatabase.debit(current_account, amount);
        
+       bankDatabase.saveAccounts();
    }
    
    // perform transaction
