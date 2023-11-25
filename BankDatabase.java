@@ -120,8 +120,8 @@ public class BankDatabase
    // return available balance of Account with specified account number
    public double getAvailableBalance( int userAccountNumber )
    {
-       System.out.println("Q: "+ userAccountNumber)
-      return getAccount( userAccountNumber ).getAvailableBalance();
+       System.out.println("Q: "+ userAccountNumber);
+       return getAccount( userAccountNumber ).getAvailableBalance();
    } // end method getAvailableBalance
 
    // return total balance of Account with specified account number
