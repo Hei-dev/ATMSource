@@ -96,6 +96,9 @@ public class LoginGUI implements Defaultgui{
                     ATMgui.get().setEnterListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent evt){
+                            setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
+                            String accountNumberinput = getTextPaneText (login);
+                            accountNumber = Integer.parseInt(accountNumberinput);
                             passwordCheck();
                             System.out.println("wrong acc or pin");
                             if (getTextPaneText(login) != "")
