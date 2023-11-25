@@ -132,7 +132,7 @@ public class TransferGUI implements Defaultgui
         {
             setSelectionDisplay(TransferGUI, i, true);
         }
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "transfer amount:", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "HKD$" + "transfer amount:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, amount);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, "target account:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, target_account);
