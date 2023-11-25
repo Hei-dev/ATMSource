@@ -11,7 +11,7 @@ public class WithdrawalGUI implements Defaultgui{
 
     public static JPanel getMainPanel() {
 
-        mainPanel = ATMgui.get().getdefaultGUI();
+        ATMgui.get().addMainPanel(ATMgui.get().getdefaultGUI());
 
         ATMgui.get().setComponentText(mainPanel, "Title", "Please select the exact amount, or type the amount using the keypad.");
 
@@ -22,5 +22,9 @@ public class WithdrawalGUI implements Defaultgui{
 
         return mainPanel;
         
+   }
+   
+   public static JPanel getDispensePanel(){
+       
    }
 }

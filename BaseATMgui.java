@@ -177,7 +177,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         add(centreBasePanel, c_hardware);
 
         
-        
 		// add top and dummy component for left and right selection Panel
 		c_hardware.gridy = 0;
 		c_hardware.gridx = 0;

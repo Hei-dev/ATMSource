@@ -32,8 +32,16 @@ public class Withdrawal extends Transaction
       // get references to bank database and screen
       BankDatabase bankDatabase = getBankDatabase(); 
       ATMgui screen = getScreen();
+      
+      screen.setEnterListener(new ActionListener(){
+          @Override
+          public void actionPerformed(ActionEvent ae){
+              prepareDispenseCash();
+          }
+      });
 
       // loop until cash is dispensed or the user cancels
+      /*
       do
       {
          // obtain a chosen withdrawal amount from the user 
@@ -64,10 +72,6 @@ public class Withdrawal extends Transaction
                else{ // cash dispenser does not have enough cash
                   // TODO display error message
                }
-               /* 
-                  screen.displayMessageLine( 
-                     "\nInsufficient cash available in the ATM." +
-                     "\n\nPlease choose a smaller amount." );*/
             } // end if
             else // not enough money available in user's account
             {
@@ -81,9 +85,11 @@ public class Withdrawal extends Transaction
             // screen.displayMessageLine( "\nCanceling transaction..." );
             return; // return to main menu because user canceled
          } // end else
-      } while ( !cashDispensed );
+      } while ( !cashDispensed );*/
 
    } // end method execute
+   
+   
    
    /**
     * Checks whether the inputted amount is valid to be withdrawn
