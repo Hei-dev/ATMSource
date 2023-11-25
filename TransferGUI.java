@@ -14,12 +14,15 @@ public class TransferGUI implements Defaultgui
         transferfont,
         amountfont;
     private BankDatabase bankDB;
-        
+    private Transaction transaction;
+    
     private final static int CANCELED = 0; // constant for cancel option
     private final static int Decimal_value = -2; // constant for handle non-integer
     private final static int Insufficient_cash = -3; // constant for not enough money
     private final static int same_account = -4; // constant for not enough money
+    private final static int Invaild_account = -5; // constant for unexist account number
     private final static int Invaild_value = -404; // constant for handle invaild value    
+    
     protected TransferGUI()
     {
         TransferGUI = getdefaultGUI();
@@ -58,13 +61,6 @@ public class TransferGUI implements Defaultgui
             setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
             "<br/><br/><br/><br/>Only support numbers! Input again</html>"
-            , transferfont);
-        }
-        else if (status == Decimal_value)
-        {
-            setComponentText
-            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
-            "<br/><br/><br/><br/>Only integer number allow!<br/>Please enter again!</html>"
             , transferfont);
         }
         else if (status == Insufficient_cash)
@@ -112,6 +108,13 @@ public class TransferGUI implements Defaultgui
             "<br/>Please input again</html>"
             , transferfont);
         }
+        else if (status == Invaild_account)
+        {
+            setComponentText
+            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            "<br/><br/><br/><br/>The account does not exist! Input again</html>"
+            , transferfont);
+        }
         else
         {
             target_account = input;
@@ -124,12 +127,12 @@ public class TransferGUI implements Defaultgui
     private void promt_confirm()
     {   
         setComponentText
-        (TransferGUI, "Title", "Please check all inputs are correct", transferfont);
+        (TransferGUI, "Title", "Please check all the inputs are correct", transferfont);
         for (int i = 2; i<= 7; i++)
         {
             setSelectionDisplay(TransferGUI, i, true);
         }
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "transfer amount:", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "HKD$" + "transfer amount:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, amount);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, "target account:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, target_account);
@@ -143,11 +146,21 @@ public class TransferGUI implements Defaultgui
         {
             setSelectionDisplay(TransferGUI, i, false);
         }
-        //bankDB = new BankDatabase();
-        //bankDB.credit( Integer.parseInt(target_account), Double.parseDouble(amount) );
-        //bankDB.debit( current_account, Double.parseDouble(amount) );
+        Transfer.transfer_execute();
+        
+        //message for returning mainmenu after finish transfer
+        for(int i = 0; i < 8 ; i++){
+        ATMgui.get().setSelectionListener(i, new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ATMgui.get().display(GUIType.MainMenu);
+            }
+        });
+        }
         setComponentText
-        (TransferGUI, "Title", "Transfer successed", transferfont);
+        (TransferGUI, "Title", "<html>Transfer successed<br/> " +
+        "Press any key back to main menu</html>", transferfont);
     }
     
     public void setallListener()
@@ -158,10 +171,12 @@ public class TransferGUI implements Defaultgui
                  @Override
                  public void actionPerformed(ActionEvent e)
                  {
-                     if (amount == "-1")
+                     if (amount == "-1") 
                      execute_amount();
                      else if (target_account == "-1")
                      execute_targetaccount();
+                     
+                     setTextPaneText(TransferGUI, "");
                  }
         };
         

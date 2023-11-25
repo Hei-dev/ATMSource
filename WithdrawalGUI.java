@@ -71,4 +71,8 @@ public class WithdrawalGUI implements Defaultgui{
         
         return mainPanel;
    }
+   
+   public static JPanel getDispensePanel(){
+       
+   }
 }

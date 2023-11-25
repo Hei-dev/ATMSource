@@ -13,6 +13,7 @@ public class Transfer extends Transaction
    private final static int Decimal_value = -2; // constant for handle non-integer
    private final static int Insufficient_cash = -3; // constant for not enough money
    private final static int same_account = -4; // constant for same account number
+   private final static int Invaild_account = -5; // constant for unexist account number
    private final static int Invaild_value = -404; // constant for handle invaild value
    
 
@@ -24,22 +25,24 @@ public class Transfer extends Transaction
       super( userAccountNumber, atmScreen, atmBankDatabase );
    } // end Transfer constructor
    
-   public double return_balance()
-   {
-       return available_balance;
+   public static void transfer_execute()
+   {   
+       BankDatabase bankDatabase = new BankDatabase();
+
+       bankDatabase.credit(target_account, amount);
+       bankDatabase.debit(current_account, amount);
+       
    }
-    
+   
    // perform transaction
    public void execute()
    {
       BankDatabase bankDatabase = getBankDatabase(); // get reference
       ATMgui screen = getScreen(); // get reference
       
-      current_account = 12345;
-      //current_account = getAccountNumber();
+      current_account = getAccountNumber();
       
-      available_balance = 1000;
-      //available_balance = bankDatabase.getAvailableBalance( current_account );
+      available_balance = bankDatabase.getAvailableBalance( current_account );
    } // end method promptForTargetAccount
    
    public static int check_amount( String input )
@@ -67,6 +70,7 @@ public class Transfer extends Transaction
    public static int check_account( String input )
    {    
         double target_account_temp;
+        BankDatabase bankDatabase = new BankDatabase();
         try 
         {
             target_account_temp = Double.parseDouble( input );
@@ -85,6 +89,10 @@ public class Transfer extends Transaction
         else if ( account_checker == current_account)
         {
             return same_account;
+        }
+        else if ( !bankDatabase.authenticateUser( account_checker ) )
+        {
+            return Invaild_account;
         }
         else 
         {

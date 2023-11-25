@@ -9,16 +9,18 @@ public class MainMenugui implements Defaultgui{
     private BankDatabase bankDB;
     private Font mainMenuFont;
 
-	private int currentAccountNumber; // current user's account number
-	
-	private ATMgui SCREEN;
-	
-	protected MainMenugui() {
-		mainMenu = getdefaultGUI();
-		mainMenuFont = new Font("mainMenuFont", 1 ,20);
-		
-		// change title to "Main Menu"
-		setComponentText(mainMenu, Defaultgui.TITLE_LABEL, "Main Menu", mainMenuFont);
+    private int currentAccountNumber; // current user's account number
+    
+    private ATMgui SCREEN;
+    
+    LoginGUI login = new LoginGUI();
+    
+    protected MainMenugui() {
+        mainMenu = getdefaultGUI();
+        mainMenuFont = new Font("mainMenuFont", 1 ,20);
+        
+        // change title to "Main Menu"
+        setComponentText(mainMenu, Defaultgui.TITLE_LABEL, "Main Menu", mainMenuFont);
         // change selection names
         setComponentText(mainMenu, Defaultgui.SELECTION4_LABEL, "View my balance");
         setComponentText(mainMenu, Defaultgui.SELECTION5_LABEL, "Withdraw cash");
@@ -31,54 +33,54 @@ public class MainMenugui implements Defaultgui{
         bankDB = new BankDatabase();
     }
 
-    public int getAccountNumber(){ return currentAccountNumber;}
-	
-	public JPanel getPanel() {
-		return mainMenu;
-	}
-	
-	public void setallListener() {
-		// set action listener for view balance
-		ATMgui.get().setSelectionListener(2, new ActionListener() {
+    public JPanel getPanel() {
+        return mainMenu;
+    }
+    
+    public void setallListener() {
+        // set action listener for view balance
+        ATMgui.get().setSelectionListener(2, new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Transaction temp = new BalanceInquiry( getAccountNumber(), ATMgui.get(),bankDB );
-				temp.execute();
-				ATMgui.get().display(GUIType.Balance);
-			}
-		});
-		
-		// set action listener for withdraw
-		ATMgui.get().setSelectionListener(6, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Transaction temp = new BalanceInquiry( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
+                temp.execute();
+                ATMgui.get().display(GUIType.Balance);
+            }
+        });
+        
+        // set action listener for withdraw
+        ATMgui.get().setSelectionListener(6, new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			    ATMgui.get().display(GUIType.Withdrawal);
-				Transaction temp = new Withdrawal( currentAccountNumber, SCREEN, bankDB, new Keypad(), new CashDispenser() );
-				temp.execute();
-			}
-			
-		});
-		
-		// set action listener for transfer fund
-		ATMgui.get().setSelectionListener(3, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Transaction temp = new Withdrawal( ATMgui.get().getAccountNumber(), SCREEN, bankDB, new Keypad(), new CashDispenser() );
+                temp.execute();
+                ATMgui.get().display(GUIType.Withdrawal);
+            }
+            
+        });
+        
+        // set action listener for transfer fund
+        ATMgui.get().setSelectionListener(3, new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ATMgui.get().display(GUIType.Transfer);
-			}
-			
-		});
-		
-		// set action listener for exit
-		ATMgui.get().setSelectionListener(7, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
+                temp.execute();
+                ATMgui.get().display(GUIType.Transfer);
+            }
+            
+        });
+        
+        // set action listener for exit
+        ATMgui.get().setSelectionListener(7, new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ATMgui.get().display(GUIType.Exit);
-			}
-			
-		});
-	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ATMgui.get().display(GUIType.Exit);
+            }
+            
+        });
+    }
 }
