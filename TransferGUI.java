@@ -13,8 +13,6 @@ public class TransferGUI implements Defaultgui
     private Font 
         transferfont,
         amountfont;
-    private BankDatabase bankDB;
-    private Transaction transaction;
     
     private final static int CANCELED = 0; // constant for cancel option
     private final static int Decimal_value = -2; // constant for handle non-integer
@@ -132,7 +130,7 @@ public class TransferGUI implements Defaultgui
         {
             setSelectionDisplay(TransferGUI, i, true);
         }
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "HKD$" + "transfer amount:", amountfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "HK$" + "transfer amount:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, amount);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, "target account:", amountfont);
         ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, target_account);
