@@ -44,7 +44,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		enableFloatingPointButton,
 		isPassword;
 	
-	private String pw;
+	private String input;
 	private int wordLength;
 	
 	private Image 
@@ -71,7 +71,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         // disable encapsulating password
         isPassword = false;
         // set encrypted password to null
-        pw = "";
+        input = "";
         // set default wordLength to 9
         wordLength = 9;
 		
@@ -236,12 +236,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
             public void actionPerformed(ActionEvent event) {
                 
                 line = getTextPaneText(currentPanel);
-                
                 if (enableKeypad == true) {
                       switch (event.getActionCommand()) {
                       case "CANCEL":
                     	  try {
                     		  line = line.substring(0, line.length() - 1);
+                    		  input = line;
                     		  setTextPaneText(currentPanel, line);
                     	  } catch (NullPointerException npe) {
                     		  System.out.println(npe);
@@ -250,11 +250,13 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                       // Pressing CLEAR, clear the text from textPane
                       case "CLEAR":
                     	  line = "";
+                    	  input = line;
                     	  setTextPaneText(currentPanel, line);
                     	  break;
                       // Pressing ENTER
                       case "ENTER":
                 		  line = "";
+                		  input = line;
                 		  setTextPaneText(currentPanel, line);
                           break;
                       default:
@@ -262,6 +264,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                     		  if (event.getActionCommand() != ".") {
                     			  // check if input is for password
                     			  line = line.concat(event.getActionCommand());
+                    			  input = line;
                     			  setTextPaneText(currentPanel, line);
                              }
                              // check if "." exist in line
@@ -271,17 +274,19 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                                  // check if length of string > 0 and if floating point is enabled
                                  if (line.length() > 0) {
                                      line = line.concat(".");
+                                     input = line;
                                      setTextPaneText(currentPanel, line);
                                  }
                                  //check if the first input is "."
                                  else {
                                      line = "0.";
+                                     input = line;
                                      setTextPaneText(currentPanel, line);
                                  }
                              }
                     	  } else if (isPassword == true) {
                     		  line = line.concat("*");
-                    		  pw = pw.concat(event.getActionCommand());
+                    		  input = input.concat(event.getActionCommand());
                     		  setTextPaneText(currentPanel, line);
                     	  }
                       }
@@ -424,6 +429,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
             break;
         }
         keys[12].addActionListener(al);
+        input = "";
     }
     
     // method of 8 selection buttons
@@ -442,25 +448,26 @@ public class BaseATMgui extends JFrame implements Defaultgui{
      * @param enableNumber true/false
      * @param enableFloatingPoint true/false
      */
-    public void setKeypadConfiguration(boolean enableNumber, boolean enableFloatingPoint, boolean pw) {
+    public void setKeypadConfiguration(boolean enableNumber, boolean enableFloatingPoint, boolean input) {
         enableKeypad = enableNumber;
         enableFloatingPointButton = enableFloatingPoint;
-        isPassword = pw;
+        isPassword = input;
     }
     
     /**
-     * reset pw value
+     * set input value
      */
-    public void resetMaskedInput() {
-        pw = "";
+    public void setInput(String s) {
+        input = s;
     }
     
     /**
      * get encapsulated Input
-     * @return pw encapsulated Input
+     * @return input encapsulated Input
      */
-    public String getMaskedInput() {
-        return pw;
+    public String getInput() {
+    	System.out.println("Input: "+ input);
+        return input;
     }
     
     /**

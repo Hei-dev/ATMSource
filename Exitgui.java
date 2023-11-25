@@ -51,11 +51,7 @@ public class Exitgui implements Defaultgui {
 		setComponentText(cardAndReciptGUI, Defaultgui.SELECTION7_LABEL, "Take card");
 	}
 	
-	public void setallListener() {
-		
-		// reset password input
-		ATMgui.get().resetMaskedInput();
-		
+	public void setallListener() {		
 		ATMgui.get().setSelectionListener(3, new ActionListener() {
 			
 			@Override
