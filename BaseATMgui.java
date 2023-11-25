@@ -285,8 +285,6 @@ public class BaseATMgui extends JFrame implements Defaultgui{
   			keys[i].addActionListener(keyPadListener);
 	}
 	
-
-	
 	//	GUI RELATED	#############################################
 	
 	public void setMainPanel(JPanel panel){
@@ -312,12 +310,18 @@ public class BaseATMgui extends JFrame implements Defaultgui{
 		repaint();
 	}	
 	
-	
-	
 	//	FUNCTIONALITY RELATED	####################################################
+	/**
+	 * Gets the component inside the main panel
+	 * @param name the component name
+	 * @return component teh component found. Null will be returned if no component found.
+	 */
+	 public Component findMainComponentByName(String name){
+	     return findComponentByName(name,(Container)findComponentByName("MainPanel", getContentPane()));
+	 }
 	
     /**
-     * Gets the components inside the main frame.
+     * Gets the components inside the given panel
      * @param name
      * @param mContainer
      * @return component
@@ -333,6 +337,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         }
         return null;
     }
+    
     
 	/**
 	 * change functionality of enter button

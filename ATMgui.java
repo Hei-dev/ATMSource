@@ -43,7 +43,7 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Withdrawal:
-                setMainPanel(WithdrawalGUI.getMainPanel());
+                setMainPanel(WithdrawalGUI.getMainPanel(false));
                 break;
                 
             case Exit:
