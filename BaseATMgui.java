@@ -324,9 +324,39 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         repaint();
     }    
     
-    
+    /**
+     * get scaled size of image icon
+     * @param image
+     * @param scale of required size
+     * @return Imageicon
+     */
+    private ImageIcon getScaledIcon(final Image image, final double scale)
+    {
+        ImageIcon scaledIcon = new ImageIcon(image)
+        {
+            public int getIconWidth()
+            {
+                return (int)(image.getWidth(null) * scale);
+            }
+
+            public int getIconHeight()
+            {
+                return (int)(image.getHeight(null) * scale);
+            }
+
+            public void paintIcon(Component c, Graphics g, int x, int y)
+            {
+                g.drawImage(image, x, y, getIconWidth(), getIconHeight(), c);
+            }
+        };
+        return scaledIcon;
+    }
     
     //    FUNCTIONALITY RELATED    ####################################################
+    
+    public Component findMainComponentByName(String name){
+        return findComponentByName(name, (Container)findComponentByName("MainPanel",getContentPane()));
+    }
     
     /**
      * Gets the components inside the given panel
@@ -334,7 +364,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
      * @param mContainer
      * @return component
      */
-    private Component findComponentByName(String name, Container mContainer){
+    public Component findComponentByName(String name, Container mContainer){
         Component returnCom = null;
         for(Component c : mContainer.getComponents()){
             if(c.getName()==name)

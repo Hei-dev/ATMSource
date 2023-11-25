@@ -30,6 +30,9 @@ public class BankDatabase
 				//               OrgArr  OrgPos    DestArr   DestPos       Len
 				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); // Slice the double in bytes from the file bytes
 				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); // Converts to double and store it in the temp. variable
+				
+				//System.out.println(doubleVals[i]);
+				
 				readPos += doubleLength+1; // Skips the corresponding pos
 			}
 			
@@ -117,6 +120,7 @@ public class BankDatabase
    // return available balance of Account with specified account number
    public double getAvailableBalance( int userAccountNumber )
    {
+       System.out.println("Q: "+ userAccountNumber)
       return getAccount( userAccountNumber ).getAvailableBalance();
    } // end method getAvailableBalance
 
