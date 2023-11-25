@@ -34,10 +34,6 @@ public class WithdrawalGUI implements Defaultgui{
         return mainPanel;
    }
    
-   public static JPanel getDispensePanel(){
-       return null;
-   }
-   
    public static JPanel getErrorScreen(String msg){
        mainPanel = ATMgui.get().getdefaultGUI();
 
@@ -72,7 +68,4 @@ public class WithdrawalGUI implements Defaultgui{
         return mainPanel;
    }
    
-   public static JPanel getDispensePanel(){
-       
-   }
 }
