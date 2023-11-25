@@ -6,7 +6,7 @@ import java.awt.Font;
 
 public class Balancegui implements Defaultgui{
     private JPanel balance;
-    private BankDatabase bankDB;
+
     private Font balancefont;
 
     private int currentAccountNumber; // current user's account number
@@ -17,11 +17,10 @@ public class Balancegui implements Defaultgui{
     protected Balancegui() {
         balance = getdefaultGUI();
         balancefont = new Font("balfont", 1, 20);
-        
         // change title to "balance"
         setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
 
-        // change selection names
+        // change selection names   
         setComponentText(balance, Defaultgui.SELECTION4_LABEL, "Available balance");
         setComponentText(balance, Defaultgui.SELECTION5_LABEL, "Total balance");
         setComponentText(balance, Defaultgui.SELECTION6_LABEL, "Main menu");
@@ -31,28 +30,32 @@ public class Balancegui implements Defaultgui{
             setSelectionDisplay(balance, i, false);
         }
         //setTextPanel(mainMenu);
-        bankDB = new BankDatabase();
     }
-
-    public int getAccountNumber(){ return currentAccountNumber;}
-
-
     
+    private void execute_available(){
+                String AvailableBalance = Double.toString(BalanceInquiry.getavailablebalance());
+                setComponentText(balance, "Title", "Available Balance: " + AvailableBalance, balancefont);
+            }
+            
+    private void execute_total(){
+                String TotalBalance = Double.toString(BalanceInquiry.gettotalbalance());
+                setComponentText(balance, "Title", "Total Balance: " + TotalBalance, balancefont);
+            }
+            
     public JPanel getPanel() {
         System.out.println("Balance getPanel()");
         return balance;
     }
     
     public void setallListener() {
-        // set action listener for Available Balance
 
+        // set action listener for Available Balance        
         ActionListener availableBalance = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Transaction temp = new Transfer( currentAccountNumber, SCREEN, bankDB, new Keypad() );
-                String AvailableBalance = Double.toString(bankDB.getAvailableBalance(getAccountNumber()));
-                setComponentText(balance, "Title", "Available Balance: " + AvailableBalance, balancefont);
+                execute_available();
                 //+ AvailableBalance
             }
         };
@@ -65,8 +68,7 @@ public class Balancegui implements Defaultgui{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Transaction temp = new Transfer( currentAccountNumber, SCREEN, bankDB, new Keypad() );
-                String TotalBalance = Double.toString(bankDB.getTotalBalance(getAccountNumber()));
-                setComponentText(balance, "Title", "Total Balance: " + TotalBalance, balancefont);
+                execute_total();
                 //+ TotalBalance
             }
         };

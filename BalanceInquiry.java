@@ -3,6 +3,9 @@
 
 public class BalanceInquiry extends Transaction
 {
+    private static double available_balance;   
+    private static double total_balance;
+    private static int current_account;
    // BalanceInquiry constructor
    public BalanceInquiry( int userAccountNumber, ATMgui atmScreen, 
       BankDatabase atmBankDatabase )
@@ -17,13 +20,14 @@ public class BalanceInquiry extends Transaction
       BankDatabase bankDatabase = getBankDatabase();
       ATMgui screen = getScreen();
 
+      current_account = getAccountNumber();
+      
       // get the available balance for the account involved
-      double availableBalance = 
-         bankDatabase.getAvailableBalance( getAccountNumber() );
+            available_balance = bankDatabase.getAvailableBalance( current_account );
 
       // get the total balance for the account involved
-      double totalBalance = 
-         bankDatabase.getTotalBalance( getAccountNumber() );
+            total_balance = bankDatabase.getTotalBalance( current_account );
+         
       
       // display the balance information on the screen
       /* 
@@ -35,6 +39,17 @@ public class BalanceInquiry extends Transaction
       screen.displayMessageLine( "" );
       */
    } // end method execute
+   
+   public static double getavailablebalance(){
+       BankDatabase bankDatabase = new BankDatabase();
+       return available_balance;
+   }
+   
+    public static double gettotalbalance(){
+        BankDatabase bankDatabase = new BankDatabase();
+       return total_balance;
+   }
+   
 } // end class BalanceInquiry
 
 
