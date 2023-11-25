@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,8 @@ public interface Defaultgui {
 		SELECTION4_LABEL = "selection4",
 		SELECTION5_LABEL = "selection5",
 		SELECTION6_LABEL = "selection6",
-		SELECTION7_LABEL = "selection7";
+		SELECTION7_LABEL = "selection7",
+		DEFAULT_PANEL = "DefaultPanel";
 	
 	default JPanel getdefaultGUI() {
 		
@@ -107,7 +109,8 @@ public interface Defaultgui {
 	    c_interface.weighty = 0.001;
 	    defaultPanel.add(defaultTextPane, c_interface);
 	    
-
+	    defaultPanel.setName(DEFAULT_PANEL);
+	    
 	    return defaultPanel;
 	}
 	
