@@ -54,7 +54,7 @@ public class Exitgui implements Defaultgui {
 	public void setallListener() {
 		
 		// reset password input
-		ATMgui.get().resetEncapsulatedInput();
+		ATMgui.get().resetMaskedInput();
 		
 		ATMgui.get().setSelectionListener(3, new ActionListener() {
 			

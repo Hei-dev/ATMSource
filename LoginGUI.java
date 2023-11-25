@@ -48,14 +48,13 @@ public class LoginGUI implements Defaultgui{
             @Override
             public void actionPerformed(ActionEvent ae){
                 setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
+                ATMgui.get().setKeypadConfiguration(true, false, true);
                 String accountNumberinput = getTextPaneText (login);
                 try {
                     accountNumber = Integer.parseInt(accountNumberinput);
                 } catch (NumberFormatException nfe) {
                 	System.out.println(nfe);
                 }
-                //setComponentText(login, "Title", accountNumberinput, loginFont);
-                //String input = getTextPaneText( TransferGUI );
                 System.out.println(accountNumber);
                 passwordCheck();
                 System.out.println("enter acc number");
@@ -72,7 +71,7 @@ public class LoginGUI implements Defaultgui{
 
                 String PINinput = getTextPaneText (login);
                 try {
-                	PIN = Integer.parseInt(PINinput);
+                	PIN = Integer.parseInt(ATMgui.get().getMaskedInput());
                 } catch (NumberFormatException nfe) {
                 	System.out.println(nfe);
                 }

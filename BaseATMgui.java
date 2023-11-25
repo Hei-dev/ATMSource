@@ -451,7 +451,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
     /**
      * reset pw value
      */
-    public void resetEncapsulatedInput() {
+    public void resetMaskedInput() {
         pw = "";
     }
     
@@ -459,7 +459,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
      * get encapsulated Input
      * @return pw encapsulated Input
      */
-    public String getEncapsulatedInput() {
+    public String getMaskedInput() {
         return pw;
     }
     

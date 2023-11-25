@@ -140,8 +140,7 @@ public class ATM
                bankDatabase, keypad, cashDispenser );
             break; 
          case TRANSFER: // create new Deposit transaction
-            temp = new Transfer( currentAccountNumber, screen, 
-               bankDatabase );
+            temp = new Transfer( currentAccountNumber, screen, bankDatabase );
             break;
       } // end switch
 
