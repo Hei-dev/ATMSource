@@ -12,12 +12,13 @@ public class ATMgui extends BaseATMgui{
     Balancegui balance = new Balancegui();
     LoginGUI login = new LoginGUI();
     TransferGUI transfer = new TransferGUI();
+    private BankDatabase bankDB;
     
     int currentaccountnumber;
 
     protected ATMgui(){
         this("ATM");
-        
+        bankDB = new BankDatabase();
     }
 
     private ATMgui(String title){
@@ -60,6 +61,9 @@ public class ATMgui extends BaseATMgui{
             	setKeypadConfiguration(true, false, false);
             	// set panel to withdrawal panel
                 setMainPanel(WithdrawalGUI.getMainPanel(false));
+                Transaction withdraw = new Withdrawal( ATMgui.get().getAccountNumber(), 
+                		this, bankDB, new Keypad(), new CashDispenser() );
+                withdraw.execute();
                 break;
                 
             case Exit:
@@ -74,6 +78,9 @@ public class ATMgui extends BaseATMgui{
             case Balance:
             	// set panel to view balance
                 setMainPanel(balance.getPanel());
+                Transaction bal = new BalanceInquiry( ATMgui.get().getAccountNumber(), 
+                		ATMgui.get(),bankDB );
+                bal.execute();
                 // disable keypad input
                 setKeypadConfiguration(false, false, false);
                 balance.setallListener();
@@ -84,6 +91,9 @@ public class ATMgui extends BaseATMgui{
                 setKeypadConfiguration(true, true, false);
                 // set panel to transfer panel
                 setMainPanel(transfer.getMainPanel());
+                Transaction trans = new Transfer( ATMgui.get().getAccountNumber(), 
+                		ATMgui.get(),bankDB , new Keypad());
+                trans.execute();
                 break;
             case Login:
             	// enable keypad input

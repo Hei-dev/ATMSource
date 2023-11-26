@@ -55,7 +55,6 @@ public class Transfer extends Transaction
           public void actionPerformed(ActionEvent ae){
               //receive input from the numberpad
               String temp = ( (javax.swing.JTextPane)ATMgui.get().findMainComponentByName(Defaultgui.INPUT_AREA_PANEL) ).getText();
-              
               if ( !valid_amount )
               {
                   amount_execute( temp ); // check amount
