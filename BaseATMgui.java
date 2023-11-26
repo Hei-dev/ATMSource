@@ -333,6 +333,17 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                 currentButton.removeActionListener( al );
             }
         }
+        // reset enter ActionListener
+        for( ActionListener a : keys[12].getActionListeners() ) {
+        	keys[12].removeActionListener(a);
+            keys[12].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+          		  	line = "";
+				}            	
+            });
+            break;
+        }
         // reset word length
         wordLength = 9;
         revalidate();
