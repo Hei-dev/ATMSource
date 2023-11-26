@@ -8,8 +8,6 @@ public class MainMenugui implements Defaultgui{
     private JPanel mainMenu;
     private Font mainMenuFont;
     
-    private ATMgui SCREEN;
-    
     LoginGUI login = new LoginGUI();
     
     protected MainMenugui() {
