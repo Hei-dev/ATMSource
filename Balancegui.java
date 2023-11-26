@@ -38,7 +38,7 @@ public class Balancegui implements Defaultgui{
             }
             
     public JPanel getPanel() {
-        System.out.println("Balance getPanel()");
+        //System.out.println("Balance getPanel()");
         return balance;
     }
     
@@ -55,7 +55,7 @@ public class Balancegui implements Defaultgui{
             }
         };
         ATMgui.get().setSelectionListener(2, availableBalance);
-        System.out.println("Balancegui available balance listener");
+        //System.out.println("Balancegui available balance listener");
         
         // set action listener for Total Balance
         ActionListener totalBalance = new ActionListener() {
@@ -68,7 +68,7 @@ public class Balancegui implements Defaultgui{
             }
         };
         ATMgui.get().setSelectionListener(6, totalBalance);
-        System.out.println("Balancegui available balance listener");
+        //System.out.println("Balancegui available balance listener");
         
         // set action listener for transfer fund
         ActionListener mainMenu = new ActionListener() {
@@ -80,7 +80,7 @@ public class Balancegui implements Defaultgui{
             
         };
         ATMgui.get().setSelectionListener(3, mainMenu);
-        System.out.println("Balancegui main menu listener");
+        //System.out.println("Balancegui main menu listener");
         
         // set action listener for exit
         ActionListener exit = new ActionListener() {
@@ -92,6 +92,6 @@ public class Balancegui implements Defaultgui{
             
         };
         ATMgui.get().setSelectionListener(7, exit);
-        System.out.println("Balancegui exit listener");
+        //System.out.println("Balancegui exit listener");
     }
 }
