@@ -54,9 +54,9 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                ATMgui.get().display(GUIType.Withdrawal);
                 Transaction temp = new Withdrawal( ATMgui.get().getAccountNumber(), SCREEN, bankDB, new Keypad(), new CashDispenser() );
                 temp.execute();
-                ATMgui.get().display(GUIType.Withdrawal);
             }
             
         });
@@ -66,7 +66,7 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
+                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB , new Keypad());
                 temp.execute();
                 ATMgui.get().display(GUIType.Transfer);
             }
