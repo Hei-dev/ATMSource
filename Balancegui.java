@@ -26,17 +26,7 @@ public class Balancegui implements Defaultgui{
         }
         //setTextPanel(mainMenu);
     }
-    /*
-    private void execute_available(){
-                String AvailableBalance = Double.toString(BalanceInquiry.getavailablebalance());
-                setComponentText(balance, "Title", "Available Balance: " + AvailableBalance, balancefont);
-            }
-            
-    private void execute_total(){
-                String TotalBalance = Double.toString(BalanceInquiry.gettotalbalance());
-                setComponentText(balance, "Title", "Total Balance: " + TotalBalance, balancefont);
-            }
-    */        
+           
     public JPanel getPanel() {
         return balance;
     }
