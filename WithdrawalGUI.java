@@ -39,12 +39,14 @@ public class WithdrawalGUI implements Defaultgui{
 
         ATMgui.get().setComponentText(mainPanel, "Title", "<html>Operation cancelled:<br>" + msg + "</html>");
 
-        //ATMgui.get().setSelectionDisplay(mainPanel, 4, false);
-        ATMgui.get().setSelectionDisplay(mainPanel, 6, false);
-        ATMgui.get().setComponentText(mainPanel, "selection5", "Return to Main Menu");
+        ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
         ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i <= 3; i++) {
+            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
+        }
+        
+        for (int i = 4; i < 6; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
         }
         
@@ -56,12 +58,14 @@ public class WithdrawalGUI implements Defaultgui{
 
         ATMgui.get().setComponentText(mainPanel, "Title", "Please take your cash");
 
-        //ATMgui.get().setSelectionDisplay(mainPanel, 4, false);
-        ATMgui.get().setSelectionDisplay(mainPanel, 5, false);
         ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
         ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i <= 3; i++) {
+            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
+        }
+        
+        for (int i = 4; i < 6; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
         }
         
