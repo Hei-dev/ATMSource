@@ -46,18 +46,15 @@ public class Transfer extends Transaction
       finish_transfer = false; // initialize finished transaction checker
       
       current_account = getAccountNumber(); // access related using account number
-      // access rerlated amount able to transfer
-      available_balance = bankdatabase.getAvailableBalance( current_account ); 
+      available_balance = bankdatabase.getAvailableBalance( current_account ); // access rerlated amount able to transfer
       
       //receive input of amount and target account number
-      // add new actionlistener for detect enter pressed
-      ATMgui.get().setEnterListener(new ActionListener() 
+      ATMgui.get().setEnterListener(new ActionListener() // add new actionlistener for detect enter pressed
       {
           @Override
           public void actionPerformed(ActionEvent ae){
               //receive input from the numberpad
-              String temp = ( (javax.swing.JTextPane)ATMgui.get().
-            		  findMainComponentByName(Defaultgui.INPUT_AREA_PANEL) ).getText();
+              String temp = ( (javax.swing.JTextPane)ATMgui.get().findMainComponentByName(Defaultgui.INPUT_AREA_PANEL) ).getText();
               
               if ( !valid_amount )
               {
@@ -84,7 +81,7 @@ public class Transfer extends Transaction
    
    public void account_execute( String input )
    {
-       double status = check_account( input );
+       int status = check_account( input );
        TransferGUI.execute_account(status); // display typical GUI message
        if ( valid_account)
        {
@@ -147,17 +144,18 @@ public class Transfer extends Transaction
         try 
         {
             account_temp = Double.parseDouble( input );
-            account_checker = Integer.parseInt( input );
         } catch (IllegalArgumentException e) {
             valid_account = false;
             return Invalid_value;
         }
-        if ( account_temp % 1 != 0) 
-        {   
+        try
+        {
+            account_checker = Integer.parseInt( input );
+        } catch (IllegalArgumentException e) {
             valid_account = false;
             return Decimal_value;
-        }
-        else if ( account_temp == CANCELED)
+        }    
+        if ( account_temp == CANCELED)
         {
             valid_account = false;
             return CANCELED;
