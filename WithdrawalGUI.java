@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-import java.awt.Font;
 
 public class WithdrawalGUI implements Defaultgui{
 
