@@ -240,9 +240,12 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                       switch (event.getActionCommand()) {
                       case "CANCEL":
                     	  try {
-                    		  line = line.substring(0, line.length() - 1);
-                    		  input = line;
-                    		  setTextPaneText(currentPanel, line);
+                    		  // prevent out of bound error
+                    		  if (line.length() > 0) {
+                    			  line = line.substring(0, line.length() - 1);
+                    			  input = line;
+                    			  setTextPaneText(currentPanel, line);
+                    		  }
                     	  } catch (NullPointerException npe) {
                     		  System.out.println(npe);
                     	  }

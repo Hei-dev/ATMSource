@@ -46,15 +46,18 @@ public class Transfer extends Transaction
       finish_transfer = false; // initialize finished transaction checker
       
       current_account = getAccountNumber(); // access related using account number
-      available_balance = bankdatabase.getAvailableBalance( current_account ); // access rerlated amount able to transfer
+      // access rerlated amount able to transfer
+      available_balance = bankdatabase.getAvailableBalance( current_account ); 
       
       //receive input of amount and target account number
-      ATMgui.get().setEnterListener(new ActionListener() // add new actionlistener for detect enter pressed
+      // add new actionlistener for detect enter pressed
+      ATMgui.get().setEnterListener(new ActionListener() 
       {
           @Override
           public void actionPerformed(ActionEvent ae){
               //receive input from the numberpad
-              String temp = ( (javax.swing.JTextPane)ATMgui.get().findMainComponentByName(Defaultgui.INPUT_AREA_PANEL) ).getText();
+              String temp = ( (javax.swing.JTextPane)ATMgui.get().
+            		  findMainComponentByName(Defaultgui.INPUT_AREA_PANEL) ).getText();
               
               if ( !valid_amount )
               {

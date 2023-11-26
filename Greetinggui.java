@@ -15,8 +15,6 @@ public class Greetinggui implements Defaultgui{
                 greetingMessage,
                 nextStepMessage;
     
-    //private ATMgui SCREEN;
-    
     protected Greetinggui() {
         greeting = getdefaultGUI();
         
@@ -35,10 +33,6 @@ public class Greetinggui implements Defaultgui{
         greeting = new JPanel(new BorderLayout());
         greeting.add(greetingMessage, BorderLayout.CENTER);
         greeting.add(nextStep, BorderLayout.SOUTH);
-        
-        // change title to "Greeting"
-        //setComponentText(greeting, "Title", "Welcome ", 1, 20);
-        //to Bank of KWOK Tsz Chun (Hong Kong) Limited (Please press any button to continue)
 
         // change selection names
         // Set the rest of the selection with no text
@@ -55,10 +49,6 @@ public class Greetinggui implements Defaultgui{
     }
     
     public void setallSelectionListener() {
-        // set action listener for view balance
-        /* */
- 
-        
         // set action listener for mainMenu
         for(int i = 0; i < 8 ; i++){
         ATMgui.get().setSelectionListener(i, new ActionListener() {

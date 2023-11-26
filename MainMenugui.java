@@ -8,8 +8,6 @@ public class MainMenugui implements Defaultgui{
     private JPanel mainMenu;
     private BankDatabase bankDB;
     private Font mainMenuFont;
-
-    private int currentAccountNumber; // current user's account number
     
     private ATMgui SCREEN;
     
@@ -43,7 +41,8 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new BalanceInquiry( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB );
+                Transaction temp = new BalanceInquiry( ATMgui.get().getAccountNumber(), 
+                		ATMgui.get(),bankDB );
                 temp.execute();
                 ATMgui.get().display(GUIType.Balance);
             }
@@ -55,7 +54,8 @@ public class MainMenugui implements Defaultgui{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ATMgui.get().display(GUIType.Withdrawal);
-                Transaction temp = new Withdrawal( ATMgui.get().getAccountNumber(), SCREEN, bankDB, new Keypad(), new CashDispenser() );
+                Transaction temp = new Withdrawal( ATMgui.get().getAccountNumber(), 
+                		SCREEN, bankDB, new Keypad(), new CashDispenser() );
                 temp.execute();
             }
             
@@ -66,7 +66,8 @@ public class MainMenugui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), ATMgui.get(),bankDB , new Keypad());
+                Transaction temp = new Transfer( ATMgui.get().getAccountNumber(), 
+                		ATMgui.get(),bankDB , new Keypad());
                 temp.execute();
                 ATMgui.get().display(GUIType.Transfer);
             }

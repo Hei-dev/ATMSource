@@ -36,7 +36,8 @@ public class Withdrawal extends Transaction
       ATMgui.get().setEnterListener(new ActionListener(){
           @Override
           public void actionPerformed(ActionEvent ae){
-              prepareDispenseCash(((javax.swing.JTextPane)ATMgui.get().findMainComponentByName(Defaultgui.INPUT_AREA_PANEL)).getText());
+              prepareDispenseCash(((javax.swing.JTextPane)ATMgui.get().
+            		  findMainComponentByName(Defaultgui.INPUT_AREA_PANEL)).getText());
           }
       });
       

@@ -36,7 +36,8 @@ public class WithdrawalGUI implements Defaultgui{
    public static JPanel getErrorScreen(String msg){
        mainPanel = ATMgui.get().getdefaultGUI();
 
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, "<html>Operation cancelled:<br>" + msg + "</html>");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, 
+        		"<html>Operation cancelled:<br>" + msg + "</html>");
 
         ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
         ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
