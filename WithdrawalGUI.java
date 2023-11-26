@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-import java.awt.Font;
 
 public class WithdrawalGUI implements Defaultgui{
 
@@ -25,7 +24,7 @@ public class WithdrawalGUI implements Defaultgui{
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION4_LABEL, "$200");
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION5_LABEL, "$500");
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION6_LABEL, "$1000");
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Exit");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Main Menu");
         
         for (int i = 0; i < 4; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
@@ -38,7 +37,7 @@ public class WithdrawalGUI implements Defaultgui{
        mainPanel = ATMgui.get().getdefaultGUI();
 
         ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, "<html>Operation cancelled:<br>" + msg + "</html>");
-        
+
         ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
         ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
         
