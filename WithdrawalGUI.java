@@ -25,7 +25,7 @@ public class WithdrawalGUI implements Defaultgui{
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION4_LABEL, "$200");
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION5_LABEL, "$500");
         ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION6_LABEL, "$1000");
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Exit");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Main Menu");
         
         for (int i = 0; i < 4; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
