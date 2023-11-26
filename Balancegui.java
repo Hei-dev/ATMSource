@@ -70,6 +70,7 @@ public class Balancegui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
                  ATMgui.get().display(GUIType.MainMenu);
             }
             
@@ -81,6 +82,7 @@ public class Balancegui implements Defaultgui{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
                 ATMgui.get().display(GUIType.Exit);
             }
             
