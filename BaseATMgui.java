@@ -494,4 +494,4 @@ public class BaseATMgui extends JFrame implements Defaultgui{
         setResizable(false);    //disable resizing window
     }
 }
-
+ 
