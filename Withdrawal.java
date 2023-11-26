@@ -100,7 +100,7 @@ public class Withdrawal extends Transaction
                }
             }
             else{
-                displayErrorDispense("Account does not have suffivent cash");
+                displayErrorDispense("Account does not have sufficent cash");
             }
    }
    
