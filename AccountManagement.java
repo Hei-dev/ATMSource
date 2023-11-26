@@ -23,7 +23,8 @@ public class AccountManagement{
        java.util.Random rand = new java.util.Random();
 
        // Name the save file
-       while(saveFileName=="" || Files.exists(Paths.get("./Database/" + saveFileName)) || saveFileName.length() < 20){
+       while(saveFileName=="" || Files.exists(Paths.get("./Database/" + saveFileName)) 
+    		   || saveFileName.length() < 20){
            // Gets what type of char to be added
             int type = rand.nextInt(2);
             switch (type){
