@@ -69,7 +69,7 @@ public class TransferGUI implements Defaultgui
         else
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter target account number<br/>(0 to cancel)</html>", transferfont);
+            (TransferGUI, "Title", "<html>Please enter target account number!<br/>(0 to cancel)</html>", transferfont);
         }
         
         if (ATMgui.get().getTextPaneText(TransferGUI) != "")
