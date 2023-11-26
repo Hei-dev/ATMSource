@@ -146,7 +146,7 @@ public class Withdrawal extends Transaction
     * @return boolean - is the amount valid to withdraw
     */
    private boolean isValidInput(double amt){
-       return (amt%100==0 && amt>90);
+       return (amt%100==0 && amt>90 && amt < 3000);
    }
 
 } // end class Withdrawal
