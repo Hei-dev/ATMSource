@@ -44,7 +44,7 @@ public class ATMgui extends BaseATMgui{
                 currentaccountnumber = login.getcurrentAccountNumber();
                 
                 // disable keypad input
-                setKeypadConfiguration(true, false, false);
+                setKeypadConfiguration(false, false, false);
                 setMainPanel(mainmenu.getPanel());
                 mainmenu.setallListener();
                 break;

@@ -1,13 +1,8 @@
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class LoginGUI implements Defaultgui{
 
@@ -24,7 +19,6 @@ public class LoginGUI implements Defaultgui{
     private int inputWrongCount = 0;
 
     protected LoginGUI(){
-        System.out.println("Login");
         login = getdefaultGUI();
         loginFont = new Font("loginFont", 1 ,20);
 

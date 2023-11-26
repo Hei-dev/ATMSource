@@ -6,14 +6,9 @@ import java.awt.event.ActionListener;
 
 public class Withdrawal extends Transaction
 {
-   private int amount; // amount to withdraw
-   private Keypad keypad; // reference to keypad
    private CashDispenser cashDispenser; // reference to cash dispenser
    
    private BankDatabase bankDatabase;
-
-   // constant corresponding to menu option to cancel
-   private final static int CANCELED = 6;
 
    // Withdrawal constructor
    public Withdrawal( int userAccountNumber, ATMgui atmScreen, 
@@ -23,17 +18,12 @@ public class Withdrawal extends Transaction
       // initialize superclass variables
       super( userAccountNumber, atmScreen, atmBankDatabase );
       
-      // initialize references to keypad and cash dispenser
-      keypad = atmKeypad;
       cashDispenser = atmCashDispenser;
    } // end Withdrawal constructor
 
    // perform transaction
    public void execute()
    {
-      boolean cashDispensed = false; // cash was not dispensed yet
-      double availableBalance; // amount available for withdrawal
-
       // get references to bank database and screen
       bankDatabase = getBankDatabase(); 
       ATMgui screen = getScreen();
@@ -110,7 +100,7 @@ public class Withdrawal extends Transaction
                }
             }
             else{
-                displayErrorDispense("Account does not have suffivent cash");
+                displayErrorDispense("Account does not have sufficent cash");
             }
    }
    
