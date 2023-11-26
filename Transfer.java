@@ -18,7 +18,7 @@ public class Transfer extends Transaction
    private final static int CANCELED = 0; // constant for cancel option
    private final static int Decimal_value = -2; // constant for handle non-integer
    private final static int Insufficient_cash = -3; // constant for not enough money
-   private final static int same_account = -4; // constant for same account number
+   private final static int Same_account = -4; // constant for same account number
    private final static int Invalid_account = -5; // constant for unexist account number
    private final static int Invalid_value = -404; // constant for handle invalid value
    
