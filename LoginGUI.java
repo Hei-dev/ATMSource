@@ -17,6 +17,8 @@ public class LoginGUI implements Defaultgui{
     private int PIN;
 
     private int inputWrongCount = 0;
+    
+    private String accountNumberInput;
 
     protected LoginGUI(){
         login = getdefaultGUI();
@@ -43,30 +45,43 @@ public class LoginGUI implements Defaultgui{
 
     // Acc number enter
     public void setAllListener() {
+    	// clear text pane
+        if (getTextPaneText(login) != "")
+        	setTextPaneText(login, "");
+        // set keypad for input
+        ATMgui.get().setKeypadConfiguration(true, false, false);
         // Acc number enter
         ATMgui.get().setEnterListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent ae){
+            public void actionPerformed(ActionEvent ae) {
+            	// clear text pane
+            	if (getTextPaneText(login) != "")
+                	setTextPaneText(login, "");
+            	// get account input
+                accountNumberInput = ATMgui.get().getInput();
+                // set up password input
                 setComponentText(login, Defaultgui.TITLE_LABEL, "Please Enter Your PIN", loginFont);
                 // set masked input for password
                 ATMgui.get().setKeypadConfiguration(true, false, true);
-                String accountNumberinput = ATMgui.get().getInput();
                 try {
-                    accountNumber = Integer.parseInt(accountNumberinput);
+                    accountNumber = Integer.parseInt(accountNumberInput);
                 } catch (NumberFormatException nfe) {
                 	System.out.println(nfe);
                 }
                 passwordCheck();
-                if (getTextPaneText(login) != "")
-                	setTextPaneText(login, "");
             }
         });
     }
+    
     // Password check
     public void passwordCheck(){
-        ATMgui.get().setEnterListener(new ActionListener(){
+        ATMgui.get().setEnterListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae){
+            public void actionPerformed(ActionEvent ae) {
+            	// clear text pane
+                if (getTextPaneText(login) != "")
+                	setTextPaneText(login, "");
+            	// get password input
                 try {
                 	PIN = Integer.parseInt(ATMgui.get().getInput());
                 } catch (NumberFormatException nfe) {
@@ -88,13 +103,13 @@ public class LoginGUI implements Defaultgui{
                         setComponentText(login, "Title", 
                         		"<html>Account Number or PIN wrong, "
                         		+ "<li>You can try 2 more times, "
-                        		+ "<li>Please Enter Again</html>", loginFont);
+                        		+ "<li>Click Enter to Retry</html>", loginFont);
                     }
                     if(inputWrongCount == 2){
                         setComponentText(login, "Title", 
                         		"<html>Account Number or PIN wrong, "
                         		+ "<li>You can try 1 more times, "
-                        		+ "<li>Please Enter Again</html>", loginFont);
+                        		+ "<li>Click Enter to Retry</html>", loginFont);
                     }
                     if(inputWrongCount%3 == 0 && inputWrongCount != 0){
                         setComponentText(login, "Title", 
@@ -106,27 +121,19 @@ public class LoginGUI implements Defaultgui{
                     ATMgui.get().setEnterListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent evt){
+                        	// clear text pane
+                            if (getTextPaneText(login) != "")
+                            	setTextPaneText(login, "");
                             if(inputWrongCount%3 == 0 && inputWrongCount != 0 ){
-                                setComponentText(login, "Title", 
-                                		"Please Enter Your Account Number", loginFont);
+                            	inputWrongCount = 0;
                                 ATMgui.get().display(GUIType.Greeting);
                             }
                             setComponentText(login, Defaultgui.TITLE_LABEL, 
-                            		"Please Enter Your PIN", loginFont);
-                            String accountNumberinput = ATMgui.get().getInput();
-                            accountNumber = Integer.parseInt(accountNumberinput);
-                            passwordCheck();
-                            if (getTextPaneText(login) != "")
-                            	setTextPaneText(login, "");
-                            // set masked input for password
-                        	ATMgui.get().setKeypadConfiguration(true, false, true);
+                            		"Please Enter Your Account Number", loginFont);
+                            setAllListener();
                         }
                     });
                 }
-                // remove masked input for account input
-            	ATMgui.get().setKeypadConfiguration(true, false, false);
-                if (getTextPaneText(login) != "")
-                	setTextPaneText(login, "");
             }
         });
     }
