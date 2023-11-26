@@ -66,10 +66,8 @@ public class ATMgui extends BaseATMgui{
                 break;
                 
             case Transfer:
-                TransferGUI transfer = new TransferGUI();
                 setKeypadConfiguration(true, true, false);
-                setMainPanel(transfer.getPanel());
-                transfer.setallListener();
+                setMainPanel(transfer.getMainPanel());
                 break;
             case Login:
                 setKeypadConfiguration(true, false, false);
