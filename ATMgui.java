@@ -1,5 +1,3 @@
-
-
 //ATMgui.java
 //Represents the GUI version of ATM
 
