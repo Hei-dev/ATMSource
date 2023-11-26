@@ -56,7 +56,7 @@ public class TransferGUI implements Defaultgui
         {
             ATMgui.get().setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
-            "<br/><br/><br/><br/>Only support numbers! Please Input again</html>"
+            "<br/><br/><br/><br/>Only support numbers!<br/>Please Input again</html>"
             , transferfont);
         }
         else if (status == Insufficient_cash)
