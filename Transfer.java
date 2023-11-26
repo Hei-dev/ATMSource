@@ -88,6 +88,8 @@ public class Transfer extends Transaction
            target_account = Integer.parseInt( input ); // save vaild target account number
            
            // move to confirm process since all invalid data input
+                   
+           ATMgui.get().setKeypadConfiguration(false, false, false); //disable number pad 
            TransferGUI.execute_confirm(amount, target_account); 
            setConfirmSelectionListener();
        }
