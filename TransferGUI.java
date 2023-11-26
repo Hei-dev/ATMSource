@@ -29,8 +29,7 @@ public class TransferGUI implements Defaultgui
         TransferGUI = ATMgui.get().getdefaultGUI();
         
         ATMgui.get().setComponentText
-        (TransferGUI, "Title", "<html>Please enter transfer amount!"
-        		+ "<br/>(0 to cancel)</html>", transferfont);
+        (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)</html>", transferfont);
 
          //disable all selection message
         for (int i = 0; i < 8; i++)
@@ -64,15 +63,13 @@ public class TransferGUI implements Defaultgui
         {
             ATMgui.get().setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
-            "<br/><br/><br/><br/>Insufficient cash available"
-            + "<br/>Please select smaller amount</html>"
+            "<br/><br/><br/><br/>Insufficient cash available<br/>Please select smaller amount</html>"
             , transferfont);
         }
         else
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter target account number"
-            		+ "<br/>(0 to cancel)</html>", transferfont);
+            (TransferGUI, "Title", "<html>Please enter target account number<br/>(0 to cancel)</html>", transferfont);
         }
         
         if (ATMgui.get().getTextPaneText(TransferGUI) != "")
@@ -97,7 +94,7 @@ public class TransferGUI implements Defaultgui
         {
             ATMgui.get().setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" +
-            "<br/><br/><br/><br/>Only support integer value! Please Input again</html>"
+            "<br/><br/><br/><br/>Only support integer value!<br/>Please Input again</html>"
             , transferfont);
         }
         else if (status == Invalid_value)
@@ -119,14 +116,13 @@ public class TransferGUI implements Defaultgui
         {
             ATMgui.get().setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" +
-            "<br/><br/><br/><br/>The account does not exist! Please Input again</html>"
+            "<br/><br/><br/><br/>The account does not exist!<br/>Please Input again</html>"
             , transferfont);
         }
         else
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please confirm the information correct!"
-            		+ "<br/>(0 to cancel)</html>", transferfont);
+            (TransferGUI, "Title", "<html>Please confirm the information correct!<br/>(0 to cancel)</html>", transferfont);
         }
         
         if (ATMgui.get().getTextPaneText(TransferGUI) != "")
@@ -148,18 +144,12 @@ public class TransferGUI implements Defaultgui
         {
             ATMgui.get().setSelectionDisplay(TransferGUI, i, true);
         }
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, 
-        		"transfer amount:", transferfont);
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, 
-        		"HK$" + amount, numberfont);
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, 
-        		"target account:", transferfont);
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, 
-        		target_account, numberfont);
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION6_LABEL, 
-        		"Confirm", transferfont);
-        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION7_LABEL, 
-        		"Cancel", transferfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION2_LABEL, "transfer amount:", transferfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION3_LABEL, "HK$" + amount, numberfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION4_LABEL, "target account:", transferfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION5_LABEL, target_account, numberfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION6_LABEL, "Confirm", transferfont);
+        ATMgui.get().setComponentText(TransferGUI, Defaultgui.SELECTION7_LABEL, "Cancel", transferfont);
         
         ATMgui.get().setSelectionListener(7, new ActionListener()
         {   
