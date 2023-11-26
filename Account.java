@@ -84,16 +84,13 @@ public class Account
         
         try{
             Files.createDirectories(Paths.get("./Database"));
-            Files.write(Paths.get(("./Database/" + AccountManagement.genRandomString())), finalByteArray); // Write the data into the file
+            // Write the data into the file
+            Files.write(Paths.get(("./Database/" + AccountManagement.genRandomString())), finalByteArray); 
         }
         catch(java.io.IOException ioe){
-            //new Screen().displayMessageLine("Error while writing to the Database");
             ioe.printStackTrace();
             return;
-        }
-        
-        //screen.displayMessageLine("Successfully added account");
-        
+        }     
    }
 
 } // end class Account

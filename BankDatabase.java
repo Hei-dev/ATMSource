@@ -12,7 +12,8 @@ public class BankDatabase
    // no-argument BankDatabase constructor initializes accounts
    public BankDatabase()
    {
-       java.util.ArrayList<Account> tempAccountList = new java.util.ArrayList<>(); // Initalise a dummy list to store all the accounts
+	   // Initalise a dummy list to store all the accounts
+       java.util.ArrayList<Account> tempAccountList = new java.util.ArrayList<>(); 
        File[] dbList = new File("./Database").listFiles(); // Loads a list of files in the database
         byte[] dbByte;
         for(File db : dbList){
@@ -23,15 +24,17 @@ public class BankDatabase
                 return;
             }
 			int readPos = 0; // The position to read the byte from
-			double[] doubleVals = new double[6]; // Temp variable to store the double values from the file
+			// Temp variable to store the double values from the file
+			double[] doubleVals = new double[6]; 
             for(int i=0; i<6; i++){ // Total 6 parameters
 				int doubleLength = dbByte[readPos]; // reads the length of the double
-				byte[] doubleByteVal = new byte[doubleLength]; // initalise a byte array to store the double value in bytes from the file
+				// initalise a byte array to store the double value in bytes from the file
+				byte[] doubleByteVal = new byte[doubleLength]; 
+				// Slice the double in bytes from the file bytes
 				//               OrgArr  OrgPos    DestArr   DestPos       Len
-				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); // Slice the double in bytes from the file bytes
-				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); // Converts to double and store it in the temp. variable
-				
-				//System.out.println(doubleVals[i]);
+				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); 
+				// Converts to double and store it in the temp. variable
+				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); 
 				
 				readPos += doubleLength+1; // Skips the corresponding pos
 			}
@@ -46,7 +49,9 @@ public class BankDatabase
    
    /**
      * Creates an account based on the given input
-     * @param dArr the account information, stored in a double array, with the order based on the order of the orginal funcion (theAccountNumber, thePIN, theAvailableBalance, theTotalBalance, theAccountType, extra1)
+     * @param dArr the account information, stored in a double array, 
+     * 		  with the order based on the order of the orginal funcion 
+     * 		  (theAccountNumber, thePIN, theAvailableBalance, theTotalBalance, theAccountType, extra1)
      * @returns the Account created based on the input
      */
 	private Account newAccount(double[] dArr){

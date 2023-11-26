@@ -267,8 +267,10 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                     			  input = line;
                     			  setTextPaneText(currentPanel, line);
                              }
-                             // check if "." exist in line
-                             else if ((event.getActionCommand() == ".") && (!line.contains(".")) && (enableFloatingPointButton == true)) {
+                             // check if "." exist in line and "." button is enabled
+                             else if ((event.getActionCommand() == ".") && 
+                            		 (!line.contains(".")) && 
+                            		 (enableFloatingPointButton == true)) {
                                  // setting of Floating Point numbers, only 1 "." can exist once
                                  // remember to set back to true after finishing the whole input if set to false                        
                                  // check if length of string > 0 and if floating point is enabled
@@ -285,6 +287,7 @@ public class BaseATMgui extends JFrame implements Defaultgui{
                                  }
                              }
                     	  } else if (isPassword == true) {
+                    		  // mask all input
                     		  line = line.concat("*");
                     		  input = input.concat(event.getActionCommand());
                     		  setTextPaneText(currentPanel, line);
@@ -306,15 +309,19 @@ public class BaseATMgui extends JFrame implements Defaultgui{
     //    GUI RELATED    #############################################
     
     public void setMainPanel(JPanel panel){
-        
+        // find component "MainPanel"
         currentPanel = (JPanel)findComponentByName("MainPanel", getContentPane());
+        // try to remove
         try    {
             centreBasePanel.remove(currentPanel);
         } catch (NullPointerException npt) {
             System.out.println(npt);
         }
+        // update panel
         currentPanel = panel;
+        // set name to "MainPanel"
         currentPanel.setName("MainPanel");
+        // add to gui
         centreBasePanel.add(currentPanel);
         
         // reset selection ActionListener
@@ -339,16 +346,17 @@ public class BaseATMgui extends JFrame implements Defaultgui{
     {
         ImageIcon scaledIcon = new ImageIcon(image)
         {
+        	// change image width
             public int getIconWidth()
             {
                 return (int)(image.getWidth(null) * scale);
             }
-
+            // change image height
             public int getIconHeight()
             {
                 return (int)(image.getHeight(null) * scale);
             }
-
+            // update image
             public void paintIcon(Component c, Graphics g, int x, int y)
             {
                 g.drawImage(image, x, y, getIconWidth(), getIconHeight(), c);

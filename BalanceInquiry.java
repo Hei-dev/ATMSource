@@ -18,7 +18,6 @@ public class BalanceInquiry extends Transaction
    {
       // get references to bank database and screen
       BankDatabase bankDatabase = getBankDatabase();
-      ATMgui screen = getScreen();
 
       current_account = getAccountNumber();
       
@@ -28,16 +27,6 @@ public class BalanceInquiry extends Transaction
       // get the total balance for the account involved
             total_balance = bankDatabase.getTotalBalance( current_account );
          
-      
-      // display the balance information on the screen
-      /* 
-      screen.displayMessageLine( "\nBalance Information:" );
-      screen.displayMessage( " - Available balance: " ); 
-      screen.displayDollarAmount( availableBalance );
-      screen.displayMessage( "\n - Total balance:     " );
-      screen.displayDollarAmount( totalBalance );
-      screen.displayMessageLine( "" );
-      */
    } // end method execute
    
    public static double getavailablebalance(){

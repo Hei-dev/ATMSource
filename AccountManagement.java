@@ -90,11 +90,13 @@ public class AccountManagement{
                 screen.displayMessageLine("Invalid input, please enter again:");
         }
 		// Ternary operator for different account type displays different string
-        screen.displayMessageLine("Enter account " + (infos[4]==1 ? "interest rate" : "limit per cheque") + ": ");
+        screen.displayMessageLine("Enter account " 
+		+ (infos[4]==1 ? "interest rate" : "limit per cheque") + ": ");
         infos[5] = sc.nextDouble();
         
 		// Adds the acount to the stored accounts
-        accounts.add(newAccount((int) infos[0],(int) infos[1],infos[2],infos[3],(int) infos[4],infos[5]));
+        accounts.add(newAccount((int) infos[0],(int) infos[1]
+        		,infos[2],infos[3],(int) infos[4],infos[5]));
         
         screen.displayMessageLine("Account successfully added");
         
@@ -128,7 +130,8 @@ public class AccountManagement{
         screen.displayMessageLine("2. Account PIN");
         screen.displayMessageLine("3. Available Balance");
         screen.displayMessageLine("4. Total Balance");
-        screen.displayMessageLine("5." + ((accounts.get(accPos) instanceof SavingAccount) ? " Interest Rate" : " Limit Per Cheque")); // Ternary operator to show the corre
+        screen.displayMessageLine("5." + ((accounts.get(accPos) instanceof SavingAccount) 
+        		? " Interest Rate" : " Limit Per Cheque")); // Ternary operator to show the correct
         int editVal = -1;
         while(!(editVal>-1 && editVal<6)){ // Checks if the input is in range
             editVal = sc.nextInt();
@@ -175,16 +178,19 @@ public class AccountManagement{
      * @param theAvailableBalance the available Balance of the account
      * @param theTotalBalance the total balance of the Account
      * @param theAccountType the account type. 1 for Saving Account, 2 for Current account.
-     * @param extra1 the extra argument in the respective account type: Interest Rate for Saving Account, Limit per cheque for Current Account
+     * @param extra1 the extra argument in the respective account type: 
+     * 		  Interest Rate for Saving Account, Limit per cheque for Current Account
      * @returns the Account created based on the input
      */
     public static Account newAccount(int theAccountNumber, int thePIN, 
       double theAvailableBalance, double theTotalBalance, int theAccountType, double extra1){
           if(theAccountType==1){ // Saving Account
-              return new SavingAccount( theAccountNumber,thePIN, theAvailableBalance, theTotalBalance, extra1);
+              return new SavingAccount( theAccountNumber,thePIN, theAvailableBalance, 
+            		  theTotalBalance, extra1);
           }
           else if(theAccountType==2){ // Current Account
-              return new CurrentAccount( theAccountNumber,thePIN, theAvailableBalance, theTotalBalance, extra1);
+              return new CurrentAccount( theAccountNumber,thePIN, theAvailableBalance, 
+            		  theTotalBalance, extra1);
           }
           else{ // Unknown account - return null
               return null;
@@ -194,7 +200,9 @@ public class AccountManagement{
 	// Overload function for accepting double array input
    /**
      * Creates an account based on the given input
-     * @param dArr the account information, stored in a double array, with the order based on the order of the orginal funcion (theAccountNumber, thePIN, theAvailableBalance, theTotalBalance, theAccountType, extra1)
+     * @param dArr the account information, stored in a double array, 
+     * 		  with the order based on the order of the orginal funcion 
+     * 		  (theAccountNumber, thePIN, theAvailableBalance, theTotalBalance, theAccountType, extra1)
      * @returns the Account created based on the input
      */
 	public static Account newAccount(double[] dArr){
@@ -241,10 +249,13 @@ public class AccountManagement{
 			double[] doubleVals = new double[6]; // Temp variable to store the double values from the file
             for(int i=0; i<6; i++){ // Total 6 parameters
 				int doubleLength = dbByte[readPos]; // reads the length of the double
-				byte[] doubleByteVal = new byte[doubleLength]; // initalise a byte array to store the double value in bytes from the file
+				// initalise a byte array to store the double value in bytes from the file
+				byte[] doubleByteVal = new byte[doubleLength]; 
+				// Slice the double in bytes from the file bytes
 				//               OrgArr  OrgPos    DestArr   DestPos       Len
-				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); // Slice the double in bytes from the file bytes
-				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); // Converts to double and store it in the temp. variable
+				System.arraycopy(dbByte,readPos+1,doubleByteVal,0,doubleLength); 
+				// Converts to double and store it in the temp. variable
+				doubleVals[i] = java.nio.ByteBuffer.wrap(doubleByteVal).getDouble(); 
 				readPos += doubleLength+1; // Skips the corresponding pos
 				
 			}
