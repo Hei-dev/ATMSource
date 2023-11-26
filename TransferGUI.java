@@ -93,21 +93,21 @@ public class TransferGUI implements Defaultgui
         else if (status == Decimal_value)
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" +
             "<br/><br/><br/><br/>Only support integer value! Input again</html>"
             , transferfont);
         }
         else if (status == Invalid_value)
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" +
             "<br/><br/><br/><br/>Only support numbers! Input again</html>"
             , transferfont);
         }
         else if (status == same_account)
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" + 
+            (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" + 
             "<br/><br/><br/><br/>Transfer to your own account<br/>is unavailable" + 
             "<br/>Please input again</html>"
             , transferfont);
@@ -115,7 +115,7 @@ public class TransferGUI implements Defaultgui
         else if (status == Invalid_account)
         {
             ATMgui.get().setComponentText
-            (TransferGUI, "Title", "<html>Please enter transfer amount!<br/>(0 to cancel)" +
+            (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" +
             "<br/><br/><br/><br/>The account does not exist! Input again</html>"
             , transferfont);
         }
