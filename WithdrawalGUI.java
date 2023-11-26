@@ -1,11 +1,11 @@
 import javax.swing.JPanel;
+import java.awt.Font;
 
 public class WithdrawalGUI implements Defaultgui{
 
     private static JPanel mainPanel;
 
     protected WithdrawalGUI(){
-        //super("Withdrawal");
     }
 
 
@@ -15,17 +15,17 @@ public class WithdrawalGUI implements Defaultgui{
 
         ATMgui.get().setComponentText(
             mainPanel,
-            "Title",
+            Defaultgui.TITLE_LABEL,
             "<html>Please select the exact amount,<br>or type the amount using the keypad." 
             + (inputError ?
                 "<br><span style='color:red; text-weight:bold;'>Invalid input. Please try again.</span>"
                 : "") + "</html>"
             );
 
-        ATMgui.get().setComponentText(mainPanel, "selection4", "$200");
-        ATMgui.get().setComponentText(mainPanel, "selection5", "$500");
-        ATMgui.get().setComponentText(mainPanel, "selection6", "$1000");
-        ATMgui.get().setComponentText(mainPanel, "selection7", "Exit");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION4_LABEL, "$200");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION5_LABEL, "$500");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION6_LABEL, "$1000");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Exit");
         
         for (int i = 0; i < 4; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
@@ -37,12 +37,12 @@ public class WithdrawalGUI implements Defaultgui{
    public static JPanel getErrorScreen(String msg){
        mainPanel = ATMgui.get().getdefaultGUI();
 
-        ATMgui.get().setComponentText(mainPanel, "Title", "<html>Operation cancelled:<br>" + msg + "</html>");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, "<html>Operation cancelled:<br>" + msg + "</html>");
 
         //ATMgui.get().setSelectionDisplay(mainPanel, 4, false);
         ATMgui.get().setSelectionDisplay(mainPanel, 6, false);
-        ATMgui.get().setComponentText(mainPanel, "selection5", "Return to Main Menu");
-        ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION5_LABEL, "Return to Main Menu");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Take card and Exit");
         
         for (int i = 0; i < 5; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
@@ -54,12 +54,12 @@ public class WithdrawalGUI implements Defaultgui{
    public static JPanel getDispensedScreen(){
        mainPanel = ATMgui.get().getdefaultGUI();
 
-        ATMgui.get().setComponentText(mainPanel, "Title", "Please take your cash");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, "Please take your cash");
 
         //ATMgui.get().setSelectionDisplay(mainPanel, 4, false);
         ATMgui.get().setSelectionDisplay(mainPanel, 5, false);
-        ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
-        ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION6_LABEL, "Return to Main Menu");
+        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Take card and Exit");
         
         for (int i = 0; i < 5; i++) {
             ATMgui.get().setSelectionDisplay(mainPanel, i, false);
