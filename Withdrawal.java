@@ -40,7 +40,7 @@ public class Withdrawal extends Transaction
           }
       });
       
-      
+      // predetermined amount
       ActionListener selectionListener = new ActionListener(){
           @Override
           public void actionPerformed(ActionEvent ae){
