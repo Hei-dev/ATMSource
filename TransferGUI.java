@@ -104,7 +104,7 @@ public class TransferGUI implements Defaultgui
             "<br/><br/><br/><br/>Only support numbers! Please Input again</html>"
             , transferfont);
         }
-        else if (status == same_account)
+        else if (status == Same_account)
         {
             ATMgui.get().setComponentText
             (TransferGUI, "Title", "<html>Please enter transfer account number!<br/>(0 to cancel)" + 

@@ -162,7 +162,7 @@ public class Transfer extends Transaction
         else if ( account_checker == current_account)
         {
             valid_account = false;
-            return same_account;
+            return Same_account;
         }
         else if ( !bankdatabase.authenticateUser( account_checker ) )
         {
