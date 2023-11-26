@@ -23,7 +23,7 @@ public class TransferGUI implements Defaultgui
          numberfont = new Font("numberfont", 1, 16); //concrete text font of value
     }
     
-    public static JPanel getMainPanel() 
+    public JPanel getMainPanel() 
     {
         
         TransferGUI = ATMgui.get().getdefaultGUI();

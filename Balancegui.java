@@ -9,11 +9,6 @@ public class Balancegui implements Defaultgui{
 
     private Font balancefont;
 
-    private int currentAccountNumber; // current user's account number
-    
-    private ATMgui SCREEN;
-    //private static final ATMgui SCREEN = ATMgui.get();
-    
     protected Balancegui() {
         balance = getdefaultGUI();
         balancefont = new Font("balfont", 1, 20);
