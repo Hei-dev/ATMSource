@@ -183,7 +183,7 @@ public class TransferGUI implements Defaultgui
         }
         
         ATMgui.get().setComponentText
-        (TransferGUI, "Title", "<html>Transfer successed<br/> " +
+        (TransferGUI, "Title", "<html>Transfer success<br/> " +
         "Press any key back to main menu</html>", transferfont);
     }
     
