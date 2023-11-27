@@ -77,7 +77,7 @@ public class Transfer extends Transaction
            amount = status;
            
            //set the keypad not to receive decimal place in account
-           ATMgui.get().setKeypadConfiguration(true, false, false); //disable number pad 
+           ATMgui.get().setKeypadConfiguration(true, false, false); //modify number pad not to input decimal value
        }
    }
    
