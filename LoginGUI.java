@@ -98,6 +98,7 @@ public class LoginGUI implements Defaultgui{
                 }
 
                 else{
+                    ATMgui.get().setKeypadConfiguration(false, false, true);
                     inputWrongCount++;
                     if(inputWrongCount == 1){
                         setComponentText(login, "Title", 
