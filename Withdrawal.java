@@ -37,7 +37,7 @@ public class Withdrawal extends Transaction
           @Override
           public void actionPerformed(ActionEvent ae){
               prepareDispenseCash(((javax.swing.JTextPane)ATMgui.get().
-            		  findMainComponentByName(Defaultgui.INPUT_AREA_PANEL)).getText());
+                      findMainComponentByName(Defaultgui.INPUT_AREA_PANEL)).getText());
           }
       });
       
@@ -47,7 +47,7 @@ public class Withdrawal extends Transaction
           public void actionPerformed(ActionEvent ae){
                 switch (ae.getActionCommand()){
                     case "selection2":
-                        prepareDispenseCash("200");
+                        prepareDispenseCash("100");
                         break;
                     case "selection3":
                         prepareDispenseCash("500");
@@ -71,7 +71,6 @@ public class Withdrawal extends Transaction
    } // end method execute
    
    public void prepareDispenseCash(String amt){
-       System.out.println(amt);
        int amount = Integer.parseInt(amt);
        
        // get available balance of account involved
