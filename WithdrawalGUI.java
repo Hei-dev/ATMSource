@@ -1,75 +1,91 @@
 import javax.swing.JPanel;
+import java.text.DecimalFormat;
 
-public class WithdrawalGUI implements Defaultgui{
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Font;
 
-    private static JPanel mainPanel;
+public class Balancegui implements Defaultgui{
+    private JPanel balance;
 
-    protected WithdrawalGUI(){
-    }
+    private Font balancefont;
 
+    protected Balancegui() {
+        balance = getdefaultGUI();
+        balancefont = new Font("balfont", 1, 20);
+        // change title to "balance"
+        setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
 
-    public static JPanel getMainPanel(boolean inputError) {
-        
-        mainPanel = ATMgui.get().getdefaultGUI();
-
-        ATMgui.get().setComponentText(
-            mainPanel,
-            Defaultgui.TITLE_LABEL,
-            "<html><h1>Please select the exact amount,<br>or type the amount using the keypad.</h1>" 
-            + (inputError ?
-                "<h3><span style='color:red; text-weight:bold;'>Invalid input. Please try again.</span></h3>"
-                : "") + "</html>"
-            );
-
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION4_LABEL, "$100");
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION5_LABEL, "$500");
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION6_LABEL, "$1000");
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.SELECTION7_LABEL, "Main Menu");
-        
+        // change selection names   
+        setComponentText(balance, Defaultgui.SELECTION4_LABEL, "Available balance");
+        setComponentText(balance, Defaultgui.SELECTION5_LABEL, "Total balance");
+        setComponentText(balance, Defaultgui.SELECTION6_LABEL, "Main menu");
+        setComponentText(balance, Defaultgui.SELECTION7_LABEL, "Exit");
+        // Set the rest of the selection with no text
         for (int i = 0; i < 4; i++) {
-            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
+            setSelectionDisplay(balance, i, false);
         }
-        
-        return mainPanel;
-   }
-   
-   public static JPanel getErrorScreen(String msg){
-       mainPanel = ATMgui.get().getdefaultGUI();
+        //setTextPanel(mainMenu);
+    }
+           
+    public JPanel getPanel() {
+        return balance;
+    }
+    
+    public void setallListener() {
 
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, 
-                "<html></h2>Operation cancelled:</h2><br>" + msg + "</html>");
+        // set action listener for Available Balance        
+        ActionListener availableBalance = new ActionListener() {
 
-        ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
-        ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Double AvailableBalance = BalanceInquiry.getavailablebalance();
+                DecimalFormat display_format = new DecimalFormat("##,###,###.##");
+                
+                setComponentText(balance, "Title", "<html>Available Balance: <br/>" + display_format.format(AvailableBalance) + "</html>", balancefont);
+                //execute_available();
+                //+ AvailableBalance
+            }
+        };
+        ATMgui.get().setSelectionListener(2, availableBalance);
         
-        for (int i = 0; i <= 3; i++) {
-            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
-        }
-        
-        for (int i = 4; i < 6; i++) {
-            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
-        }
-        
-        return mainPanel;
-   }
-   
-   public static JPanel getDispensedScreen(){
-       mainPanel = ATMgui.get().getdefaultGUI();
+        // set action listener for Total Balance
+        ActionListener totalBalance = new ActionListener() {
 
-        ATMgui.get().setComponentText(mainPanel, Defaultgui.TITLE_LABEL, "<html><h1>Please take your cash and your card</h1></html>");
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Double TotalBalance = BalanceInquiry.gettotalbalance();
+                DecimalFormat display_format = new DecimalFormat("##,###,###.##");
+                
+                setComponentText(balance, "Title", "<html>Total Balance: <br/>" + display_format.format(TotalBalance) + "</html>", balancefont);
+                //execute_total();
+                //+ TotalBalance
+            }
+        };
+        ATMgui.get().setSelectionListener(6, totalBalance);
+        
+        // set action listener for transfer fund
+        ActionListener mainMenu = new ActionListener() {
 
-        ATMgui.get().setComponentText(mainPanel, "selection6", "Return to Main Menu");
-        ATMgui.get().setComponentText(mainPanel, "selection7", "Take card and Exit");
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
+                 ATMgui.get().display(GUIType.MainMenu);
+            }
+            
+        };
+        ATMgui.get().setSelectionListener(3, mainMenu);
         
-        for (int i = 0; i <= 3; i++) {
-            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
-        }
-        
-        for (int i = 4; i < 6; i++) {
-            ATMgui.get().setSelectionDisplay(mainPanel, i, false);
-        }
-        
-        return mainPanel;
-   }
-   
+        // set action listener for exit
+        ActionListener exit = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setComponentText(balance, Defaultgui.TITLE_LABEL, "View my balance", balancefont);
+                ATMgui.get().display(GUIType.Exit);
+            }
+            
+        };
+        ATMgui.get().setSelectionListener(7, exit);
+    }
 }
