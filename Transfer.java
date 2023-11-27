@@ -75,6 +75,9 @@ public class Transfer extends Transaction
        {
            //only save vaild amount, keep waitting the new vaild input by the enterlistener
            amount = status;
+           
+           //set the keypad not to receive decimal place in account
+           ATMgui.get().setKeypadConfiguration(true, false, false); //disable number pad 
        }
    }
    
